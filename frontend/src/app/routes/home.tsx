@@ -1,13 +1,17 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import LandingPage from "../../features/landing/LandingPage";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "WelHire — Practice. Improve. Get Hired." },
+    {
+      name: "description",
+      content:
+        "Prepare for your next opportunity with AI CV analysis, mock interviews and skill feedback.",
+    },
   ];
 }
 
 export function ServerComponent() {
-  return <Welcome />;
+  return <LandingPage />;
 }
