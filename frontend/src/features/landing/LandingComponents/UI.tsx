@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { FileText, ArrowUpRight, MessageCircle, Check, Video } from 'lucide-react';
 
 export function Logo() {
-  return <a href="#home" aria-label="WelHire home" className="text-[30px] font-extrabold tracking-[-2px] text-black"><span className="text-[#272766]">W<span className="text-sky-500">e</span>l</span>Hire<span className="text-brand">.</span></a>;
+  return <a href="/" aria-label="WelHire home" className="text-[30px] font-extrabold tracking-[-2px] text-black"><span className="text-[#272766]">W<span className="text-sky-500">e</span>l</span>Hire<span className="text-brand">.</span></a>;
 }
 export function SectionTitle({ title, accent, subtitle }: { title: string; accent?: string; subtitle: string }) {
   return <div className="mx-auto mb-12 max-w-4xl text-center"><h2 className="heading">{title} <span className="text-brand">{accent}</span></h2><p className="subheading">{subtitle}</p></div>;

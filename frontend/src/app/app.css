@@ -116,3 +116,383 @@ details[open] .faq-plus {
     animation: none !important;
   }
 }
+
+/* Compact unlock dialog: keep the reference layout visible without an inner scrollbar. */
+[class*="max-w-[1140px]"] {
+  max-width: 920px !important;
+  padding: 1.2rem !important;
+}
+
+[class*="max-w-[1140px]"] h2 {
+  max-width: 22rem;
+  font-size: 2.1rem !important;
+}
+
+[class*="max-w-[1140px]"] p {
+  line-height: 1.15;
+}
+
+[class*="max-w-[1140px]"] [class*="h-44"] {
+  height: 6.75rem;
+  width: 13rem;
+  padding: 1rem;
+}
+
+[class*="max-w-[1140px]"] [class*="h-44"] span[class*="h-16"] {
+  height: 3.5rem;
+  width: 3.5rem;
+  font-size: 1.5rem;
+}
+
+[class*="max-w-[1140px]"] [class*="space-y-4"] {
+  margin-top: 1.5rem;
+  gap: .65rem;
+}
+
+[class*="max-w-[1140px]"] [class*="space-y-4"] p {
+  font-size: .95rem;
+}
+
+@media (max-width: 640px) {
+  [class*="max-w-[1140px]"] {
+    max-height: calc(100vh - 1rem);
+    overflow-y: auto;
+    padding: 1.25rem !important;
+  }
+
+  [class*="max-w-[1140px]"] h2 {
+    font-size: 2rem !important;
+  }
+}
+
+/* Small CV-only refinement: preserve the layout while making it slightly denser. */
+[class*="max-w-[1900px]"] h1 {
+  font-size: clamp(3.25rem, 5.2vw, 4.25rem) !important;
+  line-height: .98 !important;
+}
+
+[class*="max-w-[1900px]"] p,
+[class*="max-w-[1420px]"] p,
+[class*="max-w-[1320px]"] p,
+[class*="max-w-[1440px]"] p {
+  font-size: .96em !important;
+  line-height: 1.5 !important;
+}
+
+[class*="max-w-[1900px]"] section,
+[class*="max-w-[1420px]"] section,
+[class*="max-w-[1320px]"] section,
+[class*="max-w-[1440px]"] section {
+  margin-top: .85rem !important;
+}
+
+[class*="max-w-[900px]"] {
+  padding: 1rem !important;
+}
+
+[class*="max-w-[900px]"] h2 {
+  font-size: 1.8rem !important;
+}
+
+/* Compact AI enhancer panel matching the reference layout. */
+[class*="from-[#21186e]"] {
+  min-height: 0 !important;
+  padding: 1.75rem 2rem !important;
+}
+
+[class*="from-[#21186e]"] h2 {
+  max-width: 700px;
+  font-size: 1.55rem !important;
+  line-height: 1.18 !important;
+}
+
+[class*="from-[#21186e]"] p {
+  max-width: 830px;
+  font-size: .78rem !important;
+  line-height: 1.45 !important;
+}
+
+[class*="from-[#21186e]"] > div {
+  column-gap: 3rem !important;
+}
+
+[class*="from-[#21186e]"] > div > div:last-child {
+  min-width: 320px;
+  gap: 1rem;
+}
+
+[class*="from-[#21186e]"] > div > div:last-child button {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  padding: .75rem 1.5rem;
+  font-size: .85rem;
+}
+
+@media (max-width: 900px) {
+  [class*="from-[#21186e]"] > div > div:last-child {
+    min-width: 100%;
+  }
+
+  [class*="from-[#21186e]"] > div > div:last-child button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 901px) {
+  [class*="from-[#21186e]"] > div {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+  }
+
+  [class*="from-[#21186e]"] > div > div:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  [class*="from-[#21186e]"] > div > div:last-child {
+    flex: 0 0 360px;
+  }
+}
+
+/* Compact analysis report scale. The selectors are scoped to the report's 1440px shell. */
+[class*="max-w-[1440px]"] {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+[class*="max-w-[1440px]"] h1 {
+  font-size: 2rem !important;
+}
+
+[class*="max-w-[1440px]"] h2 {
+  font-size: 1.5rem !important;
+  line-height: 1.25 !important;
+}
+
+[class*="max-w-[1440px]"] p {
+  line-height: 1.45 !important;
+}
+
+[class*="max-w-[1440px]"] > div,
+[class*="max-w-[1440px]"] > section {
+  margin-top: 1rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="p-8"] {
+  padding: 1.25rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="p-7"] {
+  padding: 1.25rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="p-6"] {
+  padding: 1rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="mt-8"] {
+  margin-top: 1.25rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="mt-7"] {
+  margin-top: 1rem !important;
+}
+
+[class*="max-w-[1440px]"] [class*="mt-6"] {
+  margin-top: .75rem !important;
+}
+
+/* Global modal compact pass: approximately 5% smaller across all flow dialogs. */
+[class*="max-w-[900px]"],
+[class*="max-w-2xl"],
+[class*="max-w-xl"] {
+  padding: 1.15rem !important;
+  max-height: calc(100vh - 2.5rem) !important;
+}
+
+[class*="max-w-[900px]"] {
+  max-width: 855px !important;
+}
+
+[class*="max-w-2xl"] {
+  max-width: 38rem !important;
+}
+
+[class*="max-w-xl"] {
+  max-width: 34rem !important;
+}
+
+[class*="max-w-[900px]"] h2,
+[class*="max-w-2xl"] h2,
+[class*="max-w-xl"] h2 {
+  font-size: 1.85rem !important;
+  line-height: 1.15 !important;
+}
+
+[class*="max-w-[900px]"] p,
+[class*="max-w-2xl"] p,
+[class*="max-w-xl"] p {
+  line-height: 1.45 !important;
+}
+
+[class*="max-w-[900px]"] button,
+[class*="max-w-2xl"] button,
+[class*="max-w-xl"] button {
+  padding-top: .7rem !important;
+  padding-bottom: .7rem !important;
+}
+
+
+/* Unlock dialog controls and OTP-state alignment. */
+[class*="max-w-[1140px]"] > button[aria-label="Close"] {
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 20;
+}
+
+[class*="max-w-[1140px]"] input[maxlength="6"] {
+  min-height: 76px;
+  border-radius: 1.25rem;
+  font-size: 1.5rem;
+  letter-spacing: .7em;
+  padding-left: .7em;
+  background-color: #fff;
+  background-image: linear-gradient(90deg, #f8fafc 0 15%, transparent 15% 17%, #f8fafc 17% 32%, transparent 32% 34%, #f8fafc 34% 49%, transparent 49% 51%, #f8fafc 51% 66%, transparent 66% 68%, #f8fafc 68% 83%, transparent 83% 85%, #f8fafc 85% 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+[class*="max-w-[1140px]"] input[maxlength="6"]:focus {
+  box-shadow: 0 0 0 3px rgb(129 140 248 / .2);
+}
+
+/* Final compact alignment pass for the unlock dialog. */
+[class*="max-w-[1140px]"] {
+  max-width: 900px !important;
+  padding: 1.35rem !important;
+  border-radius: 1.5rem !important;
+}
+
+[class*="max-w-[1140px]"] > div {
+  gap: 1.5rem !important;
+}
+
+[class*="max-w-[1140px]"] h2 {
+  max-width: 19rem;
+  margin-top: 1.1rem;
+  font-size: 2.25rem !important;
+  line-height: 1.08 !important;
+}
+
+[class*="max-w-[1140px]"] p {
+  font-size: .95rem !important;
+}
+
+[class*="max-w-[1140px]"] [class*="h-44"] {
+  height: 7.5rem;
+  width: 11.5rem;
+  margin-left: 0;
+  margin-right: auto;
+  padding: .8rem;
+}
+
+[class*="max-w-[1140px]"] [class*="h-44"] span[class*="h-16"] {
+  height: 3rem;
+  width: 3rem;
+  right: -.75rem;
+  top: 3.5rem;
+  font-size: 1.25rem;
+}
+
+[class*="max-w-[1140px]"] [class*="space-y-4"] {
+  margin-top: 1.25rem;
+}
+
+[class*="max-w-[1140px]"] [class*="space-y-4"] p {
+  font-size: .85rem !important;
+}
+
+[class*="max-w-[1140px]"] [class*="p-5"] {
+  padding: 1rem;
+}
+
+@media (max-width: 640px) {
+  [class*="max-w-[1140px]"] {
+    padding: 1rem !important;
+  }
+
+  [class*="max-w-[1140px]"] h2 {
+    font-size: 1.85rem !important;
+  }
+}
+/* Compact CV upload and feature presentation */
+#features > h2 { font-size: clamp(1.9rem, 3.2vw, 2.8rem); }
+#features > div { margin-top: 1.5rem; gap: 1rem; }
+#features article { min-height: 15rem; padding: 1.5rem; }
+#features article h3 { margin-top: 2.5rem; font-size: 1.2rem; }
+#features article p { margin-top: .65rem; font-size: .875rem; line-height: 1.5rem; }
+#features article > span { right: 1.5rem; top: 1.5rem; height: 3rem; width: 3rem; }
+main > section:first-child > div:nth-child(2) { padding: .75rem; }
+main > section:first-child > div:nth-child(2) > div:first-child { min-height: 16rem; }
+main > section:first-child > div:nth-child(2) > div:first-child > div:first-child { height: 4rem; width: 4rem; margin-bottom: 1rem; }
+main > section:first-child > div:first-child h1 { font-size: clamp(2.5rem, 4.1vw, 4.1rem); line-height: .96; }
+main > section:first-child > div:first-child > div:last-child { gap: .5rem; font-size: .75rem; flex-wrap: wrap; }
+main > section:first-child > div:first-child > div:last-child > span:last-child { flex-basis: 100%; margin-left: 0; }
+main > section:first-child > div:first-child > div:last-child > span { display: inline-flex; align-items: center; gap: .45rem; }
+main > section:first-child > div:first-child > div:last-child > span::first-letter { color: transparent; }
+main > section:first-child > div:first-child > div:last-child > span::before { content: ""; width: 1.15rem; height: 1.15rem; flex: 0 0 1.15rem; background: center / contain no-repeat; }
+main > section:first-child > div:first-child > div:last-child > span:nth-child(1)::before { background-image: url('/images/Raise meter.svg'); }
+main > section:first-child > div:first-child > div:last-child > span:nth-child(2)::before { background-image: url('/images/VerifiedBadge.svg'); }
+main > section:first-child > div:first-child > div:last-child > span:nth-child(3)::before { background-image: url('/images/Hand deal.svg'); }
+main > section:first-child > div:first-child > div:last-child::after { content: "★★★★★   4.9/5   Trusted by 40,000+ candidates across engineering & product"; display: block; flex-basis: 100%; margin-top: 1rem; color: #64748b; font-size: .875rem; line-height: 1.4; }
+main > section:first-child > div:first-child > div:last-child::after { white-space: pre; }
+main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; }
+.cv-chip-row::after { content: none !important; }
+.cv-chip-row > span::before { content: none !important; }
+.cv-chip-row > span:last-child { flex-basis: auto !important; }
+.cv-trust-row::after { content: none !important; }
+.cv-trust-row { flex-wrap: nowrap !important; align-items: flex-start !important; }
+.cv-trust-row > div:last-child { min-width: 0; }
+.cv-trust-row > div:last-child p { white-space: nowrap; }
+[role="dialog"] h2 { font-size: 1.5rem !important; line-height: 1.15; }
+[role="dialog"] > div:nth-of-type(4) p:first-child { display: flex; align-items: center; gap: .45rem; }
+[role="dialog"] > div:nth-of-type(4) p:first-child::first-letter { color: transparent; }
+[role="dialog"] > div:nth-of-type(4) p:first-child::before { content: ""; width: 1rem; height: 1rem; flex: 0 0 1rem; background: url('/images/Tick Icon.svg') center / contain no-repeat; }
+[role="dialog"] > div:nth-of-type(2) > span { font-size: 0; width: 1.5rem; height: 1.5rem; background: url('/images/CV Image.svg') center / contain no-repeat; }
+[role="dialog"] > div:nth-of-type(3) > span:first-child { display: inline-flex; align-items: center; gap: .4rem; }
+[role="dialog"] > div:nth-of-type(3) > span:first-child::first-letter { color: transparent; }
+[role="dialog"] > div:nth-of-type(3) > span:first-child::before { content: ""; width: 1rem; height: 1rem; background: url('/images/Reload.svg') center / contain no-repeat; }
+[role="dialog"] > div:nth-of-type(6) { display: flex; align-items: center; gap: .4rem; }
+[role="dialog"] > div:nth-of-type(6)::before { content: ""; width: 1rem; height: 1rem; background: url('/images/VerifiedBadge.svg') center / contain no-repeat; }
+[role="dialog"] > div:first-of-type > img { height: 2.75rem; width: 2.75rem; }
+[role="dialog"] > div:nth-of-type(2) > span { height: 1.25rem; width: 1.25rem; }
+[role="dialog"] > div:nth-of-type(3) img { height: .9rem; width: .9rem; }
+[role="dialog"] > div:nth-of-type(6) img { height: .9rem; width: .9rem; }
+.scoring-modal > div:first-of-type > span { font-size: 0; height: 3.25rem; width: 3.25rem; border-width: 6px; }
+.scoring-modal > div:first-of-type { gap: .75rem; padding-right: 2.5rem; }
+.scoring-modal > div:first-of-type h2 { font-size: 1.7rem !important; }
+.scoring-modal > div:first-of-type p { margin-top: .15rem; font-size: 1rem; }
+.scoring-modal > button:first-of-type { right: 1.25rem; top: 1.25rem; height: 2.5rem; width: 2.5rem; font-size: 1.25rem; }
+.scoring-modal > div:nth-of-type(2) { margin-top: 1.5rem; gap: .75rem; }
+.scoring-modal > div:nth-of-type(2) > div { min-height: 4.5rem; padding: .9rem 1rem; font-size: 1rem; }
+.scoring-modal > div:nth-of-type(2) > div > span { height: 2.75rem; width: 2.75rem; font-size: 0; }
+.scoring-modal > div:nth-of-type(2) > div > span img { height: 1.2rem; width: 1.2rem; }
+.scoring-modal > div:nth-of-type(2) > div > b { line-height: 1.3; }
+@media (max-width: 640px) {
+  .cv-trust-row { flex-wrap: wrap !important; }
+  .cv-trust-row > div:last-child p { white-space: normal; }
+}
+main > section:first-child > div:nth-child(2) > div:nth-child(2) { flex-wrap: nowrap; justify-content: space-between; gap: 1.5rem; white-space: nowrap; }
+main > section:first-child > div:nth-child(2) { position: relative; overflow: visible; padding-bottom: 3.5rem; }
+@media (min-width: 1024px) {
+  main > section:first-child > div:nth-child(2) { margin-top: 7rem; }
+}
+main > section:first-child > div:nth-child(2) > div:nth-child(2) { border-top: 1px solid #e8ebf5; margin: 1rem 1rem 0; padding-top: 1.25rem; }
+main > section:first-child > div:nth-child(2) > div:nth-child(3) { position: absolute; left: 1.25rem; right: 1.25rem; bottom: .25rem; justify-content: flex-start; gap: 2.5rem; padding-bottom: 0; }
+main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child,
+main > section:first-child > div:nth-child(2) > div:nth-child(3) > span { display: inline-flex; align-items: center; gap: .4rem; }
+main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child::first-letter { color: transparent; }
+main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child::before { content: ""; width: 1rem; height: 1rem; flex: 0 0 1rem; background: url('/images/Lock icon.svg') center / contain no-repeat; }
+main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::first-letter { color: transparent; }
+main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::before { content: ""; width: .9rem; height: .9rem; flex: 0 0 .9rem; background: url('/images/Tick Icon.svg') center / contain no-repeat; }
