@@ -1,0 +1,11 @@
+@media print {
+  @page { size: A4; margin: 12mm; }
+  .interview-report { color: #1e1b55 !important; background: white !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .interview-report .wrap { max-width: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .interview-report .report-no-print { display: none !important; }
+  .interview-report .report-answer-content[hidden] { display: block !important; }
+  .interview-report h1, .interview-report h2, .interview-report h3, .interview-report h4 { break-after: avoid; }
+  .interview-report svg { max-height: 230px; }
+  .interview-report p { orphans: 3; widows: 3; }
+  .interview-report .shadow-sm, .interview-report .shadow-xl { box-shadow: none !important; }
+}
