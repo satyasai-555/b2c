@@ -52,7 +52,7 @@ export default function UnlockModal({
   const ready = email.trim().length > 4 && consent;
   return (
     <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-slate-950/40 p-4">
-      <section className="relative w-full max-w-[900px] rounded-[1.5rem] bg-white p-5 shadow-2xl sm:p-7">
+      <section className="unlock-modal relative w-full max-w-[900px] rounded-[1.5rem] bg-white p-5 shadow-2xl sm:p-7">
         <button
           type="button"
           aria-label="Close"

@@ -479,6 +479,56 @@ main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; 
 .scoring-modal > div:nth-of-type(2) > div > span { height: 2.75rem; width: 2.75rem; font-size: 0; }
 .scoring-modal > div:nth-of-type(2) > div > span img { height: 1.2rem; width: 1.2rem; }
 .scoring-modal > div:nth-of-type(2) > div > b { line-height: 1.3; }
+.unlock-modal > div:first-child > div:first-child > div:first-of-type > div:first-child > span:first-child { font-size: 0; background-image: url('/images/CV Image.svg'); background-position: center; background-repeat: no-repeat; background-size: 1.5rem; }
+.unlock-modal .shadow-inner > div:first-child > span { font-size: 0 !important; background: #171b59 url('/images/CV Image.svg') center / 1.35rem no-repeat !important; }
+.unlock-modal .shadow-inner > div:first-child > span { background-image: none !important; position: relative; }
+.unlock-modal .shadow-inner > div:first-child > span::before { content: ""; display: block; width: 1.35rem; height: 1.5rem; background: #fff; mask: url('/images/CV Image.svg') center / contain no-repeat; -webkit-mask: url('/images/CV Image.svg') center / contain no-repeat; }
+.unlock-modal > div:first-child > div:first-child > div:first-of-type > span:last-child,
+.unlock-modal .shadow-xl { font-size: 0 !important; background-color: #5754bd !important; background-image: none !important; }
+.unlock-modal .shadow-inner > span.shadow-xl { display: grid; }
+.unlock-modal .shadow-inner > span.shadow-xl::before { content: ""; display: block; width: 2rem; height: 2rem; background: url('/images/unlock image.svg') center / contain no-repeat; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p { display: flex; align-items: center; gap: .75rem; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p::before { content: ""; width: 1.25rem; height: 1.25rem; flex: 0 0 1.25rem; background-position: center; background-repeat: no-repeat; background-size: contain; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(1)::before { background-image: url('/images/CV Image.svg'); }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(2)::before { background-image: url('/images/unlock image.svg'); }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(3)::before { background-image: url('/images/people Image.svg'); }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(4)::before { background-image: url('/images/Decision Pending Image.svg'); }
+.unlock-modal > div:first-child > div:first-child > div:last-child p { font-size: 0; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p::after { font-size: .875rem; line-height: 1.4; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(1)::after { content: "Access your detailed CV analysis"; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(2)::after { content: "See skill gap insights"; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(3)::after { content: "Compare with other candidates"; }
+.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(4)::after { content: "Unlock interview practice questions"; }
+.unlock-modal .mt-6 p { font-size: 0 !important; display: flex; align-items: center; gap: .75rem; }
+.unlock-modal .mt-6 p > img { display: none; }
+.unlock-modal .mt-6 p::after { font-size: .875rem; line-height: 1.4; }
+.unlock-modal .mt-6 > p { font-size: 0 !important; display: flex !important; align-items: center; gap: .75rem; min-height: 1.6rem; }
+.unlock-modal .mt-6 > p > img { display: none !important; }
+.unlock-modal .mt-6 > p::before { content: ""; display: block; width: 1.25rem; height: 1.25rem; flex: 0 0 1.25rem; background-position: center; background-repeat: no-repeat; background-size: contain; }
+.unlock-modal .mt-6 > p:nth-child(1)::before { background-image: url('/images/CV Image.svg'); }
+.unlock-modal .mt-6 > p:nth-child(2)::before { background-image: url('/images/Analytics image.svg'); }
+.unlock-modal .mt-6 > p:nth-child(3)::before { background-image: url('/images/people Image.svg'); }
+.unlock-modal .mt-6 > p:nth-child(4)::before { background-image: url('/images/Decision Pending Image.svg'); }
+.unlock-modal .mt-6 > p:nth-child(1)::after { content: "Access your detailed CV analysis"; }
+.unlock-modal .mt-6 > p:nth-child(2)::after { content: "See skill gap insights"; }
+.unlock-modal .mt-6 > p:nth-child(3)::after { content: "Compare with other candidates"; }
+.unlock-modal .mt-6 > p:nth-child(4)::after { content: "Unlock interview practice questions"; }
+main section.mt-6.rounded-3xl.bg-slate-50 > span { color: transparent; background-image: none; }
+main section.mt-6.rounded-3xl.bg-slate-50 > span::before { content: ""; display: block; width: 1.45rem; height: 1.45rem; background: #fff; mask: url('/images/Lock icon.svg') center / contain no-repeat; -webkit-mask: url('/images/Lock icon.svg') center / contain no-repeat; }
+main section.mt-6.rounded-3xl.bg-slate-50 { position: relative; isolation: isolate; overflow: hidden; background: #f5f7fb; }
+main section.mt-6.rounded-3xl.bg-slate-50::before { content: ""; position: absolute; inset: 1rem; z-index: -1; border-radius: 1.25rem; opacity: .34; filter: blur(8px); background: linear-gradient(90deg, #e8edf5 0 30%, #fff 30% 53%, #dbe1ed 53% 100%); }
+main section.mt-6.rounded-3xl.bg-slate-50 > span { font-size: 0; background: #5754bd url('/images/unlock image.svg') center / 1.35rem 1.35rem no-repeat; }
+main section.mt-6.rounded-3xl.bg-slate-50 > h2 { position: relative; font-size: 1.75rem; }
+main section.mt-6.rounded-3xl.bg-slate-50 > h2::after { content: "Access specific line-by-line CV recommendations, ATS keyword density benchmarks, and interview practice questions."; display: block; max-width: 30rem; margin: .75rem auto 0; color: #4b5563; font-size: .875rem; font-weight: 400; line-height: 1.45; }
+main section.mt-6.rounded-3xl.bg-slate-50 > button { position: relative; font-size: .875rem; padding: .7rem 1.4rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) { gap: 1rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article { padding: 1.25rem; border-radius: 1.5rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:first-child > div { height: 12rem; width: 12rem; padding: 1rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:first-child > div b { font-size: 3.5rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:first-child h2 { margin-top: 1.25rem; font-size: 1.45rem; line-height: 1.25; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:nth-child(2) h2 { font-size: 1.65rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:nth-child(2) > div:last-child { margin-top: 1.25rem; gap: .6rem; }
+main > section[class*="max-w-[1320px]"] > div:nth-of-type(2) > article:nth-child(2) > div:last-child button { min-height: 4.5rem; padding: .75rem; }
 @media (max-width: 640px) {
   .cv-trust-row { flex-wrap: wrap !important; }
   .cv-trust-row > div:last-child p { white-space: normal; }
@@ -496,3 +546,7 @@ main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-ch
 main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child::before { content: ""; width: 1rem; height: 1rem; flex: 0 0 1rem; background: url('/images/Lock icon.svg') center / contain no-repeat; }
 main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::first-letter { color: transparent; }
 main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::before { content: ""; width: .9rem; height: .9rem; flex: 0 0 .9rem; background: url('/images/Tick Icon.svg') center / contain no-repeat; }
+.unlock-modal > button,
+.scoring-modal > button:first-of-type,
+.cv-processing-modal > button:first-of-type { right: 1rem !important; top: 1rem !important; height: 2.25rem !important; width: 2.25rem !important; padding: 0 !important; font-size: 1.25rem !important; line-height: 1 !important; }
+.unlock-modal .shadow-inner > span.shadow-xl { height: 3.5rem; width: 3.5rem; border-radius: 1.25rem; }
