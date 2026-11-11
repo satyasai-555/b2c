@@ -38,7 +38,7 @@ export default function CvAnalysisFlowPixel() {
       <Header onAction={() => {}} />
       <CvStepper />
       <main>
-<section className="mx-auto grid max-w-[1880px] items-start gap-8 px-5 py-7 md:px-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-12 lg:px-12 lg:py-8">
+<section className="mx-auto grid max-w-470 items-start gap-8 px-5 py-7 md:px-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-12 lg:px-12 lg:py-8">
           <div>
             <span className="mb-7 block w-max rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
               ● Step 1 of 7: Initial Profile Intake
