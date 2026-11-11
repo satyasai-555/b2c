@@ -5,7 +5,7 @@ function VerifiedDocument() {
   return (
     <div className="relative mx-0 mt-6 h-40 w-56 rounded-2xl bg-slate-100 p-4 shadow-inner sm:h-44 sm:w-64">
       <div className="flex items-start gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#171b59] text-xl text-white">
+        <span className="grid h-[37px] w-[37px] place-items-center rounded-lg bg-[#171b59] text-[13px] text-white">
           ▤
         </span>
         <div className="space-y-2 pt-1">
@@ -21,8 +21,13 @@ function VerifiedDocument() {
       <span className="absolute bottom-4 left-4 rounded bg-cyan-100 px-3 py-1 text-sm font-semibold text-cyan-700">
         ✓ Verified
       </span>
-      <span className="absolute -right-4 top-16 grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-2xl text-white shadow-xl shadow-indigo-300">
-        ♙
+      <span className="relative absolute -right-4 top-16 grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-transparent shadow-xl shadow-indigo-300">
+        <img
+          src="/images/Lock%20icon.svg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 m-auto block h-6 w-5 object-contain brightness-0 invert"
+        />
       </span>
     </div>
   );
@@ -63,8 +68,9 @@ export default function UnlockModal({
         </button>
         <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <div>
-            <span className="inline-flex rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5054ba]">
-              ✧ INSTANT FREE UNLOCK
+            <span className="inline-flex items-center rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5054ba]">
+              <img src="/images/Multi%20sparks.svg" alt="" aria-hidden="true" className="mr-1.5 mt-0 h-[13px] w-[13px] object-contain" />
+               INSTANT FREE UNLOCK
             </span>
             <h2 className="mt-5 max-w-sm text-4xl font-extrabold leading-tight text-[#1d1d55]">
               {step === "email"

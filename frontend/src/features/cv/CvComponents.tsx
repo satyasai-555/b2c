@@ -272,7 +272,7 @@ export function ScoringModal({
             ♙
           </span>
           <div>
-            <h2 className="text-2xl font-bold text-[#1d1d55]">
+            <h2 className="text-1xl font-bold text-[#1d1d55]">
               Scoring your CV
             </h2>
             <p className="text-base text-slate-600">
@@ -295,6 +295,7 @@ export function ScoringModal({
               ◌
             </span>
             <b>Matching to Frontend Engineer roles</b>
+            {scoringDone && <small className="ml-auto text-cyan-700">DONE</small>}
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg text-[#1d1d55]">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-700 text-white">
@@ -302,6 +303,7 @@ export function ScoringModal({
               ♻
             </span>
             <b>Calculating your score</b>
+            {scoringDone && <small className="ml-auto text-cyan-700">READY</small>}
           </div>
         </div>
         <button

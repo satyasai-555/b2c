@@ -479,6 +479,48 @@ main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; 
 .scoring-modal > div:nth-of-type(2) > div > span { height: 2.75rem; width: 2.75rem; font-size: 0; }
 .scoring-modal > div:nth-of-type(2) > div > span img { height: 1.2rem; width: 1.2rem; }
 .scoring-modal > div:nth-of-type(2) > div > b { line-height: 1.3; }
+
+/* Scoring modal icon adjustments: edit these values when fine-tuning the Figma match. */
+.scoring-modal > div:first-of-type > span {
+  /* Header icon circle size and ring thickness. */
+  height: 3.25rem;
+  width: 3.25rem;
+  padding: .55rem;
+  font-size: 0;
+}
+.scoring-modal > div:first-of-type > span img {
+  /* Header Upload Head image size and alignment. */
+  display: block;
+  height: 1.35rem;
+  width: 1.35rem;
+  object-fit: contain;
+  margin: auto;
+}
+.scoring-modal > div:nth-of-type(2) > div > span {
+  /* Status icon circle size and vertical alignment. */
+  height: 2.75rem;
+  width: 2.75rem;
+  flex: 0 0 2.75rem;
+  font-size: 0;
+}
+.scoring-modal > div:nth-of-type(2) > div > span img {
+  /* Tick and loading image size. */
+  display: block;
+  height: 1.2rem;
+  width: 1.2rem;
+  margin: auto;
+  object-fit: contain;
+}
+.scoring-modal > div:nth-of-type(2) > div {
+  /* Status row padding, height, and spacing. */
+  min-height: 4.5rem;
+  padding: .9rem 1rem;
+  gap: .9rem;
+}
+.scoring-modal > div:nth-of-type(2) > div > b {
+  /* Status label alignment and line height. */
+  line-height: 1.25;
+}
 .unlock-modal > div:first-child > div:first-child > div:first-of-type > div:first-child > span:first-child { font-size: 0; background-image: url('/images/CV Image.svg'); background-position: center; background-repeat: no-repeat; background-size: 1.5rem; }
 .unlock-modal .shadow-inner > div:first-child > span { font-size: 0 !important; background: #171b59 url('/images/CV Image.svg') center / 1.35rem no-repeat !important; }
 .unlock-modal .shadow-inner > div:first-child > span { background-image: none !important; position: relative; }
@@ -550,3 +592,180 @@ main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::before 
 .scoring-modal > button:first-of-type,
 .cv-processing-modal > button:first-of-type { right: 1rem !important; top: 1rem !important; height: 2.25rem !important; width: 2.25rem !important; padding: 0 !important; font-size: 1.25rem !important; line-height: 1 !important; }
 .unlock-modal .shadow-inner > span.shadow-xl { height: 3.5rem; width: 3.5rem; border-radius: 1.25rem; }
+/* Compact CV calibration screen */
+main > section:first-of-type > div[class*="max-w-[1280px]"] { margin-top: 1.15rem; padding: 1.15rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] h1 { margin-top: 1rem; font-size: 2rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] > p { font-size: 1rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] > div { margin-top: 1.5rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] label { font-size: 1rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] input { margin-top: .5rem; padding-top: .7rem; padding-bottom: .7rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] > div > div { margin-top: 1.25rem; }
+main > section:first-of-type > div[class*="max-w-[1280px]"] button { padding-top: .65rem; padding-bottom: .65rem; }
+
+/* Exact compact Step 2 layout. */
+.cv-question-step {
+  display: block !important;
+  width: fit-content;
+  margin: 1.5rem 0 0 clamp(1rem, 3vw, 3.5rem) !important;
+  padding: .45rem .8rem !important;
+  font-size: .68rem !important;
+  line-height: 1.2;
+}
+.cv-question-step { font-size: 0 !important; }
+.cv-question-step::after { content: "•  Step 2 of 7: Goal & Preferences"; font-size: .68rem; }
+.cv-questions-layout {
+  width: min(100% - 2rem, 748px) !important;
+  max-width: 748px !important;
+  margin: 1.25rem auto 0 !important;
+  padding: 0 0 1.0rem !important;
+}
+.cv-upload-success {
+  margin-top: 0 !important;
+  min-height: 2.75rem;
+  padding: .55rem .8rem !important;
+  gap: .45rem !important;
+  border-radius: .7rem !important;
+  font-size: .62rem !important;
+}
+.cv-upload-success > span:first-child { width: 1.5rem; height: 1.5rem; font-size: .9rem; }
+.cv-upload-success b { font-size: .65rem; }
+.cv-upload-success strong { padding: .3rem .5rem; font-size: .5rem; }
+.cv-upload-success button { padding: .3rem .5rem; font-size: .55rem; }
+.cv-calibration-card {
+  max-width: none !important;
+  margin-top: 1rem !important;
+  border-radius: 1rem !important;
+  padding: 1rem !important;
+}
+.cv-calibration-card > span { padding: .35rem .6rem; font-size: .58rem; }
+.cv-calibration-card h1 { margin-top: .7rem !important; font-size: 1.35rem !important; }
+.cv-calibration-card > p { font-size: .7rem; }
+.cv-calibration-card > div { margin-top: 1rem !important; }
+.cv-calibration-card label { font-size: .68rem; }
+.cv-calibration-card input { min-height: 2rem; padding: .45rem .65rem; font-size: .68rem; }
+.cv-calibration-card p { font-size: .58rem; }
+.cv-calibration-card button { padding: .4rem .6rem; font-size: .6rem; }
+
+/* Final Figma sizing lock for the Step 2 page. */
+.cv-upload-success,
+.cv-calibration-card { box-sizing: border-box; width: 100% !important; }
+.cv-upload-success { max-width: 748px !important; min-height: 3.25rem; padding: .8rem 1rem !important; margin-left: auto !important; margin-right: auto !important; }
+.cv-calibration-card { padding: 1.5rem !important; }
+.cv-calibration-card { min-height: 0 !important; }
+
+/* Scoring modal: final compact Figma alignment controls. */
+.scoring-modal {
+  /* Change modal width, padding, and corner radius here. */
+  max-width: 38rem !important;
+  padding: 1.4rem !important;
+  border-radius: 1.75rem !important;
+}
+.scoring-modal > div:first-of-type {
+  /* Change header icon-to-title spacing here. */
+  gap: .65rem;
+  padding-right: 2.75rem;
+}
+.scoring-modal > div:first-of-type > span {
+  /* Change the circular header icon size and ring thickness here. */
+  height: 3.5rem !important;
+  width: 3.5rem !important;
+  padding: .5rem !important;
+  border-width: 6px !important;
+  font-size: 0 !important;
+}
+.scoring-modal > div:first-of-type > span img {
+  /* Change the Upload Head image size and centering here. */
+  display: block;
+  height: 1.25rem !important;
+  width: 1.25rem !important;
+  margin: auto;
+  object-fit: contain;
+  /* Upload Head.svg is white; recolor it so it remains visible on the light ring. */
+  filter: brightness(0) saturate(100%) invert(16%) sepia(35%) saturate(1732%) hue-rotate(211deg) brightness(76%);
+}
+.scoring-modal > div:first-of-type h2 {
+  /* Change the scoring title size and line height here. */
+  font-size: 1.68rem !important;
+  line-height: 1.08 !important;
+}
+.scoring-modal > div:first-of-type p {
+  /* Change the scoring subtitle size and line height here. */
+  font-size: 1.045rem !important;
+  line-height: 1.25 !important;
+}
+.scoring-modal > button:first-of-type {
+  /* Change close-button placement and size here. */
+  top: 1rem !important;
+  right: 1rem !important;
+  height: 2.25rem !important;
+  width: 2.25rem !important;
+  padding: 0 !important;
+}
+.scoring-modal > div:nth-of-type(2) {
+  /* Change the status-list top spacing and row gap here. */
+  margin-top: 1.35rem !important;
+  gap: .7rem !important;
+}
+.scoring-modal > div:nth-of-type(2) > div {
+  /* Change status-row height, padding, radius, and text size here. */
+  min-height: 4.25rem !important;
+  padding: .9rem 1rem !important;
+  border-radius: 1.25rem !important;
+  font-size: 1.125rem !important;
+}
+.scoring-modal > div:nth-of-type(2) > div > span {
+  /* Change status-circle size and alignment here. */
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+  flex: 0 0 2.5rem;
+  font-size: 0 !important;
+  background-color: #49d9ee !important;
+}
+.scoring-modal > div:nth-of-type(2) > div:nth-child(3) > span {
+  /* Keep the final status circle consistent with the other status icons. */
+  background-color: #49d9ee !important;
+}
+.scoring-modal > div:nth-of-type(2) > div > span img {
+  /* Change status tick/loading image size here. */
+  display: block;
+  height: 1.15rem !important;
+  width: 1.15rem !important;
+  margin: auto;
+  object-fit: contain;
+}
+.scoring-modal > div:nth-of-type(2) > div > b {
+  /* Change status-label alignment and line height here. */
+  line-height: 1.25;
+}
+.scoring-modal > button:last-of-type {
+  /* Change the bottom CTA spacing, height, and font size here. */
+  margin-top: 1.35rem !important;
+  padding-top: .95rem !important;
+  padding-bottom: .95rem !important;
+  font-size: 1.125rem !important;
+}
+
+/* Step 2 questions: restore a slightly more readable Figma scale (+2px). */
+.cv-calibration-card h1 { font-size: 1.475rem !important; }
+.cv-calibration-card > p { font-size: .825rem !important; }
+.cv-calibration-card > div { margin-top: 1.125rem !important; }
+.cv-calibration-card label { font-size: .805rem !important; }
+.cv-calibration-card input { min-height: 2.125rem; padding-top: .575rem; padding-bottom: .575rem; font-size: .805rem; }
+.cv-calibration-card p { font-size: .705rem; }
+.cv-calibration-card button { padding-top: .525rem; padding-bottom: .525rem; font-size: .725rem; }
+.cv-calibration-card > span { padding-top: .475rem; padding-bottom: .475rem; font-size: .705rem; }
+.cv-calibration-card > div > div { margin-top: .625rem !important; }
+.cv-calibration-card > button { margin-top: 1.125rem !important; }
+
+/* CV score screen: slightly tighter cards and content for a cleaner fit. */
+.cv-score-cards > article { padding: 1rem !important; }
+.cv-score-cards > article:first-child > div { margin-top: 1.25rem !important; }
+.cv-score-cards > article:first-child h2 { margin-top: 1.25rem !important; font-size: 1.375rem !important; }
+.cv-score-cards > article:first-child p { font-size: .8rem !important; }
+.cv-score-cards > article:nth-child(2) h2 { font-size: 1.375rem !important; }
+.cv-score-cards > article:nth-child(2) > div { margin-top: 1.25rem !important; }
+.cv-score-cards > article:nth-child(2) button { min-height: 5.625rem !important; padding: .875rem !important; }
+.cv-score-cards > article:nth-child(2) button > span:first-child { height: 2.875rem !important; width: 2.875rem !important; font-size: 1.125rem !important; }
+.cv-score-cards > article:nth-child(2) button b { font-size: .9375rem !important; line-height: 1.35 !important; }
+.cv-score-cards > article:nth-child(2) button i { margin-top: .375rem !important; height: .5rem !important; }
+.cv-score-cards > article:nth-child(2) button > span:last-child { padding: .375rem .625rem !important; font-size: .6875rem !important; }
