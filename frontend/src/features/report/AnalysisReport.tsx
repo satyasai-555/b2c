@@ -8,6 +8,7 @@ import {
 } from "./ReportDetails";
 import { Link } from "react-router";
 import "./analysis-report.css";
+import { useCvAnalysis } from "../cv/CvAnalysisContext";
 
 const blocks = [
   ["21.3", "25%", "bg-[#161b58]"],
@@ -19,6 +20,9 @@ const blocks = [
 ];
 
 export default function AnalysisReport() {
+  const { file, answers, analysis } = useCvAnalysis();
+  const role = answers.role || "Target role";
+  const cvName = file?.name || "CV document";
   return (
     <main className="min-h-screen bg-white text-[#151b59]">
       <Header onAction={() => {}} />
@@ -29,8 +33,9 @@ export default function AnalysisReport() {
         </span>
         <div className="mt-8 flex flex-wrap items-start justify-between gap-8">
           <div>
-            <h1 className="text-4xl font-extrabold">Phani Kumar P</h1>
-            <span className="mt-2 inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
+            <h1 className="text-4xl font-extrabold">{cvName.replace(/\.[^.]+$/, "")}</h1>
+            <span className="cv-report-role mt-2 inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
+              <span className="cv-report-role-value">{role}</span>
               Product Manager · B2B SaaS
             </span>
             <p className="mt-3 text-slate-600">
@@ -50,7 +55,7 @@ export default function AnalysisReport() {
               Resume score
             </p>
             <strong className="mt-2 block text-5xl">
-              88{" "}
+              {analysis.score}{" "}
               <span className="text-base font-medium text-emerald-600">
                 Strong
               </span>
@@ -66,7 +71,7 @@ export default function AnalysisReport() {
         <section className="mt-8 rounded-3xl border border-indigo-100 p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-bold">
-              Where the 88 points come from
+              Where the {analysis.score} points come from
             </h2>
             <p className="text-sm text-slate-500">
               Each block = weight × criterion score. Striped = points still

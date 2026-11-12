@@ -5,3 +5,11 @@
   object-fit: contain;
   vertical-align: middle;
 }
+
+.cv-report-role {
+  font-size: 0;
+}
+
+.cv-report-role-value {
+  font-size: 1rem;
+}

@@ -35,6 +35,10 @@ export default function LandingPage() {
       navigate("/cv-analysis");
       return;
     }
+    if (nextAction === "Refer & earn") {
+      navigate("/refer");
+      return;
+    }
     setAction(nextAction);
   };
 

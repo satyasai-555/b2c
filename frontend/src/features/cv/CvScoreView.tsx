@@ -6,20 +6,14 @@ import { CvStepper } from "./CvComponents";
 import UnlockModal from "../auth/signup/UnlockModal";
 import AnalysisReport from "../report/AnalysisReport";
 import "./cv-score.css";
-
-const cards = [
-  ["4", "Things missing from your CV"],
-  ["8", "Skills checked against the role"],
-  ["%", "How you compare with other candidates"],
-  ["AI", "Interview to verify your skills"],
-];
+import { useCvAnalysis } from "./CvAnalysisContext";
 
 export default function CvScoreView() {
+  const { analysis, unlocked, setUnlocked } = useCvAnalysis();
   const [open, setOpen] = useState(false);
-  const [unlocked, setUnlocked] = useState(false);
   if (unlocked) return <AnalysisReport />;
   return (
-    <main className="min-h-screen bg-white text-[#1d1d55]">
+    <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
       <Header onAction={() => {}} />
       <CvStepper current={2} />
       <section className="mx-auto max-w-[1320px] px-4 py-8 sm:px-6 lg:px-8">
@@ -27,30 +21,30 @@ export default function CvScoreView() {
           ● Step 3 of 7: Initial Benchmark &amp; Analysis Ready
         </span>
         <div className="cv-score-cards mt-8 grid gap-5 lg:grid-cols-2">
-          <article className="rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
+          <article className="cv-score-panel rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
             <p className="text-sm font-bold tracking-[0.16em] text-[#5050bb]">
               YOUR CV SCORE · FRONTEND ENGINEER
             </p>
-            <div className="mx-auto mt-7 grid h-52 w-52 place-items-center rounded-full bg-[conic-gradient(#10b981_0_64%,#e6e9ef_64%_100%)] p-5 sm:h-60 sm:w-60">
+            <div className="cv-score-ring mx-auto mt-10 grid h-52 w-52 place-items-center rounded-full bg-[conic-gradient(#10b981_0_64%,#e6e9ef_64%_100%)] p-5 sm:h-60 sm:w-60">
               <div className="grid h-full w-full place-items-center rounded-full bg-white">
                 <div>
-                  <b className="text-6xl sm:text-7xl">64</b>
+              <b className="text-6xl sm:text-7xl">{analysis.score}</b>
                   <span className="block rounded-full bg-indigo-50 px-3 py-1 text-sm text-[#5754bd]">
                     out of 100
                   </span>
                 </div>
               </div>
             </div>
-            <h2 className="mt-7 text-2xl font-extrabold sm:text-3xl">
+            <h2 className="cv-score-summary mt-7 text-2xl font-extrabold sm:text-3xl">
               A solid start — a few fixes
               <br />
               could add 15+ points.
             </h2>
-            <p className="mt-4 text-sm leading-6 text-slate-500">
+            <p className="cv-score-description text-sm leading-6 text-slate-500">
               Your experience matches the role well. Your CV is underselling it.
             </p>
           </article>
-          <article className="rounded-3xl border border-indigo-100 p-6 shadow-sm sm:p-8">
+          <article className="cv-score-panel rounded-3xl border border-indigo-100 p-4 shadow-sm sm:p-8">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-2xl font-bold sm:text-3xl">
                 Your full report is ready
@@ -58,18 +52,17 @@ export default function CvScoreView() {
               <span className="cv-protected-badge rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
                 <img src="/images/shieldIcon.svg" alt="" className="h-3.5 w-3.5 object-contain" />
                 <span className="cv-protected-label">Protected</span>
-                {/* ♙ Protected */}
               </span>
             </div>
-            <div className="mt-6 space-y-3">
-              {cards.map(([value, title]) => (
+            <div className="cv-report-list mt-1 space-y-1">
+                    {analysis.cards.map(({ value, title }) => (
                 <button
                   type="button"
-                  className="flex min-h-24 w-full items-center gap-3 rounded-2xl bg-slate-50 p-4 text-left hover:bg-indigo-50 sm:gap-4"
+                  className="cv-report-row flex min-h-24 w-full items-center gap-3 rounded-2xl bg-slate-50 p-4 text-left hover:bg-indigo-50 sm:gap-4"
                   key={title}
                   onClick={() => setOpen(true)}
                 >
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-xl font-bold text-[#10a98c] shadow-sm">
+                  <span className="cv-report-value grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-xl font-bold text-[#10a98c] shadow-sm">
                     {value}
                   </span>
                   <span className="min-w-0 flex-1">
