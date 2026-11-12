@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OtpInput from "../signin/OtpInput";
+import "./unlock-modal.css";
 
 function VerifiedDocument() {
   return (
@@ -21,7 +22,7 @@ function VerifiedDocument() {
       <span className="absolute bottom-4 left-4 rounded bg-cyan-100 px-3 py-1 text-sm font-semibold text-cyan-700">
         ✓ Verified
       </span>
-      <span className="relative absolute -right-4 top-16 grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-transparent shadow-xl shadow-indigo-300">
+      <span className="absolute -right-4 top-16 z-10 grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-transparent shadow-xl shadow-indigo-300">
         <img
           src="/images/Lock%20icon.svg"
           alt=""
@@ -35,7 +36,11 @@ function VerifiedDocument() {
 
 function SecurityFooter() {
   return (
-    <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-slate-100 pt-5 text-xs text-slate-500 sm:text-sm">
+    <div className="unlock-security-footer mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-slate-100 pt-5 text-xs text-slate-500 sm:text-sm">
+      <span className="inline-flex items-center gap-1.5"><img src="/images/shieldIcon.svg" alt="" className="h-3.5 w-3.5 object-contain" />Zero spam guarantee</span>
+      <span className="text-slate-300">•</span>
+      <span className="inline-flex items-center gap-1.5"><img src="/images/smallLock.svg" alt="" className="h-3.5 w-3.5 object-contain" />256-bit encryption</span>
+      <span className="hidden">legacy</span>
       <span>Zero spam guarantee</span>
       <span className="text-slate-300">•</span>
       <span>♙ 256-bit encryption</span>
@@ -88,6 +93,10 @@ export default function UnlockModal({
             </p>
             <VerifiedDocument />
             <div className="mt-6 space-y-3 text-sm text-slate-700">
+              <p className="unlock-feature unlock-feature--analysis"><img src="/images/CV Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Access your detailed CV analysis</p>
+              <p className="unlock-feature unlock-feature--skills"><img src="/images/Star Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />See skill gap insights</p>
+              <p className="unlock-feature unlock-feature--candidates"><img src="/images/people Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Compare with other candidates</p>
+              <p className="unlock-feature unlock-feature--practice"><img src="/images/Decision Pending Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Unlock interview practice questions</p>
               <p>◈ &nbsp; Access your detailed CV analysis</p>
               <p>☆ &nbsp; See skill gap insights</p>
               <p>♙ &nbsp; Compare with other candidates</p>

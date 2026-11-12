@@ -1,0 +1,50 @@
+.unlock-modal .mt-6 > p:nth-child(n + 5) {
+  display: none !important;
+}
+
+.unlock-modal .mt-6 > p::before,
+.unlock-modal .mt-6 > p::after {
+  content: none !important;
+}
+
+.unlock-modal .mt-6 > p > img {
+  display: inline-block !important;
+}
+
+.unlock-modal .mt-6 > p {
+  display: flex !important;
+  align-items: center;
+  font-size: .875rem !important;
+  line-height: 1.4 !important;
+  color: #334155 !important;
+}
+
+.unlock-modal .unlock-feature {
+  gap: .75rem;
+}
+
+.unlock-modal .unlock-feature > img {
+  box-sizing: content-box;
+  flex: 0 0 1.125rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  padding: .45rem;
+  border-radius: 9999px;
+}
+
+.unlock-modal .unlock-feature--analysis > img,
+.unlock-modal .unlock-feature--practice > img {
+  background: #e9e6ff;
+}
+
+.unlock-modal .unlock-feature--skills > img {
+  background: #b9ebff;
+}
+
+.unlock-modal .unlock-feature--candidates > img {
+  background: #e7ebee;
+}
+
+.unlock-security-footer > span:nth-child(n + 4) {
+  display: none;
+}

@@ -1,0 +1,24 @@
+.cv-upload-success > span:first-child,
+.scoring-modal span:has(> img) {
+  font-size: 0;
+}
+
+.scoring-modal span:has(> img) img,
+.cv-upload-success > span:first-child img {
+  display: block;
+}
+
+.cv-upload-success > span:first-child::before,
+.scoring-modal span:has(> img)::before,
+.scoring-modal span:has(> img)::after {
+  content: none !important;
+}
+
+.cv-role-calibration-badge {
+  font-size: 0;
+}
+
+.cv-role-calibration-badge::after {
+  content: "Step 2: Role Calibration";
+  font-size: .875rem;
+}

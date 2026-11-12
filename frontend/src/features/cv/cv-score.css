@@ -1,0 +1,33 @@
+.cv-protected-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: 0;
+}
+
+.cv-protected-badge img {
+  display: block;
+}
+
+.cv-protected-label {
+  font-size: .75rem;
+}
+
+.cv-unlock-icon {
+  background-image: none !important;
+  font-size: 0;
+}
+
+main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon {
+  background: #5754bd !important;
+  background-image: none !important;
+}
+
+main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::before {
+  content: none !important;
+  display: none !important;
+}
+
+.cv-unlock-icon img {
+  display: block;
+}
