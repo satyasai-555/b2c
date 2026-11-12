@@ -3,6 +3,7 @@ import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
 import { CvStepper, ScoringModal } from "./CvComponents";
 import CvScoreView from "./CvScoreView";
+import { useCvAnalysis } from "./CvAnalysisContext";
 
 const roles = [
   "Frontend Engineer",
@@ -19,12 +20,17 @@ const experienceOptions = [
 ];
 
 export default function CvQuestions() {
-  const [role, setRole] = useState("Frontend Engineer");
-  const [experience, setExperience] = useState("3–5 yrs");
-  const [location, setLocation] = useState("Pune, India");
+  const { file, answers, setAnswers } = useCvAnalysis();
+  const [role, setRole] = useState(answers.role);
+  const [experience, setExperience] = useState(answers.experience);
+  const [location, setLocation] = useState(answers.location);
   const [scoring, setScoring] = useState(false);
   const [showScore, setShowScore] = useState(false);
   if (showScore) return <CvScoreView />;
+  const saveAnswers = () => {
+    setAnswers({ role, experience, location });
+    setScoring(true);
+  };
   return (
     <main className="min-h-screen bg-white text-[#1d1d55]">
       <Header onAction={() => {}} />
@@ -38,14 +44,14 @@ export default function CvQuestions() {
           <span className="grid h-10 w-10 place-items-center rounded-full bg-emerald-500 text-xl text-white">
             ✓
           </span>
-          <b className="text-base">Vinayak_UX_Resume_Updated.pdf</b>
+          <b className="text-base">{file?.name ?? "CV document"}</b>
           <strong className="rounded-full bg-emerald-100 px-3 py-1.5 text-xs text-emerald-700">
             READ SUCCESSFULLY
           </strong>
           <span className="text-slate-500">• 48 skills detected</span>
-          <button className="ml-auto rounded-lg border border-purple-100 bg-white px-3 py-2 text-sm font-bold text-[#5050bb]">
+          {/* <button className="ml-auto rounded-lg border border-purple-100 bg-white px-3 py-2 text-sm font-bold text-[#5050bb]">
             ↻ Change / Re-upload
-          </button>
+          </button> */}
         </div>
         <div className="cv-calibration-card mx-auto mt-7 max-w-[980px] rounded-[1.75rem] border border-indigo-100 bg-white p-6 shadow-sm md:p-8">
           <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
@@ -118,7 +124,7 @@ export default function CvQuestions() {
           </div>
           <button
             className="mt-7 w-full rounded-xl bg-[#5754bd] px-5 py-3.5 text-lg font-bold text-white"
-            onClick={() => setScoring(true)}
+            onClick={saveAnswers}
           >
             Get my CV score →
           </button>

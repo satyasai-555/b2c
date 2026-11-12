@@ -1,0 +1,95 @@
+.ref-share {
+  display: flex;
+  /* min-height: 1.5rem; */
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  border: 1px solid #d8e1f0;
+  border-radius: .75rem;
+  background: #fff;
+  padding: .75rem 1rem;
+  color: #192457;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: border-color .2s, color .2s;
+}
+
+.ref-share:hover {
+  border-color: #5754bd;
+  color: #5754bd;
+}
+
+.referral-page { padding-top: 1.2rem !important; padding-bottom: 1.2rem !important; }
+.referral-page > header { margin-bottom: 1.2rem !important; }
+.referral-page h1 { font-size: 2rem !important; }
+.referral-page h2 { font-size: 1.35rem !important; }
+.referral-page h3 { font-size: 1.125rem !important; }
+.referral-page p, .referral-page label { font-size: .9375rem !important; }
+.referral-page section { padding: 0.7rem !important; }
+.referral-page .grid { gap: 1rem; }
+.referral-page .mt-10 { margin-top: 1.75rem !important; }
+.referral-page .mt-9 { margin-top: 1.5rem !important; }
+.referral-page .mt-8 { margin-top: 1.25rem !important; }
+.referral-page .mt-7 { margin-top: 1.25rem !important; }
+.referral-page .mt-6 { margin-top: 1rem !important; }
+.referral-page .mt-5 { margin-top: .9rem !important; }
+.referral-page .mt-4 { margin-top: .75rem !important; }
+.referral-page .gap-8 { gap: 1rem !important; }
+.referral-page .gap-6 { gap: .75rem !important; }
+.referral-page .gap-5 { gap: .7rem !important; }
+.referral-page .min-h-16 { min-height: 3rem !important; }
+.referral-page .p-7, .referral-page .p-9 { padding: 1rem !important; }
+.referral-page .py-5 { padding-top: .75rem !important; padding-bottom: .75rem !important; }
+
+.referral-page .referral-table {
+  table-layout: fixed;
+  font-size: .875rem;
+}
+
+.referral-page .referral-table th,
+.referral-page .referral-table td {
+  padding-top: .65rem !important;
+  padding-bottom: .65rem !important;
+}
+
+.referral-page .referral-table th:nth-child(1),
+.referral-page .referral-table td:nth-child(1) { width: 55%; }
+
+.referral-page .referral-table th:nth-child(2),
+.referral-page .referral-table td:nth-child(2) {
+  width: 22%;
+  padding-left: .35rem !important;
+  text-align: left;
+}
+
+.referral-page .referral-table th:nth-child(3),
+.referral-page .referral-table td:nth-child(3) {
+  width: 23%;
+  text-align: right;
+}
+
+.referral-page .referral-stats {
+  gap: 1.25rem !important;
+}
+
+.referral-page .referral-stats > div {
+  gap: .6rem;
+}
+
+.referral-page .referral-stats span {
+  width: 3rem;
+  height: 3rem;
+}
+
+.referral-page .referral-stats img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.referral-page .referral-stats b {
+  font-size: 1.75rem !important;
+}
+
+.referral-page .referral-stats p {
+  font-size: .875rem !important;
+}

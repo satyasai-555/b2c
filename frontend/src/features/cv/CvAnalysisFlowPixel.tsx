@@ -8,6 +8,7 @@ import {
   ProcessingModal,
   UploadZone,
 } from "./CvComponents";
+import { useCvAnalysis } from "./CvAnalysisContext";
 
 const chips = [
   ["/images/Raise meter.svg", "Instant CV score"],
@@ -16,21 +17,19 @@ const chips = [
 ] as const;
 
 export default function CvAnalysisFlowPixel() {
-  const [file, setFile] = useState({
-    name: "Vinayak_UX_Resume_Updated.pdf",
-    size: "1.8 MB",
-    pages: "2 pages",
-  });
+  const { file, setFile } = useCvAnalysis();
   const [modal, setModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const selectFile = (selected?: File) => {
-    if (selected)
+    if (selected) {
       setFile({
         name: selected.name,
         size: `${(selected.size / 1024 / 1024).toFixed(1)} MB`,
         pages: "2 pages",
+        type: selected.type || "application/octet-stream",
       });
+    }
     setModal(true);
   };
   return (
@@ -101,7 +100,7 @@ export default function CvAnalysisFlowPixel() {
       </main>
       {modal && (
         <ProcessingModal
-          file={file}
+          file={file ?? { name: "CV document", size: "—", pages: "—" }}
           onClose={() => setModal(false)}
           onContinue={() => navigate("/cv-analysis/questions")}
         />
