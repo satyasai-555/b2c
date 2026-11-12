@@ -5,6 +5,7 @@ import Footer from "../landing/LandingComponents/Footer";
 import { CvStepper } from "./CvComponents";
 import UnlockModal from "../auth/signup/UnlockModal";
 import AnalysisReport from "../report/AnalysisReport";
+import "./cv-score.css";
 
 const cards = [
   ["4", "Things missing from your CV"],
@@ -45,14 +46,19 @@ export default function CvScoreView() {
               <br />
               could add 15+ points.
             </h2>
+            <p className="mt-4 text-sm leading-6 text-slate-500">
+              Your experience matches the role well. Your CV is underselling it.
+            </p>
           </article>
           <article className="rounded-3xl border border-indigo-100 p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-2xl font-bold sm:text-3xl">
                 Your full report is ready
               </h2>
-              <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
-                ♙ Protected
+              <span className="cv-protected-badge rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
+                <img src="/images/shieldIcon.svg" alt="" className="h-3.5 w-3.5 object-contain" />
+                <span className="cv-protected-label">Protected</span>
+                {/* ♙ Protected */}
               </span>
             </div>
             <div className="mt-6 space-y-3">
@@ -81,8 +87,9 @@ export default function CvScoreView() {
           </article>
         </div>
         <section className="mt-6 rounded-3xl bg-slate-50 px-5 py-10 text-center sm:px-10">
-          <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-2xl text-white">
-            ♙
+          <span className="cv-unlock-icon mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-2xl text-white">
+            <img src="/images/Unlock Image.svg" alt="" className="h-7 w-7 object-contain" />
+            
           </span>
           <h2 className="mt-5 text-3xl font-extrabold text-black sm:text-4xl">
             Unlock your full report

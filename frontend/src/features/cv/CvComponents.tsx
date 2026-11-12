@@ -1,4 +1,5 @@
 import { useEffect, useState, type DragEvent, type RefObject } from "react";
+import "./cv-images.css";
 
 export const steps = [
   "Upload CV",

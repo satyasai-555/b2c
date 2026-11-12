@@ -44,11 +44,6 @@ export default function CvAnalysisFlowPixel() {
               ● Step 1 of 7: Initial Profile Intake
             </span>
             <span className="mb-7 flex w-max items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-              <img
-                src="/images/ThunderIconBlue.svg"
-                alt=""
-                className="h-4 w-4"
-              />
               FREE · NO SIGN-UP TO START
             </span>
             <h1 className="max-w-3xl text-[clamp(2.0rem,4.2vw,4.6rem)] font-extrabold leading-[.96] tracking-tight">
