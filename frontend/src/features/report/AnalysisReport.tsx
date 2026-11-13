@@ -7,7 +7,6 @@ import {
   WorkingAndFixes,
 } from "./ReportDetails";
 import { Link } from "react-router";
-import "./analysis-report.css";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
 
 const blocks = [
