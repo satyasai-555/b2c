@@ -5,7 +5,6 @@ import Footer from "../landing/LandingComponents/Footer";
 import { CvStepper } from "./CvComponents";
 import UnlockModal from "../auth/signup/UnlockModal";
 import AnalysisReport from "../report/AnalysisReport";
-import "./cv-score.css";
 import { useCvAnalysis } from "./CvAnalysisContext";
 
 export default function CvScoreView() {

@@ -445,8 +445,6 @@ main > section:first-child > div:first-child > div:last-child > span::before { c
 main > section:first-child > div:first-child > div:last-child > span:nth-child(1)::before { background-image: url('/images/Raise meter.svg'); }
 main > section:first-child > div:first-child > div:last-child > span:nth-child(2)::before { background-image: url('/images/VerifiedBadge.svg'); }
 main > section:first-child > div:first-child > div:last-child > span:nth-child(3)::before { background-image: url('/images/Hand deal.svg'); }
-main > section:first-child > div:first-child > div:last-child::after { content: "★★★★★   4.9/5   Trusted by 40,000+ candidates across engineering & product"; display: block; flex-basis: 100%; margin-top: 1rem; color: #64748b; font-size: .875rem; line-height: 1.4; }
-main > section:first-child > div:first-child > div:last-child::after { white-space: pre; }
 main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; }
 .cv-chip-row::after { content: none !important; }
 .cv-chip-row > span::before { content: none !important; }
@@ -769,3 +767,213 @@ main > section:first-of-type > div[class*="max-w-[1280px]"] button { padding-top
 .cv-score-cards > article:nth-child(2) button b { font-size: .9375rem !important; line-height: 1.35 !important; }
 .cv-score-cards > article:nth-child(2) button i { margin-top: .375rem !important; height: .5rem !important; }
 .cv-score-cards > article:nth-child(2) button > span:last-child { padding: .375rem .625rem !important; font-size: .6875rem !important; }
+
+/* ==========================================================================\n+   CV ANALYSIS — CENTRALIZED FEATURE STYLES\n+   Keep CV flow styles here so each screen has one predictable source of truth.\n+   ========================================================================== */
+
+/* Upload and scoring status images: use the supplied image as-is. */
+.cv-upload-success > span:first-child,
+.scoring-modal span:has(> img) { font-size: 0; }
+.cv-upload-success > span:first-child img,
+.scoring-modal span:has(> img) img {
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  max-width: 100%;
+  max-height: 100%;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+.cv-upload-success > span:first-child::before,
+.scoring-modal span:has(> img)::before,
+.scoring-modal span:has(> img)::after { content: none !important; display: none !important; }
+.cv-role-calibration-badge { font-size: 0; }
+.cv-role-calibration-badge::after { content: "Step 2: Role Calibration"; font-size: .875rem; }
+.scoring-modal > div:nth-of-type(2) > div > p {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 20px;
+  letter-spacing: .28px;
+  vertical-align: middle;
+}
+
+/* CV score screen. */
+.cv-protected-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: 0; }
+.cv-protected-badge img { display: block; object-fit: contain; }
+.cv-protected-label { font-size: .75rem; }
+.cv-unlock-icon {
+  background-image: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+  font-size: 0;
+}
+main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon {
+  background: #5754bd !important;
+  background-image: none !important;
+}
+main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::before,
+main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
+  content: none !important;
+  display: none !important;
+}
+.cv-unlock-icon img { display: block; object-fit: contain; object-position: center; }
+.cv-score-page { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+.cv-score-page > section { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+.cv-score-page .cv-score-cards { margin-top: 1.25rem !important; gap: 1.25rem !important; align-items: stretch !important; }
+.cv-score-page .cv-score-panel { padding: .85rem !important; height: 100% !important; }
+.cv-score-page .cv-score-ring { width: 13.5rem !important; height: 13.5rem !important; margin-top: 2rem !important; margin-bottom: 1.5rem !important; }
+.cv-score-page .cv-score-ring b { font-size: 3.25rem !important; }
+.cv-score-page .cv-score-panel:first-child { display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 100%; padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.cv-score-page .cv-score-panel:first-child > p:first-child { flex: 0 0 auto; }
+.cv-score-page .cv-score-summary { margin-top: 1.5rem !important; margin-bottom: 1.25rem !important; font-size: 1.35rem !important; }
+.cv-score-page .cv-score-description { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.cv-score-page .cv-report-list { margin-top: .5rem !important; gap: .3rem !important; }
+.cv-score-page .cv-report-row { min-height: 3rem !important; height: 3.5rem !important; padding: .35rem .55rem !important; }
+.cv-score-page .cv-report-value { width: 2.25rem !important; height: 2.25rem !important; }
+
+/* CV questions screen. */
+.cv-questions-layout .cv-calibration-card { max-width: 1230px !important; padding: 2rem !important; }
+.cv-questions-layout .cv-calibration-card > h1 { margin-top: 1.75rem !important; }
+.cv-questions-layout .cv-calibration-card > p { margin-top: .75rem !important; }
+.cv-questions-layout .cv-calibration-card > div { margin-top: 2.25rem !important; }
+.cv-questions-layout .cv-calibration-card input { min-height: 3.5rem; }
+.cv-questions-layout .cv-calibration-card button { min-height: 3rem; }
+
+/* Unlock modal: direct images only; disable legacy pseudo-icon layers. */
+.unlock-modal .mt-6 > p:nth-child(n + 5) { display: none !important; }
+.unlock-modal .mt-6 > p::before,
+.unlock-modal .mt-6 > p::after,
+.unlock-modal .unlock-feature::before,
+.unlock-modal .unlock-feature::after { content: none !important; display: none !important; }
+.unlock-modal .mt-6 > p > img { display: inline-block !important; }
+.unlock-modal .mt-6 > p { display: flex !important; align-items: center; font-size: .875rem !important; line-height: 1.4 !important; color: #334155 !important; }
+.unlock-modal .unlock-feature { gap: .75rem; }
+.unlock-modal .unlock-feature > img { box-sizing: content-box; flex: 0 0 1.125rem; width: .95rem; height: .95rem; padding: .5rem; border-radius: 9999px; display: block !important; object-fit: contain; object-position: center; mask: none !important; -webkit-mask: none !important; }
+.unlock-modal .unlock-feature--analysis > img,
+.unlock-modal .unlock-feature--practice > img { background: #e9e6ff; }
+.unlock-modal .unlock-feature--skills > img { background: #b9ebff; }
+.unlock-modal .unlock-feature--candidates > img { background: #e7ebee; }
+.unlock-modal .unlock-security-footer > span:nth-child(n + 4) { display: none; }
+.unlock-modal .shadow-inner img { object-fit: contain; object-position: center; mask: none !important; -webkit-mask: none !important; }
+.unlock-modal .shadow-inner > span::before,
+.unlock-modal .shadow-inner > span::after { content: none !important; display: none !important; }
+/* The legacy document pseudo-layer has higher specificity; explicitly disable it. */
+.unlock-modal .shadow-inner > div:first-child > span::before,
+.unlock-modal .shadow-inner > div:first-child > span::after,
+.unlock-modal .shadow-inner > span.shadow-xl::before,
+.unlock-modal .shadow-inner > span.shadow-xl::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+.unlock-modal .shadow-inner > div:first-child > span {
+  display: grid !important;
+  place-items: center !important;
+  background-image: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+.unlock-modal .unlock-close {
+  font-size: 0 !important;
+  line-height: 1 !important;
+  overflow: visible !important;
+}
+.unlock-modal .unlock-close::before {
+  content: "×";
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+.unlock-modal .unlock-close::after { content: none !important; }
+.unlock-modal .shadow-inner { margin-top: 1rem !important; }
+.unlock-modal .shadow-inner > span.shadow-xl { overflow: visible !important; }
+.unlock-modal > div:first-child > div:last-child { min-width: 0; }
+.unlock-modal {
+  max-height: calc(100vh - 2rem) !important;
+  /* overflow-y: auto !important; */
+  overflow-x: hidden !important;
+}
+.unlock-modal > div.grid {
+  align-items: start !important;
+}
+.unlock-modal .mt-4.space-y-2 > .unlock-feature,
+.unlock-modal .mt-6.space-y-3 > .unlock-feature {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 2.25rem !important;
+  margin: 0 !important;
+  gap: .65rem !important;
+  white-space: nowrap;
+}
+.unlock-modal .unlock-feature > img {
+  flex: 0 0 2.15rem !important;
+  width: 1.05rem !important;
+  height: 1.05rem !important;
+  margin: 0 !important;
+  padding: .25rem !important;
+}
+/* .unlock-modal .unlock-feature > img + * { min-width: 0; } */
+.unlock-modal .unlock-feature { font-size: .775rem !important; }
+.unlock-modal .unlock-security-footer { margin-top: 1rem !important; padding-top: 1rem !important; }
+.unlock-modal > div.grid > div:last-child {
+  margin-top: 1.5rem !important;
+}
+.unlock-modal h2 {
+  font-size: 1.145rem !important;
+  line-height: 1.15 !important;
+}
+.unlock-modal > div.grid > div:first-child > p {
+  font-size: .875rem !important;
+  line-height: 1.45 !important;
+}
+.unlock-modal .unlock-feature,
+.unlock-modal input,
+.unlock-modal label,
+.unlock-modal button,
+.unlock-modal .unlock-security-footer {
+  font-size: .875rem !important;
+}
+.unlock-modal .unlock-feature {
+  min-height: 2rem !important;
+}
+.unlock-modal .unlock-feature > img {
+  box-sizing: border-box !important;
+  flex: 0 0 2rem !important;
+  flex-basis: 2rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: .4rem !important;
+}
+.unlock-modal .unlock-security-footer {
+  gap: .75rem !important;
+  margin-top: .875rem !important;
+  padding-top: .875rem !important;
+  white-space: nowrap;
+}
+.unlock-modal .unlock-security-footer > span:nth-child(1),
+.unlock-modal .unlock-security-footer > span:nth-child(3) {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+.unlock-modal .unlock-security-footer > span:nth-child(n + 4) { display: none !important; }
+.unlock-modal .unlock-security-footer img {
+  display: block !important;
+  flex: 0 0 1rem !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  vertical-align: middle;
+}
+
+/* Report screen. */
+.analysis-report-image { display: inline-block; height: 1rem; width: 1rem; object-fit: contain; vertical-align: middle; }
+.cv-report-role { font-size: 0; }
+.cv-report-role-value { font-size: 1rem; }

@@ -1,5 +1,4 @@
 import { useEffect, useState, type DragEvent, type RefObject } from "react";
-import "./cv-images.css";
 
 export const steps = [
   "Upload CV",
@@ -254,9 +253,9 @@ export function ScoringModal({
     return () => window.clearTimeout(timer);
   }, []);
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-[#19182e]/45 p-4">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-[#19182e]/45 p-3">
       <section
-        className="scoring-modal relative w-full max-w-xl rounded-3xl bg-white p-5 shadow-2xl sm:p-7"
+        className="scoring-modal relative w-full max-w-xl rounded-3xl bg-white p-3 shadow-2xl sm:p-7"
         role="dialog"
         aria-modal="true"
       >
@@ -267,15 +266,14 @@ export function ScoringModal({
         >
           ×
         </button>
-        <div className="flex items-center gap-4 pr-10">
+        <div className="flex items-center gap-6 pr-15">
           <span className="grid h-12 w-12 place-items-center rounded-full border-8 border-slate-100 border-r-cyan-400 text-xl">
             <img src="/images/Upload Head.svg" alt="" className="h-5 w-5 object-contain" />
-            ♙
           </span>
           <div>
-            <h2 className="text-1xl font-bold text-[#1d1d55]">
+            <h1 className="text-xl font-bold text-[#131750]">
               Scoring your CV
-            </h2>
+            </h1>
             <p className="text-base text-slate-600">
               for Frontend Engineer roles
             </p>
@@ -287,28 +285,28 @@ export function ScoringModal({
               <img src="/images/Tick Icon.svg" alt="" className="h-5 w-5 object-contain" />
               ✓
             </span>
-            <b>Reading your CV</b>
+            <p className="font-700 text-[#131750]">Reading your CV</p>
             <small className="ml-auto text-cyan-700">DONE</small>
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-300 text-white">
               <img src={scoringDone ? "/images/Tick Icon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
-              ◌
+              
             </span>
-            <b>Matching to Frontend Engineer roles</b>
+            <p className="font-700 text-[#131750]">Matching to Frontend Engineer roles</p>
             {scoringDone && <small className="ml-auto text-cyan-700">DONE</small>}
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg text-[#1d1d55]">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-700 text-white">
               <img src={scoringDone ? "/images/Tick Icon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
-              ♻
+          
             </span>
-            <b>Calculating your score</b>
+            <p className="font-700 text-[#131750]">Calculating your score</p>
             {scoringDone && <small className="ml-auto text-cyan-700">READY</small>}
           </div>
         </div>
         <button
-          className="mt-7 w-full rounded-2xl bg-[#a8a8dc] px-4 py-4 text-lg font-bold text-white"
+          className="mt-7 w-full rounded-2xl bg-[#a8a8dc] px-4 py-4 text-xl font-bold text-white"
           onClick={onContinue}
         >
           View CV Score &amp; Insights <span className="float-right">→</span>

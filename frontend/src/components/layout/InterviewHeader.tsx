@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, Gift } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Logo } from "../../features/landing/LandingComponents/UI";
 
 type InterviewHeaderProps = {
@@ -23,6 +23,14 @@ export default function InterviewHeader({
   onRefer,
   jobsTo,
 }: InterviewHeaderProps) {
+  const navigate = useNavigate();
+  const handleRefer = () => {
+    if (onRefer) {
+      onRefer();
+      return;
+    }
+    navigate("/refer");
+  };
   const backClass =
     "inline-flex items-center gap-2 whitespace-nowrap text-base font-semibold text-brand transition hover:opacity-75";
 
@@ -100,10 +108,9 @@ export default function InterviewHeader({
 
           <button
             type="button"
-            onClick={onRefer}
-            disabled={!onRefer}
-            title={onRefer ? "Refer & earn" : "Referrals are coming soon"}
-            className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-4 py-2 text-base font-semibold text-brand transition enabled:hover:bg-indigo-100 disabled:cursor-default"
+            onClick={handleRefer}
+            title="Refer & earn"
+            className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-4 py-2 text-base font-semibold text-brand transition hover:bg-indigo-100"
           >
             <Gift size={22} aria-hidden="true" />
             Refer & earn

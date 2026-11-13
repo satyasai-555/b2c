@@ -1,13 +1,12 @@
 import { useState } from "react";
 import OtpInput from "../signin/OtpInput";
-import "./unlock-modal.css";
 
 function VerifiedDocument() {
   return (
     <div className="relative mx-0 mt-6 h-40 w-56 rounded-2xl bg-slate-100 p-4 shadow-inner sm:h-44 sm:w-64">
       <div className="flex items-start gap-3">
-        <span className="grid h-[37px] w-[37px] place-items-center rounded-lg bg-[#171b59] text-[13px] text-white">
-          ▤
+        <span className="grid h-[37px] w-[37px] place-items-center rounded-lg bg-[#171b59]">
+          <img src="/images/CV Image.svg" alt="" aria-hidden="true" className="h-6 w-6 object-contain" />
         </span>
         <div className="space-y-2 pt-1">
           <i className="block h-2.5 w-28 rounded bg-slate-300" />
@@ -40,10 +39,6 @@ function SecurityFooter() {
       <span className="inline-flex items-center gap-1.5"><img src="/images/shieldIcon.svg" alt="" className="h-3.5 w-3.5 object-contain" />Zero spam guarantee</span>
       <span className="text-slate-300">•</span>
       <span className="inline-flex items-center gap-1.5"><img src="/images/smallLock.svg" alt="" className="h-3.5 w-3.5 object-contain" />256-bit encryption</span>
-      <span className="hidden">legacy</span>
-      <span>Zero spam guarantee</span>
-      <span className="text-slate-300">•</span>
-      <span>♙ 256-bit encryption</span>
     </div>
   );
 }
@@ -62,26 +57,26 @@ export default function UnlockModal({
   const ready = email.trim().length > 4 && consent;
   return (
     <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-slate-950/40 p-4">
-      <section className="unlock-modal relative w-full max-w-[900px] rounded-[1.5rem] bg-white p-5 shadow-2xl sm:p-7">
+      <section className="unlock-modal relative w-full max-w-[760px] rounded-[1.5rem] bg-white p-4 shadow-2xl sm:p-5">
         <button
           type="button"
           aria-label="Close"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-2xl text-slate-600"
+          className="unlock-close absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-2xl text-slate-600"
         >
           ×
         </button>
-        <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+        <div className="grid gap-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <div>
             <span className="inline-flex items-center rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5054ba]">
               <img src="/images/Multi%20sparks.svg" alt="" aria-hidden="true" className="mr-1.5 mt-0 h-[13px] w-[13px] object-contain" />
                INSTANT FREE UNLOCK
             </span>
-            <h2 className="mt-5 max-w-sm text-4xl font-extrabold leading-tight text-[#1d1d55]">
+            <h1 className="mt-4 max-w-sm text-2xl font-extrabold leading-tight text-[#1d1d55]">
               {step === "email"
                 ? "Log in to unlock your full report"
                 : "Enter verification code"}
-            </h2>
+            </h1>
             <p className="mt-3 text-base leading-7 text-slate-600">
               {step === "email" ? (
                 "We'll email you a 6-digit code. No password needed."
@@ -92,18 +87,14 @@ export default function UnlockModal({
               )}
             </p>
             <VerifiedDocument />
-            <div className="mt-6 space-y-3 text-sm text-slate-700">
-              <p className="unlock-feature unlock-feature--analysis"><img src="/images/CV Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Access your detailed CV analysis</p>
-              <p className="unlock-feature unlock-feature--skills"><img src="/images/Star Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />See skill gap insights</p>
-              <p className="unlock-feature unlock-feature--candidates"><img src="/images/people Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Compare with other candidates</p>
-              <p className="unlock-feature unlock-feature--practice"><img src="/images/Decision Pending Image.svg" alt="" className="mr-2 inline-block h-5 w-5 object-contain align-middle" />Unlock interview practice questions</p>
-              <p>◈ &nbsp; Access your detailed CV analysis</p>
-              <p>☆ &nbsp; See skill gap insights</p>
-              <p>♙ &nbsp; Compare with other candidates</p>
-              <p>▣ &nbsp; Unlock interview practice questions</p>
+            <div className="mt-4 space-y-2 text-sm text-slate-700">
+              <p className="unlock-feature unlock-feature--analysis"><img src="/images/CV Image.svg" alt="" className="mr-2 inline-block h-3 w-3 object-contain align-middle" />Access your detailed CV analysis</p>
+              <p className="unlock-feature unlock-feature--skills"><img src="/images/Star Image.svg" alt="" className="mr-2 inline-block h-3 w-3 object-contain align-middle" />See skill gap insights</p>
+              <p className="unlock-feature unlock-feature--candidates"><img src="/images/people Image.svg" alt="" className="mr-2 inline-block h-3 w-3 object-contain align-middle" />Compare with other candidates</p>
+              <p className="unlock-feature unlock-feature--practice"><img src="/images/Decision Pending Image.svg" alt="" className="mr-2 inline-block h-3 w-3 object-contain align-middle" />Unlock interview practice questions</p>
             </div>
           </div>
-          <div className="rounded-2xl border border-indigo-100 p-5 sm:p-6">
+          <div className="rounded-2xl border border-indigo-100 p-4 sm:p-5">
             {step === "email" ? (
               <>
                 <label className="block text-sm font-bold text-slate-700">
