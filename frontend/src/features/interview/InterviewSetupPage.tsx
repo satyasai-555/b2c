@@ -139,6 +139,7 @@ export default function InterviewSetupPage() {
   initials={user.initials}
   credits={2}
   backTo="/"
+  onRefer={() => navigate("/refer")}
 />
 
       <main className="mx-auto max-w-400 px-5 pb-16 pt-10 sm:px-8 lg:px-10 lg:pt-14">
