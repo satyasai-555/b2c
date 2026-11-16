@@ -80,7 +80,7 @@ export default function CvScoreView() {
         </div>
         <section className="mt-6 rounded-3xl bg-slate-50 px-5 py-10 text-center sm:px-10">
           <span className="cv-unlock-icon mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-2xl text-white">
-            <img src="/images/Unlock Image.svg" alt="" className="h-7 w-7 object-contain" />
+            <img src="/images/UnlockImage.svg" alt="" className="h-7 w-7 object-contain" />
             
           </span>
           <h2 className="mt-5 text-3xl font-extrabold text-black sm:text-4xl">

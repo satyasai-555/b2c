@@ -442,9 +442,6 @@ main > section:first-child > div:first-child > div:last-child > span:last-child 
 main > section:first-child > div:first-child > div:last-child > span { display: inline-flex; align-items: center; gap: .45rem; }
 main > section:first-child > div:first-child > div:last-child > span::first-letter { color: transparent; }
 main > section:first-child > div:first-child > div:last-child > span::before { content: ""; width: 1.15rem; height: 1.15rem; flex: 0 0 1.15rem; background: center / contain no-repeat; }
-main > section:first-child > div:first-child > div:last-child > span:nth-child(1)::before { background-image: url('/images/Raise meter.svg'); }
-main > section:first-child > div:first-child > div:last-child > span:nth-child(2)::before { background-image: url('/images/VerifiedBadge.svg'); }
-main > section:first-child > div:first-child > div:last-child > span:nth-child(3)::before { background-image: url('/images/Hand deal.svg'); }
 main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; }
 .cv-chip-row::after { content: none !important; }
 .cv-chip-row > span::before { content: none !important; }
@@ -456,13 +453,9 @@ main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; 
 [role="dialog"] h2 { font-size: 1.5rem !important; line-height: 1.15; }
 [role="dialog"] > div:nth-of-type(4) p:first-child { display: flex; align-items: center; gap: .45rem; }
 [role="dialog"] > div:nth-of-type(4) p:first-child::first-letter { color: transparent; }
-[role="dialog"] > div:nth-of-type(4) p:first-child::before { content: ""; width: 1rem; height: 1rem; flex: 0 0 1rem; background: url('/images/Tick Icon.svg') center / contain no-repeat; }
-[role="dialog"] > div:nth-of-type(2) > span { font-size: 0; width: 1.5rem; height: 1.5rem; background: url('/images/CV Image.svg') center / contain no-repeat; }
 [role="dialog"] > div:nth-of-type(3) > span:first-child { display: inline-flex; align-items: center; gap: .4rem; }
 [role="dialog"] > div:nth-of-type(3) > span:first-child::first-letter { color: transparent; }
-[role="dialog"] > div:nth-of-type(3) > span:first-child::before { content: ""; width: 1rem; height: 1rem; background: url('/images/Reload.svg') center / contain no-repeat; }
 [role="dialog"] > div:nth-of-type(6) { display: flex; align-items: center; gap: .4rem; }
-[role="dialog"] > div:nth-of-type(6)::before { content: ""; width: 1rem; height: 1rem; background: url('/images/VerifiedBadge.svg') center / contain no-repeat; }
 [role="dialog"] > div:first-of-type > img { height: 2.75rem; width: 2.75rem; }
 [role="dialog"] > div:nth-of-type(2) > span { height: 1.25rem; width: 1.25rem; }
 [role="dialog"] > div:nth-of-type(3) img { height: .9rem; width: .9rem; }
@@ -519,20 +512,12 @@ main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; 
   /* Status label alignment and line height. */
   line-height: 1.25;
 }
-.unlock-modal > div:first-child > div:first-child > div:first-of-type > div:first-child > span:first-child { font-size: 0; background-image: url('/images/CV Image.svg'); background-position: center; background-repeat: no-repeat; background-size: 1.5rem; }
-.unlock-modal .shadow-inner > div:first-child > span { font-size: 0 !important; background: #171b59 url('/images/CV Image.svg') center / 1.35rem no-repeat !important; }
 .unlock-modal .shadow-inner > div:first-child > span { background-image: none !important; position: relative; }
-.unlock-modal .shadow-inner > div:first-child > span::before { content: ""; display: block; width: 1.35rem; height: 1.5rem; background: #fff; mask: url('/images/CV Image.svg') center / contain no-repeat; -webkit-mask: url('/images/CV Image.svg') center / contain no-repeat; }
 .unlock-modal > div:first-child > div:first-child > div:first-of-type > span:last-child,
 .unlock-modal .shadow-xl { font-size: 0 !important; background-color: #5754bd !important; background-image: none !important; }
 .unlock-modal .shadow-inner > span.shadow-xl { display: grid; }
-.unlock-modal .shadow-inner > span.shadow-xl::before { content: ""; display: block; width: 2rem; height: 2rem; background: url('/images/unlock image.svg') center / contain no-repeat; }
 .unlock-modal > div:first-child > div:first-child > div:last-child p { display: flex; align-items: center; gap: .75rem; }
 .unlock-modal > div:first-child > div:first-child > div:last-child p::before { content: ""; width: 1.25rem; height: 1.25rem; flex: 0 0 1.25rem; background-position: center; background-repeat: no-repeat; background-size: contain; }
-.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(1)::before { background-image: url('/images/CV Image.svg'); }
-.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(2)::before { background-image: url('/images/unlock image.svg'); }
-.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(3)::before { background-image: url('/images/people Image.svg'); }
-.unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(4)::before { background-image: url('/images/Decision Pending Image.svg'); }
 .unlock-modal > div:first-child > div:first-child > div:last-child p { font-size: 0; }
 .unlock-modal > div:first-child > div:first-child > div:last-child p::after { font-size: .875rem; line-height: 1.4; }
 .unlock-modal > div:first-child > div:first-child > div:last-child p:nth-child(1)::after { content: "Access your detailed CV analysis"; }
@@ -545,19 +530,13 @@ main > section:first-child > div:first-child > div:last-child { row-gap: .5rem; 
 .unlock-modal .mt-6 > p { font-size: 0 !important; display: flex !important; align-items: center; gap: .75rem; min-height: 1.6rem; }
 .unlock-modal .mt-6 > p > img { display: none !important; }
 .unlock-modal .mt-6 > p::before { content: ""; display: block; width: 1.25rem; height: 1.25rem; flex: 0 0 1.25rem; background-position: center; background-repeat: no-repeat; background-size: contain; }
-.unlock-modal .mt-6 > p:nth-child(1)::before { background-image: url('/images/CV Image.svg'); }
-.unlock-modal .mt-6 > p:nth-child(2)::before { background-image: url('/images/Analytics image.svg'); }
-.unlock-modal .mt-6 > p:nth-child(3)::before { background-image: url('/images/people Image.svg'); }
-.unlock-modal .mt-6 > p:nth-child(4)::before { background-image: url('/images/Decision Pending Image.svg'); }
 .unlock-modal .mt-6 > p:nth-child(1)::after { content: "Access your detailed CV analysis"; }
 .unlock-modal .mt-6 > p:nth-child(2)::after { content: "See skill gap insights"; }
 .unlock-modal .mt-6 > p:nth-child(3)::after { content: "Compare with other candidates"; }
 .unlock-modal .mt-6 > p:nth-child(4)::after { content: "Unlock interview practice questions"; }
 main section.mt-6.rounded-3xl.bg-slate-50 > span { color: transparent; background-image: none; }
-main section.mt-6.rounded-3xl.bg-slate-50 > span::before { content: ""; display: block; width: 1.45rem; height: 1.45rem; background: #fff; mask: url('/images/Lock icon.svg') center / contain no-repeat; -webkit-mask: url('/images/Lock icon.svg') center / contain no-repeat; }
 main section.mt-6.rounded-3xl.bg-slate-50 { position: relative; isolation: isolate; overflow: hidden; background: #f5f7fb; }
 main section.mt-6.rounded-3xl.bg-slate-50::before { content: ""; position: absolute; inset: 1rem; z-index: -1; border-radius: 1.25rem; opacity: .34; filter: blur(8px); background: linear-gradient(90deg, #e8edf5 0 30%, #fff 30% 53%, #dbe1ed 53% 100%); }
-main section.mt-6.rounded-3xl.bg-slate-50 > span { font-size: 0; background: #5754bd url('/images/unlock image.svg') center / 1.35rem 1.35rem no-repeat; }
 main section.mt-6.rounded-3xl.bg-slate-50 > h2 { position: relative; font-size: 1.75rem; }
 main section.mt-6.rounded-3xl.bg-slate-50 > h2::after { content: "Access specific line-by-line CV recommendations, ATS keyword density benchmarks, and interview practice questions."; display: block; max-width: 30rem; margin: .75rem auto 0; color: #4b5563; font-size: .875rem; font-weight: 400; line-height: 1.45; }
 main section.mt-6.rounded-3xl.bg-slate-50 > button { position: relative; font-size: .875rem; padding: .7rem 1.4rem; }
@@ -583,9 +562,7 @@ main > section:first-child > div:nth-child(2) > div:nth-child(3) { position: abs
 main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child,
 main > section:first-child > div:nth-child(2) > div:nth-child(3) > span { display: inline-flex; align-items: center; gap: .4rem; }
 main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child::first-letter { color: transparent; }
-main > section:first-child > div:nth-child(2) > div:nth-child(2) > span:first-child::before { content: ""; width: 1rem; height: 1rem; flex: 0 0 1rem; background: url('/images/Lock icon.svg') center / contain no-repeat; }
 main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::first-letter { color: transparent; }
-main > section:first-child > div:nth-child(2) > div:nth-child(3) > span::before { content: ""; width: .9rem; height: .9rem; flex: 0 0 .9rem; background: url('/images/Tick Icon.svg') center / contain no-repeat; }
 .unlock-modal > button,
 .scoring-modal > button:first-of-type,
 .cv-processing-modal > button:first-of-type { right: 1rem !important; top: 1rem !important; height: 2.25rem !important; width: 2.25rem !important; padding: 0 !important; font-size: 1.25rem !important; line-height: 1 !important; }
@@ -922,7 +899,7 @@ main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
 .unlock-modal .unlock-feature { font-size: .775rem !important; }
 .unlock-modal .unlock-security-footer { margin-top: 1rem !important; padding-top: 1rem !important; }
 .unlock-modal > div.grid > div:last-child {
-  margin-top: 1.5rem !important;
+  margin-top: 3rem !important;
 }
 .unlock-modal h2 {
   font-size: 1.145rem !important;
@@ -944,10 +921,10 @@ main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
 }
 .unlock-modal .unlock-feature > img {
   box-sizing: border-box !important;
-  flex: 0 0 2rem !important;
-  flex-basis: 2rem !important;
-  width: 2rem !important;
-  height: 2rem !important;
+  flex: 0 0 1.875rem !important;
+  flex-basis: 1.875rem !important;
+  width: 1.875rem !important;
+  height: 1.875rem !important;
   padding: .4rem !important;
 }
 .unlock-modal .unlock-security-footer {
@@ -972,8 +949,33 @@ main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
   object-position: center !important;
   vertical-align: middle;
 }
+/* Keep the unlock dialog inside the viewport at every breakpoint. */
+.unlock-modal {
+  width: min(760px, calc(100vw - 2rem)) !important;
+  max-width: calc(100vw - 2rem) !important;
+  box-sizing: border-box !important;
+}
+.unlock-modal > div.grid,
+.unlock-modal > div.grid > div {
+  min-width: 0 !important;
+}
+.unlock-modal > div.grid {
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+}
+.unlock-modal .unlock-feature > img {
+  object-fit: contain !important;
+  object-position: center !important;
+  overflow: visible !important;
+}
+@media (max-width: 767px) {
+  .unlock-modal > div.grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .unlock-modal > div.grid > div:last-child { margin-top: 2.5rem !important; }
+}
 
 /* Report screen. */
 .analysis-report-image { display: inline-block; height: 1rem; width: 1rem; object-fit: contain; vertical-align: middle; }
 .cv-report-role { font-size: 0; }
 .cv-report-role-value { font-size: 1rem; }
+.analysis-download-button { font-size: 0 !important; }
+.analysis-download-button img { display: block; height: 1rem; width: 1rem; object-fit: contain; object-position: center; }
+.analysis-download-button span { font-size: .875rem; }

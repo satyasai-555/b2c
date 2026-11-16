@@ -32,23 +32,25 @@ export const features = [
 
 export function CvStepper({ current = 0 }: { current?: number }) {
   return (
-    <div className="flex gap-3 overflow-x-auto border-b border-slate-100 bg-[#fafaff] px-5 py-4 lg:justify-center lg:gap-6">
+    <div className="flex min-h-[72px] shrink-0 gap-2 overflow-x-auto border-b border-slate-100 bg-[#fafaff] px-4 py-3 lg:min-h-[72px] lg:justify-between lg:gap-1 lg:overflow-hidden">
       {steps.map((step, index) => (
         <div
-          className="flex shrink-0 items-center gap-2 text-sm text-slate-500 md:text-base"
+          className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm md:text-base lg:min-w-0 lg:shrink"
           key={step}
         >
+          <div className={`flex items-center gap-1.5 rounded-full px-2 py-1.5 md:px-2.5 lg:px-2 md:py-2 ${index < current ? "bg-[#eaf2f9] font-semibold text-[#34445c]" : index === current ? "font-semibold text-[#5050bb]" : "text-[#64748b]"}`}>
           <b
-            className={`grid h-8 w-8 place-items-center rounded-full ${index < current ? "bg-emerald-500 text-white" : index === current ? "bg-[#5453bd] text-white" : "bg-[#e5ebf4] text-slate-600"}`}
+            className={`grid h-8 w-8 place-items-center rounded-full text-sm ${index < current ? "bg-[#10b981] text-white" : index === current ? "bg-[#5453bd] text-white" : "bg-[#e5ebf4] text-[#52627a]"}`}
           >
             {index < current ? "✓" : index + 1}
           </b>
-          <span className={index === current ? "font-bold text-[#5050bb]" : ""}>
+          <span>
             {step}
           </span>
+          </div>
           {index < steps.length - 1 && (
             <i
-              className={`mx-1 h-0.5 w-5 md:w-8 ${index < current ? "bg-emerald-400" : "bg-slate-200"}`}
+              className={`mx-0.5 h-0.5 w-3 shrink-0 md:w-5 lg:flex-1 ${index < current ? "bg-[#6258df]" : "bg-[#dce3ed]"}`}
             />
           )}
         </div>
@@ -133,7 +135,7 @@ export function FeatureCards() {
             key={number}
           >
             <b className="text-4xl text-indigo-200">{number}</b>
-            <span className="absolute right-8 top-8 grid h-14 w-14 place-items-center rounded-2xl bg-indigo-50">
+            <span className="absolute right-8 top-8 grid h-14 w-14 place-items-center rounded-2xl bg-transparent">
               <img src={image} alt="" className="h-8 w-8 object-contain" />
             </span>
             <h3 className="mt-12 text-2xl font-bold text-[#1d1d55]">{title}</h3>
@@ -173,7 +175,7 @@ export function ProcessingModal({
           ×
         </button>
         <div className="flex items-center gap-3 border-b border-slate-100 pb-4 pr-10">
-          <img src="/images/Upload Head.svg" alt="" className="h-11 w-11 rounded-xl bg-[#5554bd] p-2 object-contain" />
+          <img src="/images/UploadHead.svg" alt="" className="h-11 w-11 rounded-xl bg-[#5554bd] p-2 object-contain" />
          
           <div>
             <h2 className="text-md font-bold text-[#1d1d55] sm:text-xl">
@@ -268,7 +270,7 @@ export function ScoringModal({
         </button>
         <div className="flex items-center gap-6 pr-15">
           <span className="grid h-12 w-12 place-items-center rounded-full border-8 border-slate-100 border-r-cyan-400 text-xl">
-            <img src="/images/Upload Head.svg" alt="" className="h-5 w-5 object-contain" />
+            <img src="/images/UploadHead.svg" alt="" className="h-5 w-5 object-contain" />
           </span>
           <div>
             <h1 className="text-xl font-bold text-[#131750]">
@@ -282,7 +284,7 @@ export function ScoringModal({
         <div className="mt-7 space-y-3">
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-300 text-white">
-              <img src="/images/Tick Icon.svg" alt="" className="h-5 w-5 object-contain" />
+              <img src="/images/TickIcon.svg" alt="" className="h-5 w-5 object-contain" />
               ✓
             </span>
             <p className="font-700 text-[#131750]">Reading your CV</p>
@@ -290,7 +292,7 @@ export function ScoringModal({
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-300 text-white">
-              <img src={scoringDone ? "/images/Tick Icon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
+            <img src={scoringDone ? "/images/TickIcon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
               
             </span>
             <p className="font-700 text-[#131750]">Matching to Frontend Engineer roles</p>
@@ -298,7 +300,7 @@ export function ScoringModal({
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-slate-100 p-4 text-lg text-[#1d1d55]">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-700 text-white">
-              <img src={scoringDone ? "/images/Tick Icon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
+            <img src={scoringDone ? "/images/TickIcon.svg" : "/images/Reload.svg"} alt="" className={`h-5 w-5 object-contain ${scoringDone ? "" : "animate-spin"}`} />
           
             </span>
             <p className="font-700 text-[#131750]">Calculating your score</p>

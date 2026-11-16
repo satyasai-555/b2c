@@ -22,6 +22,12 @@ export default function AnalysisReport() {
   const { file, answers, analysis } = useCvAnalysis();
   const role = answers.role || "Target role";
   const cvName = file?.name || "CV document";
+  const scoreLabel = analysis.score < 50 ? "Weak" : analysis.score < 70 ? "Medium" : "Strong";
+  const scoreTone = analysis.score < 50
+    ? "bg-rose-50 text-rose-600 ring-1 ring-rose-200"
+    : analysis.score < 70
+      ? "bg-amber-50 text-amber-700 ring-1 ring-amber-200"
+      : "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200";
   return (
     <main className="min-h-screen bg-white text-[#151b59]">
       <Header onAction={() => {}} />
@@ -30,40 +36,49 @@ export default function AnalysisReport() {
         <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
           ● Step 5 of 7: Initial Benchmark &amp; Analysis Ready
         </span>
-        <div className="mt-8 flex flex-wrap items-start justify-between gap-8">
-          <div>
-            <h1 className="text-4xl font-extrabold">{cvName.replace(/\.[^.]+$/, "")}</h1>
+        <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
+          <div className="min-w-0">
+            <h1 className="max-w-full truncate text-4xl font-extrabold" title={cvName.replace(/\.[^.]+$/, "")}>{cvName.replace(/\.[^.]+$/, "")}</h1>
             <span className="cv-report-role mt-2 inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
               <span className="cv-report-role-value">{role}</span>
               Product Manager · B2B SaaS
             </span>
-            <p className="mt-3 text-slate-600">
-              ▧ Phani_Kumar_CV_2025.pdf · Analysed just now
+            <p className="mt-3 flex min-w-0 items-center gap-2 text-slate-600">
+              <img src="/images/CvImage.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
+              <span className="max-w-[min(32rem,70vw)] truncate">
+               Phani_Kumar_CV_2025.pdf · Analysed just now
+              </span>
             </p>
             <div className="mt-5 flex gap-3">
-              <button className="rounded-full border border-indigo-100 px-5 py-2.5 text-sm font-semibold">
+              <button className="analysis-download-button inline-flex items-center gap-2 rounded-full border border-indigo-100 px-5 py-2.5 text-sm font-semibold">
+                <img src="/images/DownLoad.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
+                <span>Download report</span>
                 ⇩ Download report
               </button>
-              <button className="px-3 py-2.5 text-sm font-semibold text-slate-600">
+              {/* <button className="px-3 py-2.5 text-sm font-semibold text-slate-600">
                 ⟳ Re-upload CV
-              </button>
+              </button> */}
             </div>
           </div>
-          <div className="rounded-2xl border border-indigo-100 p-5 shadow-sm">
+          <div className="relative w-full rounded-2xl border border-indigo-100 p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Resume score
             </p>
-            <strong className="mt-2 block text-5xl">
+            <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-2xl bg-cyan-50">
+              <img src="/images/VerifiedBadge.svg" alt="Verified score" className="h-5 w-5 object-contain" />
+            </span>
+            <strong className="mt-2 flex items-center gap-3 text-5xl">
               {analysis.score}{" "}
-              <span className="text-base font-medium text-emerald-600">
-                Strong
+              <span className={`rounded-full px-3 py-1 text-base font-medium ${scoreTone}`}>
+                {scoreLabel}
               </span>
             </strong>
             <p className="text-sm text-slate-500">
               out of 100 · 6 weighted criteria
             </p>
-            <div className="mt-3 rounded-xl bg-cyan-50 px-4 py-2 text-sm text-cyan-700">
-              ✧ Projected with 5 fixes: <b>~93</b>
+            <div className="mt-3 flex items-center gap-2 rounded-xl bg-cyan-50 px-4 py-2 text-sm text-cyan-700">
+              <img src="/images/MultiSparks.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
+              Projected with 5 fixes: <b>~93</b>
             </div>
           </div>
         </div>
