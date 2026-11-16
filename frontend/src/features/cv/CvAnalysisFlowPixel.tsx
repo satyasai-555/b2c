@@ -11,9 +11,9 @@ import {
 import { useCvAnalysis } from "./CvAnalysisContext";
 
 const chips = [
-  ["/images/Raise meter.svg", "Instant CV score"],
+  ["/images/RaiseMeter.svg", "Instant CV score"],
   ["/images/VerifiedBadge.svg", "AI-verified skills"],
-  ["/images/Hand deal.svg", "Matched jobs"],
+  ["/images/HandDeal.svg", "Matched jobs"],
 ] as const;
 
 export default function CvAnalysisFlowPixel() {
