@@ -154,8 +154,13 @@ export default function ReferralPage() {
               <p className="mt-9 text-indigo-100">
                 Keep building confidence with your next AI interview.
               </p>
-              <button className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-[#6155ca] px-5 py-4 text-md font-bold">
-                <ArrowRight />
+
+              <button
+                  type="button"
+                  onClick={() => navigate("/interview/setup")}
+                  className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-[#6155ca] px-5 py-4 text-md font-bold"
+              >
+                <ArrowRight size={22} />
                 Take an AI Interview
               </button>
             </section>
