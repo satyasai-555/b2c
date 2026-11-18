@@ -22,3 +22,9 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Java build output
+**/target/
+
+# IntelliJ module files
+*.iml
