@@ -1,8 +1,8 @@
 "use client";
 
-import {ArrowLeft, Gift} from "lucide-react";
-import {Link} from "react-router";
-import {Logo} from "../../features/landing/LandingComponents/UI";
+import { ArrowLeft, Gift } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+import { Logo } from "../../features/landing/LandingComponents/UI";
 
 type InterviewHeaderProps = {
     candidateName?: string;
@@ -15,16 +15,24 @@ type InterviewHeaderProps = {
 };
 
 export default function InterviewHeader({
-                                            candidateName = "Candidate",
-                                            initials = "C",
-                                            credits = 2,
-                                            backTo,
-                                            onBack,
-                                            onRefer,
-                                            jobsTo,
-                                        }: InterviewHeaderProps) {
-    const backClass =
-        "inline-flex items-center gap-2 whitespace-nowrap text-base font-semibold text-brand transition hover:opacity-75";
+  candidateName = "Candidate",
+  initials = "C",
+  credits = 2,
+  backTo,
+  onBack,
+  onRefer,
+  jobsTo,
+}: InterviewHeaderProps) {
+  const navigate = useNavigate();
+  const handleRefer = () => {
+    if (onRefer) {
+      onRefer();
+      return;
+    }
+    navigate("/refer");
+  };
+  const backClass =
+    "inline-flex items-center gap-2 whitespace-nowrap text-base font-semibold text-brand transition hover:opacity-75";
 
     return (
         <header className="border-b border-[#edf0f7] bg-white">
@@ -99,16 +107,15 @@ export default function InterviewHeader({
               {credits} {credits === 1 ? "credit" : "credits"}
           </span>
 
-                    <button
-                        type="button"
-                        onClick={onRefer}
-                        disabled={!onRefer}
-                        title={onRefer ? "Refer & earn" : "Referrals are coming soon"}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-4 py-2 text-base font-semibold text-brand transition enabled:hover:bg-indigo-100 disabled:cursor-default"
-                    >
-                        <Gift size={22} aria-hidden="true"/>
-                        Refer & earn
-                    </button>
+          <button
+            type="button"
+            onClick={handleRefer}
+            title="Refer & earn"
+            className="inline-flex items-center gap-2 rounded-full bg-[#eef1ff] px-4 py-2 text-base font-semibold text-brand transition hover:bg-indigo-100"
+          >
+            <Gift size={22} aria-hidden="true" />
+            Refer & earn
+          </button>
 
                     <div className="flex items-center gap-3">
             <span className="text-base font-semibold text-[#1e1b55]">
@@ -121,9 +128,9 @@ export default function InterviewHeader({
                         >
               {initials}
             </span>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
+          </div>
+        </div>
+      </div>
+    </header>
+  );
 }
