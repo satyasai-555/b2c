@@ -7,7 +7,7 @@ export default [
     route("interview/ready", 'routes/interview-ready.tsx'),
     route("interview/session", 'routes/interview-session.tsx'),
     route("cv-analysis", "routes/cv-analysis.tsx"),
-    route("cv-analysis/questions", "routes/cv-questions.tsx")
-    ,route("refer", "routes/refer.tsx")
+    route("cv-analysis/questions", "routes/cv-questions.tsx"),
+    route("refer", "routes/refer.tsx")
     ,route("profile", "routes/profile.tsx")
 ] satisfies RouteConfig;

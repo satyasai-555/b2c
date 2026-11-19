@@ -1,75 +1,75 @@
-import { useState } from "react";
+import {useState} from "react";
 import {
-  ArrowRight,
-  Check,
-  Gift,
-  Link2,
-  Mail,
-  QrCode,
-  Zap,
+    ArrowRight,
+    Check,
+    Gift,
+    Link2,
+    Mail,
+    QrCode,
+    Zap,
 } from "lucide-react";
-import { useNavigate } from "react-router";
+import {useNavigate} from "react-router";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
 
 const referral = {
-  link: "welhire.ai/r/priya-7k2q",
-  credits: 3,
-  invited: 3,
-  joined: 1,
-  earned: 1,
-  friends: [
-    {
-      initials: "RM",
-      name: "Rohan Mehta",
-      status: "Joined",
-      credit: "+1 credit",
-    },
-    { initials: "AI", name: "Ananya Iyer", status: "Invited", credit: "—" },
-    { initials: "KS", name: "Karan Shah", status: "Invited", credit: "—" },
-  ],
+    link: "welhire.ai/r/priya-7k2q",
+    credits: 3,
+    invited: 3,
+    joined: 1,
+    earned: 1,
+    friends: [
+        {
+            initials: "RM",
+            name: "Rohan Mehta",
+            status: "Joined",
+            credit: "+1 credit",
+        },
+        {initials: "AI", name: "Ananya Iyer", status: "Invited", credit: "—"},
+        {initials: "KS", name: "Karan Shah", status: "Invited", credit: "—"},
+    ],
 };
 
 const referralStats: { icon: string; value: number | string; label: string }[] =
-  [
-    { icon: "/images/users.svg", value: referral.invited, label: "Invited" },
-    { icon: "/images/user-check.svg", value: referral.joined, label: "Joined" },
-    {
-      icon: "/images/GiftIcon.svg",
-      value: `+${referral.earned}`,
-      label: "Credits earned",
-    },
-  ];
+    [
+        {icon: "/images/users.svg", value: referral.invited, label: "Invited"},
+        {icon: "/images/user-check.svg", value: referral.joined, label: "Joined"},
+        {
+            icon: "/images/GiftIcon.svg",
+            value: `+${referral.earned}`,
+            label: "Credits earned",
+        },
+    ];
 
 export default function ReferralPage() {
-  const navigate = useNavigate();
-  const [copied, setCopied] = useState(false);
-  const handleAction = (action: string) => {
-    if (action === "Refer & earn") return;
-    if (action === "Analyze My CV") navigate("/cv-analysis");
-  };
-  const copyLink = async () => {
-    await navigator.clipboard?.writeText(`https://${referral.link}`);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
-  };
-  return (
-    <div className="min-h-screen bg-white text-[#192457]">
-      <Header onAction={handleAction} />
-      <main className="referral-page mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12">
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Refer &amp; earn
-          </h1>
-          <p className="mt-3 text-lg text-[#7182a7]">
-            Help friends take their next career step. Earn credits for yours.
-          </p>
-        </header>
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1.8fr)_minmax(330px,.8fr)]">
-          <section className="rounded-3xl border border-[#dce4f3] bg-white p-6 shadow-sm sm:p-9">
-            <div className="flex items-center gap-4 text-lg font-semibold text-[#5754bd]">
+    const navigate = useNavigate();
+    const [copied, setCopied] = useState(false);
+    const handleAction = (action: string) => {
+        if (action === "Refer & earn") return;
+        if (action === "Analyze My CV") navigate("/cv-analysis");
+    };
+    const copyLink = async () => {
+        await navigator.clipboard?.writeText(`https://${referral.link}`);
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 1800);
+    };
+    return (
+        <div className="min-h-screen bg-white text-[#192457]">
+            <Header onAction={handleAction}/>
+            <main className="referral-page mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12">
+                <header className="mb-8">
+                    <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+                        Refer &amp; earn
+                    </h1>
+                    <p className="mt-3 text-lg text-[#7182a7]">
+                        Help friends take their next career step. Earn credits for yours.
+                    </p>
+                </header>
+                <div className="grid gap-8 xl:grid-cols-[minmax(0,1.8fr)_minmax(330px,.8fr)]">
+                    <section className="rounded-3xl border border-[#dce4f3] bg-white p-6 shadow-sm sm:p-9">
+                        <div className="flex items-center gap-4 text-lg font-semibold text-[#5754bd]">
               <span className="grid h-13 w-13 place-items-center rounded-2xl bg-indigo-50">
-                <Gift size={25} />
+                <Gift size={25}/>
               </span>
               A little more practice, together
             </div>
@@ -161,85 +161,86 @@ export default function ReferralPage() {
             </section>
             <section className="flex gap-5 rounded-3xl border border-[#dce4f3] p-7">
               <span className="grid h-15 w-15 shrink-0 place-items-center rounded-2xl bg-cyan-50 text-[#5754bd]">
-                <Gift size={27} />
+                <Gift size={27}/>
               </span>
-              <div>
-                <h2 className="text-md font-bold">
-                  More friends. More practice.
-                </h2>
-                <p className="mt-2 leading-7 text-[#7182a7]">
-                  There’s no limit to the interview credits you can earn.
-                </p>
-              </div>
-            </section>
-          </aside>
-        </div>
-        <section className="mt-9 rounded-3xl border border-[#dce4f3] p-7 sm:p-9">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row">
-            <div>
-              <h2 className="text-2xl font-bold">Your referrals</h2>
-              <p className="mt-2 text-[#7182a7]">A little progress, shared.</p>
-            </div>
-            <div className="referral-stats grid grid-cols-3 gap-6">
-              {referralStats.map(({ icon, value, label }) => (
-                <div key={label} className="flex items-center gap-3">
-                  <span className="grid h-13 w-13 place-items-center rounded-2xl bg-indigo-50 text-[#5754bd]">
-                    <img src={icon} alt="" className="h-5 w-5 object-contain" />
-                  </span>
-                  <div>
-                    <b className="text-2xl">{value}</b>
-                    <p className="text-[#7182a7]">{label}</p>
-                  </div>
+                            <div>
+                                <h2 className="text-md font-bold">
+                                    More friends. More practice.
+                                </h2>
+                                <p className="mt-2 leading-7 text-[#7182a7]">
+                                    There’s no limit to the interview credits you can earn.
+                                </p>
+                            </div>
+                        </section>
+                    </aside>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-8 overflow-x-auto">
-            <table className="referral-table w-full min-w-[650px] text-left">
-              <thead className="border-b border-[#e5eaf3] text-sm text-[#465273]">
-                <tr>
-                  <th className="pb-5">Friend</th>
-                  <th className="pb-5">Status</th>
-                  <th className="pb-5 text-right">Credits earned</th>
-                </tr>
-              </thead>
-              <tbody>
-                {referral.friends.map((friend) => (
-                  <tr
-                    key={friend.name}
-                    className="border-b border-[#e5eaf3] last:border-0"
-                  >
-                    <td className="py-5">
-                      <span className="mr-4 inline-grid h-10 w-10 place-items-center rounded-full bg-[#f5f7fb] text-sm font-semibold">
+                <section className="mt-9 rounded-3xl border border-[#dce4f3] p-7 sm:p-9">
+                    <div className="flex flex-col justify-between gap-6 lg:flex-row">
+                        <div>
+                            <h2 className="text-2xl font-bold">Your referrals</h2>
+                            <p className="mt-2 text-[#7182a7]">A little progress, shared.</p>
+                        </div>
+                        <div className="referral-stats grid grid-cols-3 gap-6">
+                            {referralStats.map(({icon, value, label}) => (
+                                <div key={label} className="flex items-center gap-3">
+                  <span className="grid h-13 w-13 place-items-center rounded-2xl bg-indigo-50 text-[#5754bd]">
+                    <img src={icon} alt="" className="h-5 w-5 object-contain"/>
+                  </span>
+                                    <div>
+                                        <b className="text-2xl">{value}</b>
+                                        <p className="text-[#7182a7]">{label}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="mt-8 overflow-x-auto">
+                        <table className="referral-table w-full min-w-[650px] text-left">
+                            <thead className="border-b border-[#e5eaf3] text-sm text-[#465273]">
+                            <tr>
+                                <th className="pb-5">Friend</th>
+                                <th className="pb-5">Status</th>
+                                <th className="pb-5 text-right">Credits earned</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {referral.friends.map((friend) => (
+                                <tr
+                                    key={friend.name}
+                                    className="border-b border-[#e5eaf3] last:border-0"
+                                >
+                                    <td className="py-5">
+                      <span
+                          className="mr-4 inline-grid h-10 w-10 place-items-center rounded-full bg-[#f5f7fb] text-sm font-semibold">
                         {friend.initials}
                       </span>
-                      <b>{friend.name}</b>
-                    </td>
-                    <td>
+                                        <b>{friend.name}</b>
+                                    </td>
+                                    <td>
                       <span
-                        className={
-                          friend.status === "Joined"
-                            ? "rounded-full bg-emerald-50 px-3 py-2 text-emerald-700"
-                            : "rounded-full bg-slate-50 px-3 py-2 text-[#7182a7]"
-                        }
+                          className={
+                              friend.status === "Joined"
+                                  ? "rounded-full bg-emerald-50 px-3 py-2 text-emerald-700"
+                                  : "rounded-full bg-slate-50 px-3 py-2 text-[#7182a7]"
+                          }
                       >
                         {friend.status === "Joined" && (
-                          <Check className="mr-1 inline" size={16} />
+                            <Check className="mr-1 inline" size={16}/>
                         )}
-                        {friend.status}
+                          {friend.status}
                       </span>
-                    </td>
-                    <td className="text-right font-semibold text-[#5754bd]">
-                      {friend.credit}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-      <Footer onAction={handleAction} />
-    </div>
-  );
+                                    </td>
+                                    <td className="text-right font-semibold text-[#5754bd]">
+                                        {friend.credit}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+            <Footer onAction={handleAction}/>
+        </div>
+    );
 }
