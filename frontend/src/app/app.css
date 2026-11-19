@@ -589,8 +589,8 @@ main > section:first-of-type > div[class*="max-w-[1280px]"] button { padding-top
 .cv-question-step { font-size: 0 !important; }
 .cv-question-step::after { content: "•  Step 2 of 7: Goal & Preferences"; font-size: .68rem; }
 .cv-questions-layout {
-  width: min(100% - 2rem, 748px) !important;
-  max-width: 748px !important;
+  width: min(100% - 2rem, 908px) !important;
+  max-width: 908px !important;
   margin: 1.25rem auto 0 !important;
   padding: 0 0 1.0rem !important;
 }
@@ -624,7 +624,7 @@ main > section:first-of-type > div[class*="max-w-[1280px]"] button { padding-top
 /* Final Figma sizing lock for the Step 2 page. */
 .cv-upload-success,
 .cv-calibration-card { box-sizing: border-box; width: 100% !important; }
-.cv-upload-success { max-width: 748px !important; min-height: 3.25rem; padding: .8rem 1rem !important; margin-left: auto !important; margin-right: auto !important; }
+.cv-upload-success { max-width: 1230px !important; min-height: 3.25rem; padding: .8rem 1rem !important; margin-left: auto !important; margin-right: auto !important; }
 .cv-calibration-card { padding: 1.5rem !important; }
 .cv-calibration-card { min-height: 0 !important; }
 
@@ -979,3 +979,56 @@ main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
 .analysis-download-button { font-size: 0 !important; }
 .analysis-download-button img { display: block; height: 1rem; width: 1rem; object-fit: contain; object-position: center; }
 .analysis-download-button span { font-size: .875rem; }
+
+/* ==========================================================================\n+   REFERRAL PAGE — Refer & earn screen only\n+  ========================================================================== */
+.ref-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  border: 1px solid #d8e1f0;
+  border-radius: .75rem;
+  background: #fff;
+  padding: .7rem .95rem;
+  color: #192457;
+  font-size: .9rem;
+  font-weight: 600;
+  transition: border-color .2s, color .2s;
+}
+.ref-share:hover { border-color: #5754bd; color: #5754bd; }
+.referral-page { padding-top: 1.2rem !important; padding-bottom: 1.2rem !important; }
+.referral-page > header { margin-bottom: 1.2rem !important; }
+.referral-page h1 { font-size: 1.975rem !important; }
+.referral-page h2 { font-size: 1.275rem !important; }
+.referral-page h3 { font-size: 1.0625rem !important; }
+.referral-page p, .referral-page label { font-size: .85rem !important; }
+.referral-page section { padding: .68rem !important; }
+.referral-page .grid { gap: .95rem; }
+.referral-page .mt-10 { margin-top: 1.75rem !important; }
+.referral-page .mt-9 { margin-top: 1.5rem !important; }
+.referral-page .mt-8 { margin-top: 1.25rem !important; }
+.referral-page .mt-7 { margin-top: 1.25rem !important; }
+.referral-page .mt-6 { margin-top: 1rem !important; }
+.referral-page .mt-5 { margin-top: .9rem !important; }
+.referral-page .mt-4 { margin-top: .75rem !important; }
+.referral-page .gap-8 { gap: .95rem !important; }
+.referral-page .gap-6 { gap: .7rem !important; }
+.referral-page .gap-5 { gap: .65rem !important; }
+.referral-page .min-h-16 { min-height: 3rem !important; }
+.referral-page .p-7, .referral-page .p-9 { padding: 1rem !important; }
+.referral-page .py-5 { padding-top: .75rem !important; padding-bottom: .75rem !important; }
+.referral-page .referral-table { table-layout: fixed; font-size: .875rem; }
+.referral-page .referral-table th,
+.referral-page .referral-table td { padding-top: .65rem !important; padding-bottom: .65rem !important; }
+.referral-page .referral-table th:nth-child(1),
+.referral-page .referral-table td:nth-child(1) { width: 55%; }
+.referral-page .referral-table th:nth-child(2),
+.referral-page .referral-table td:nth-child(2) { width: 22%; padding-left: .35rem !important; text-align: left; }
+.referral-page .referral-table th:nth-child(3),
+.referral-page .referral-table td:nth-child(3) { width: 23%; text-align: right; }
+.referral-page .referral-stats { gap: 1.25rem !important; }
+.referral-page .referral-stats > div { gap: .6rem; }
+.referral-page .referral-stats span { width: 2.9rem; height: 2.9rem; }
+.referral-page .referral-stats img { width: 1.2rem; height: 1.2rem; }
+.referral-page .referral-stats b { font-size: 1.6875rem !important; }
+.referral-page .referral-stats p { font-size: .875rem !important; }

@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
 import {
-  CvStepper,
   FeatureCards,
   ProcessingModal,
   UploadZone,
 } from "./CvComponents";
 import { useCvAnalysis } from "./CvAnalysisContext";
+
 
 const chips = [
   ["/images/RaiseMeter.svg", "Instant CV score"],
@@ -32,16 +32,13 @@ export default function CvAnalysisFlowPixel() {
     }
     setModal(true);
   };
+
   return (
     <div className="min-h-screen bg-white text-[#1d1d55]">
       <Header onAction={() => {}} />
-      <CvStepper />
       <main>
 <section className="mx-auto grid max-w-470 items-start gap-8 px-5 py-7 md:px-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-12 lg:px-12 lg:py-8">
           <div>
-            <span className="mb-7 block w-max rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-              ● Step 1 of 7: Initial Profile Intake
-            </span>
             <span className="mb-7 flex w-max items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
               FREE · NO SIGN-UP TO START
             </span>

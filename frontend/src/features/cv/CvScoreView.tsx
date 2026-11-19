@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
-import { CvStepper } from "./CvComponents";
 import UnlockModal from "../auth/signup/UnlockModal";
 import AnalysisReport from "../report/AnalysisReport";
 import { useCvAnalysis } from "./CvAnalysisContext";
@@ -14,11 +13,8 @@ export default function CvScoreView() {
   return (
     <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
       <Header onAction={() => {}} />
-      <CvStepper current={2} />
       <section className="mx-auto max-w-[1320px] px-4 py-8 sm:px-6 lg:px-8">
-        <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-          ● Step 3 of 7: Initial Benchmark &amp; Analysis Ready
-        </span>
+
         <div className="cv-score-cards mt-8 grid gap-5 lg:grid-cols-2">
           <article className="cv-score-panel rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
             <p className="text-sm font-bold tracking-[0.16em] text-[#5050bb]">

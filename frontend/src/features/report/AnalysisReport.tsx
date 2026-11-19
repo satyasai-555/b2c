@@ -1,27 +1,21 @@
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
-import { CvStepper } from "../cv/CvComponents";
-import {
-  CriteriaEvidence,
-  SummaryMetrics,
-  WorkingAndFixes,
-} from "./ReportDetails";
+import { SummaryMetrics, WorkingAndFixes } from "./ReportDetails";
 import { Link } from "react-router";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
-
-const blocks = [
-  ["21.3", "25%", "bg-[#161b58]"],
-  ["16.0", "20%", "bg-[#303574]"],
-  ["18.0", "20%", "bg-[#08778b]"],
-  ["13.8", "15%", "bg-cyan-500"],
-  ["9.5", "10%", "bg-indigo-900"],
-  ["9.5", "10%", "bg-indigo-500"],
-];
 
 export default function AnalysisReport() {
   const { file, answers, analysis } = useCvAnalysis();
   const role = answers.role || "Target role";
   const cvName = file?.name || "CV document";
+  const candidateName = cvName
+    .replace(/\.[^.]+$/, "")
+    .replace(/^\d+[-_]?/, "")
+    .split(/[-_]+/)
+    .filter((part) => part && !/^(cv|resume)$/i.test(part) && !/^\d+$/.test(part))
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(" ") || "Candidate";
   const scoreLabel = analysis.score < 50 ? "Weak" : analysis.score < 70 ? "Medium" : "Strong";
   const scoreTone = analysis.score < 50
     ? "bg-rose-50 text-rose-600 ring-1 ring-rose-200"
@@ -31,15 +25,12 @@ export default function AnalysisReport() {
   return (
     <main className="min-h-screen bg-white text-[#151b59]">
       <Header onAction={() => {}} />
-      <CvStepper current={4} />
       <section className="mx-auto max-w-360 px-5 py-8 md:px-10">
-        <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-          ● Step 5 of 7: Initial Benchmark &amp; Analysis Ready
-        </span>
+
         <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
           <div className="min-w-0">
-            <h1 className="max-w-full truncate text-4xl font-extrabold" title={cvName.replace(/\.[^.]+$/, "")}>{cvName.replace(/\.[^.]+$/, "")}</h1>
-            <span className="cv-report-role mt-2 inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
+            <h1 className="max-w-full truncate text-4xl font-extrabold" title={candidateName}>{candidateName}</h1>
+            <span className="cv-report-role inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
               <span className="cv-report-role-value">{role}</span>
               Product Manager · B2B SaaS
             </span>
@@ -80,9 +71,16 @@ export default function AnalysisReport() {
               <img src="/images/MultiSparks.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
               Projected with 5 fixes: <b>~93</b>
             </div>
+            <Link
+              to="/interview/setup"
+              className="mt-4 block rounded-full bg-[#5754bd] px-5 py-3 text-center text-sm font-bold text-white shadow-sm"
+            >
+              Proceed to Mock Interview
+            </Link>
           </div>
         </div>
-        <section className="mt-8 rounded-3xl border border-indigo-100 p-8 shadow-sm">
+        {/* Temporarily hidden while the analysis layout is being finalized. */}
+        {/* <section className="mt-8 rounded-3xl border border-indigo-100 p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-bold">
               Where the {analysis.score} points come from
@@ -114,8 +112,8 @@ export default function AnalysisReport() {
             <span>▪ Education &amp; credentials · 10%</span>
             <span>▪ Readability &amp; structure · 10%</span>
           </div>
-        </section>
-        <section className="mt-7 rounded-3xl bg-linear-to-r from-[#21186e] to-[#172b60] p-8 text-white shadow-lg">
+        </section> */}
+        {/* <section className="mt-7 rounded-3xl bg-linear-to-r from-[#21186e] to-[#172b60] p-8 text-white shadow-lg">
           <span className="rounded-full bg-indigo-400/30 px-4 py-2 text-sm font-semibold text-cyan-300">
             ⚡ AI-POWERED RESUME ENHANCER
           </span>
@@ -145,15 +143,9 @@ export default function AnalysisReport() {
               <button className="rounded-full bg-cyan-300 px-8 py-4 font-bold text-cyan-950">
                 Enrich my profile with AI →
               </button>
-              <Link
-                to="/interview/setup"
-                className="rounded-full bg-white/10 px-8 py-3"
-              >
-                Proceed to Mock Interview (Step 6) →
-              </Link>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="mt-8">
           <h2 className="text-2xl font-bold">Summary</h2>
           <p className="mt-1 text-slate-500">
@@ -176,7 +168,8 @@ export default function AnalysisReport() {
           <SummaryMetrics />
         </section>
         <WorkingAndFixes />
-        <CriteriaEvidence />
+        {/* Temporarily hidden while the analysis layout is being finalized. */}
+        {/* <CriteriaEvidence /> */}
       </section>
       <Footer onAction={() => {}} />
     </main>

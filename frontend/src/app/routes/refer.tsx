@@ -1,6 +1,5 @@
 import type { Route } from "./+types/refer";
 import ReferralPage from "../../features/referral/ReferralPage";
-import "../../features/referral/referral.css";
 
 export function meta({}: Route.MetaArgs) {
   return [
