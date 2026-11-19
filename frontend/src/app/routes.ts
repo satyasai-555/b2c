@@ -9,4 +9,5 @@ export default [
     route("cv-analysis", "routes/cv-analysis.tsx"),
     route("cv-analysis/questions", "routes/cv-questions.tsx")
     ,route("refer", "routes/refer.tsx")
+    ,route("profile", "routes/profile.tsx")
 ] satisfies RouteConfig;

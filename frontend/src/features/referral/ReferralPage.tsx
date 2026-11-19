@@ -90,7 +90,7 @@ export default function ReferralPage() {
               </div>
               <button
                 onClick={copyLink}
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#5754bd] px-7 text-lg font-semibold text-white"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#5754bd] px-7 text-lg font-semibold text-white"
               >
                 <img
                   src="/images/copy.svg"
@@ -144,8 +144,8 @@ export default function ReferralPage() {
               <div className="flex items-center justify-between text-lg font-semibold text-indigo-100">
                 INTERVIEW CREDITS <Zap className="text-cyan-300" />
               </div>
-              <div className="mt-8 flex items-end gap-3">
-                <strong className="text-6xl leading-none text-cyan-300">
+              <div className="mt-7 flex items-end gap-3">
+                <strong className="text-5xl leading-none text-cyan-300">
                   {referral.credits}
                 </strong>
                 <span className="mb-1 text-xl">credits left</span>

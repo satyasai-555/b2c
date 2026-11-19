@@ -48,7 +48,7 @@ export default function UnlockModal({
   onUnlocked,
 }: {
   onClose: () => void;
-  onUnlocked: () => void;
+  onUnlocked: (email: string) => void;
 }) {
   const [step, setStep] = useState<"email" | "otp">("email");
   const [email, setEmail] = useState("");
@@ -82,7 +82,8 @@ export default function UnlockModal({
                 "We'll email you a 6-digit code. No password needed."
               ) : (
                 <>
-                  We sent a 6-digit verification code to <b>{email}</b>.
+                  We sent a 6-digit verification code to{" "}
+                  <b className="inline-block max-w-[220px] truncate align-bottom" title={email}>{email}</b>.
                 </>
               )}
             </p>
@@ -139,7 +140,8 @@ export default function UnlockModal({
                   ENTER 6-DIGIT CODE
                 </label>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  We sent a 6-digit verification code to <b>{email}</b>.{" "}
+                  We sent a 6-digit verification code to{" "}
+                  <b className="inline-block max-w-[220px] truncate align-bottom" title={email}>{email}</b>.{" "}
                   <button
                     type="button"
                     onClick={() => setStep("email")}
@@ -154,7 +156,7 @@ export default function UnlockModal({
                 <button
                   type="button"
                   disabled={otp.length !== 6}
-                  onClick={onUnlocked}
+                  onClick={() => onUnlocked(email)}
                   className="mt-5 w-full rounded-xl bg-[#5754bd] px-4 py-3.5 font-bold text-white disabled:bg-[#aaaade]"
                 >
                   Verify &amp; unlock report{" "}

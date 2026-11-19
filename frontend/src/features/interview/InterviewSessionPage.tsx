@@ -214,11 +214,11 @@ function Session({ input }: { input: SessionInput }) {
   onCancel={() => setConfirmEnd(false)}
   aria-labelledby="end-title"
   aria-describedby="end-description"
-  className="fixed inset-0 m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-180 overflow-y-auto rounded-3xl border border-[#dce3ef] bg-white p-6 text-[#202b78] shadow-2xl backdrop:bg-slate-950/40 sm:p-10"
+  className="fixed inset-0 m-auto max-h-[85dvh] w-[calc(100%-2rem)] max-w-[600px] overflow-y-auto rounded-2xl border border-[#dce3ef] bg-white p-5 font-['Roboto',sans-serif] text-[#202b78] shadow-2xl backdrop:bg-slate-950/40 sm:p-6"
 >
   <div className="flex items-start justify-between">
-    <span className="grid size-18 place-items-center rounded-[20px] border border-[#c9e2ff] bg-[#eaf5ff] text-[#4169ff]">
-      <LogOut size={34} strokeWidth={1.7} aria-hidden="true" />
+    <span className="grid size-14 place-items-center rounded-2xl border border-[#c9e2ff] bg-[#eaf5ff] text-[#4169ff]">
+      <LogOut size={28} strokeWidth={1.7} aria-hidden="true" />
     </span>
 
     <button
@@ -227,42 +227,42 @@ function Session({ input }: { input: SessionInput }) {
       aria-label="Close end interview confirmation"
       className="rounded-lg p-2 text-[#4569b4] transition hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
     >
-      <X size={24} aria-hidden="true" />
+      <X size={20} aria-hidden="true" />
     </button>
   </div>
 
   <h2
     id="end-title"
-    className="mt-7 text-3xl font-bold tracking-tight sm:text-4xl"
+    className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl"
   >
     End interview?
   </h2>
 
   <p
     id="end-description"
-    className="mt-3 text-base leading-7 text-[#4569b4] sm:text-xl"
+    className="mt-2 text-sm leading-6 text-[#4569b4] sm:text-base"
   >
     Ending now will stop this interview session.
   </p>
 
   <section
     aria-label="Current interview"
-    className="mt-8 rounded-xl border border-[#c9ddff] bg-[#f5faff] p-5"
+    className="mt-5 rounded-xl border border-[#c9ddff] bg-[#f5faff] p-4"
   >
-    <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h3 className="text-lg font-bold sm:text-xl">
+        <h3 className="text-base font-bold sm:text-lg">
           {setup.role}
         </h3>
 
-        <p className="mt-1 text-sm text-[#4569b4] sm:text-base">
+        <p className="mt-1 text-xs text-[#4569b4] sm:text-sm">
           Question {index + 1} of {questions.length}
         </p>
       </div>
 
       <span className="inline-flex items-center gap-2 font-semibold">
         <Clock3
-          size={20}
+          size={18}
           className="text-[#4569b4]"
           aria-hidden="true"
         />
@@ -270,20 +270,20 @@ function Session({ input }: { input: SessionInput }) {
       </span>
     </div>
 
-    <div className="my-5 border-t border-[#c9ddff]" />
+    <div className="my-4 border-t border-[#c9ddff]" />
 
-    <p className="text-sm leading-7 text-[#4569b4] sm:text-lg">
+    <p className="text-xs leading-6 text-[#4569b4] sm:text-sm">
       Your saved responses and current answer will be available for
       review. Unanswered questions will be omitted.
     </p>
   </section>
 
-  <div className="mt-8 grid gap-4 sm:grid-cols-[1.35fr_1fr]">
+  <div className="mt-6 grid gap-3 sm:grid-cols-[1.35fr_1fr]">
     <button
       type="button"
       autoFocus
       onClick={() => setConfirmEnd(false)}
-      className="min-h-15.5 rounded-2xl bg-brand px-5 py-4 text-base font-bold text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:text-lg"
+      className="min-h-12 rounded-xl bg-brand px-4 py-3 text-sm font-bold text-white transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:text-base"
     >
       Continue interview
     </button>
@@ -291,9 +291,9 @@ function Session({ input }: { input: SessionInput }) {
     <button
       type="button"
       onClick={() => saveAnswer(true)}
-      className="inline-flex min-h-15.5 items-center justify-center gap-3 rounded-2xl border border-[#4169ff] bg-white px-5 py-4 text-base font-bold transition hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:text-lg"
+      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#4169ff] bg-white px-4 py-3 text-sm font-bold transition hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:text-base"
     >
-      <LogOut size={23} strokeWidth={1.8} aria-hidden="true" />
+      <LogOut size={19} strokeWidth={1.8} aria-hidden="true" />
       End interview
     </button>
   </div>
