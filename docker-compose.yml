@@ -1,0 +1,35 @@
+services:
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: start-dev --http-port=8080 --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: change-me-local-only
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./infra/keycloak:/opt/keycloak/data/import:ro
+    depends_on:
+      - mailhog
+
+  api:
+    build: ./node-services
+    environment:
+      PORT: 9002
+      FRONTEND_ORIGIN: http://localhost:5173
+      KEYCLOAK_ISSUER_URL: http://localhost:8080/realms/welhire
+      KEYCLOAK_JWKS_URL: http://keycloak:8080/realms/welhire/protocol/openid-connect/certs
+      KEYCLOAK_AUDIENCE: welhire-api
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_FROM: no-reply@welhire.local
+    ports:
+      - "9003:9002"
+    depends_on:
+      - keycloak

@@ -6,7 +6,7 @@ export type InterviewSetup = {
 };
 export type SessionInput = {
   setup: InterviewSetup;
-  answerMode: "text" | "voice";
+  answerMode: "voice";
   deviceId: string;
 };
 export function isSessionInput(value: unknown): value is SessionInput {
@@ -20,7 +20,7 @@ export function isSessionInput(value: unknown): value is SessionInput {
     s.skills.every(x => typeof x === "string" && !!x.trim()) &&
     typeof s.jobDescription === "string" &&
     (s.mode !== "jd" || !!s.jobDescription.trim()) &&
-    (v.answerMode === "text" || v.answerMode === "voice") &&
+    v.answerMode === "voice" &&
     typeof v.deviceId === "string";
 }
 export type WorkerRequest = { id: number; audio: Float32Array };
