@@ -4,23 +4,19 @@ import Footer from "../landing/LandingComponents/Footer";
 import { ScoringModal } from "./CvComponents";
 import CvScoreView from "./CvScoreView";
 import { useCvAnalysis } from "./CvAnalysisContext";
+import { experienceOptions as mockExperienceOptions, roleOptions } from "../../mocks/candidateFlowMockData";
 
-const roles = [
-  "Frontend Engineer",
-  "React Developer",
-  "UI Engineer",
-  "Full-stack Developer",
-];
-const experienceOptions = [
+const experienceOptions = mockExperienceOptions;
+/* const experienceOptions = [
   "0–1 yrs",
   "1–3 yrs",
   "3–5 yrs",
   "5–8 yrs",
   "8+ yrs",
-];
+]; */
 
 export default function CvQuestions() {
-  const { file, answers, setAnswers } = useCvAnalysis();
+  const { file, answers, parsedDetails, setAnswers } = useCvAnalysis();
   const [role, setRole] = useState(answers.role);
   const [experience, setExperience] = useState(answers.experience);
   const [location, setLocation] = useState(answers.location);
@@ -45,7 +41,7 @@ export default function CvQuestions() {
           <strong className="rounded-full bg-emerald-100 px-3 py-1.5 text-xs text-emerald-700">
             READ SUCCESSFULLY
           </strong>
-          <span className="text-slate-500">• 48 skills detected</span>
+          <span className="text-slate-500">• {parsedDetails?.skills.length ?? 0} skills detected</span>
           {/* <button className="ml-auto rounded-lg border border-purple-100 bg-white px-3 py-2 text-sm font-bold text-[#5050bb]">
             ↻ Change / Re-upload
           </button> */}
@@ -73,7 +69,7 @@ export default function CvQuestions() {
               Suggested from your CV:
             </p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {roles.map((item) => (
+              {roleOptions.map((item) => (
                 <button
                   key={item}
                   className={`rounded-full px-4 py-2 text-sm font-semibold ${role === item ? "bg-[#5754bd] text-white" : "bg-indigo-50 text-[#5050bb]"}`}
@@ -91,7 +87,7 @@ export default function CvQuestions() {
                 2 · How much experience do you have?
               </label>
               <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
-                ✧ Auto-detected: 3.5 yrs
+                ✧ Auto-detected: {parsedDetails?.yearsExperience ?? 0} yrs
               </span>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-5">

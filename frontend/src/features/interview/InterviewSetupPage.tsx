@@ -14,6 +14,8 @@ import {
 
 import Footer from "../landing/LandingComponents/Footer";
 import InterviewHeader from "../../components/layout/InterviewHeader";
+import { useCandidateSession } from "../../hooks/useCandidateSession";
+import { defaultInterviewCredits } from "../../mocks/candidateFlowMockData";
 
 type InterviewMode = "role" | "jd";
 
@@ -37,14 +39,13 @@ const SUGGESTED_SKILLS = [
   "Stakeholder management",
 ];
 
-const MOCK_CREDITS = 2;
-
 const inputClass =
   "w-full rounded-xl border border-[#dce3ef] bg-white px-4 py-3.5 " +
   "text-sm text-[#202052] outline-none transition " +
   "focus:border-brand focus:ring-4 focus:ring-brand/10";
 
 export default function InterviewSetupPage() {
+  const { user } = useCandidateSession();
   const [mode, setMode] = useState<InterviewMode>("role");
   const [roleSkills, setRoleSkills] = useState(INITIAL_SKILLS);
   const [jdSkills, setJdSkills] = useState<string[]>([]);
@@ -61,7 +62,7 @@ export default function InterviewSetupPage() {
 
   const canContinue =
     skills.length > 0 &&
-    MOCK_CREDITS > 0 &&
+    defaultInterviewCredits > 0 &&
     (mode === "role" || jobDescription.trim().length > 0);
 
   function changeMode(nextMode: InterviewMode) {
@@ -127,17 +128,14 @@ export default function InterviewSetupPage() {
   });
 }
 
-  // Replace with authenticated user data when login is integrated.
-    const user = {
-    displayName: "Candidate",
-    initials: "C",
-    };
+    const displayName = user?.name || "Guest";
+    const initials = user?.initials || displayName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
   return (
     <div className="min-h-screen bg-white text-[#202052]">
       <InterviewHeader
-  candidateName={user.displayName}
-  initials={user.initials}
-  credits={2}
+  candidateName={displayName}
+  initials={initials}
+  credits={defaultInterviewCredits}
   backTo="/"
   onRefer={() => navigate("/refer")}
 />
@@ -453,7 +451,7 @@ export default function InterviewSetupPage() {
                 },
                 {
                   label: "Answer by",
-                  value: "Voice or text",
+                  value: "Voice",
                 },
                 {
                   label: "Length",
@@ -477,7 +475,7 @@ export default function InterviewSetupPage() {
 
             <div className="my-6 rounded-xl bg-indigo-50 p-4">
               <p className="text-sm text-cyan-950">
-                Uses 1 credit · {MOCK_CREDITS - 1} left after
+                Uses 1 credit · {defaultInterviewCredits - 1} left after
               </p>
             </div>
 

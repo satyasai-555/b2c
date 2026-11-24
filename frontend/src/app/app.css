@@ -1032,3 +1032,14 @@ main section.mt-6.rounded-3xl.bg-slate-50 > span.cv-unlock-icon::after {
 .referral-page .referral-stats img { width: 1.2rem; height: 1.2rem; }
 .referral-page .referral-stats b { font-size: 1.6875rem !important; }
 .referral-page .referral-stats p { font-size: .875rem !important; }
+
+/* Main header: at tablet widths the compact menu owns the actions. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  header > .wrap > div:nth-of-type(2) { display: none !important; }
+}
+/* Keep responsive header actions exclusively inside the mobile menu. */
+@media (max-width: 1023px) {
+  header .wrap > div.hidden.items-center.gap-3.md\:flex {
+    display: none !important;
+  }
+}

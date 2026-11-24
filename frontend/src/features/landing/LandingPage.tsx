@@ -10,9 +10,12 @@ import Preparation from "./LandingComponents/Preparation";
 import Progress from "./LandingComponents/Progress";
 import FAQ from "./LandingComponents/FAQ";
 import Footer from "./LandingComponents/Footer";
+import AuthenticatedLandingPage from "./AuthenticatedLandingPage";
+import { useCandidateSession } from "../../hooks/useCandidateSession";
 
 export default function LandingPage() {
   const [action, setAction] = useState<string | null>(null);
+  const { isAuthenticated } = useCandidateSession();
   const navigate = useNavigate();
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -41,6 +44,8 @@ export default function LandingPage() {
     }
     setAction(nextAction);
   };
+
+  if (isAuthenticated) return <AuthenticatedLandingPage />;
 
   return <>
     <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:p-4">Skip to content</a>

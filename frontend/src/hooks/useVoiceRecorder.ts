@@ -61,20 +61,20 @@ export function useVoiceRecorder(deviceId: string) {
         stopTracks();
         const result = new Blob(chunks, { type: instance.mimeType || chunks[0]?.type || "audio/webm" });
         setBlob(result.size ? result : null);
-        if (!result.size) setError("No audio was captured. Record again or type your answer.");
+        if (!result.size) setError("No audio was captured. Record again.");
         setStatus("idle");
         recorder.current = null;
       };
       instance.onerror = () => {
         if (currentGeneration !== generation.current) return;
-        setError("Recording was interrupted. Review any captured audio or type your answer.");
+        setError("Recording was interrupted. Please record again.");
         stop();
         if (instance.state === "inactive") { stopTracks(); setStatus("idle"); }
       };
       media.getAudioTracks().forEach(track => {
         track.onended = () => {
           if (currentGeneration !== generation.current) return;
-          setError("Microphone disconnected. Review the captured audio or type your answer.");
+        setError("Microphone disconnected. Reconnect it and record again.");
           stop();
         };
       });
@@ -89,7 +89,7 @@ export function useVoiceRecorder(deviceId: string) {
       if (currentGeneration !== generation.current) return;
       dispose(); setStatus("idle");
       setError(cause instanceof Error && cause.name === "NotAllowedError"
-        ? "Microphone permission was denied. Allow access or type your answer."
+        ? "Microphone permission was denied. Allow microphone access."
         : cause instanceof Error ? cause.message : "Recording could not start.");
     }
   }

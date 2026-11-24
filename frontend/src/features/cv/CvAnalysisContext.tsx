@@ -1,62 +1,41 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { CandidateFlowState, CvAnswers, UploadedCv } from "./candidateFlow.types";
+import { readCandidateFlow, saveCandidateAnswers, saveUnlocked, saveUploadedCv } from "../../services/mockCandidateFlowRepository";
 
-export type UploadedCv = {
-  name: string;
-  size: string;
-  pages: string;
-  type: string;
-};
+export type { CandidateFlowState, CvAnswers, CvAnalysis, ParsedCvDetails, UploadedCv } from "./candidateFlow.types";
 
-export type CvAnswers = {
-  role: string;
-  experience: string;
-  location: string;
-};
-
-export type CvAnalysis = {
-  score: number;
-  maxScore: number;
-  projectedScore: number;
-  scoreLabel: string;
-  cards: { value: string; title: string }[];
-};
-
-type CvAnalysisSession = {
-  file: UploadedCv | null;
-  answers: CvAnswers;
-  analysis: CvAnalysis;
-  unlocked: boolean;
+type CvAnalysisSession = CandidateFlowState & {
   setFile: (file: UploadedCv) => void;
   setAnswers: (answers: CvAnswers) => void;
   setUnlocked: (unlocked: boolean) => void;
 };
 
-const defaultAnswers: CvAnswers = {
-  role: "Frontend Engineer",
-  experience: "3–5 yrs",
-  location: "Pune, India",
-};
-
-const defaultAnalysis: CvAnalysis = {
-  score: 64,
-  maxScore: 100,
-  projectedScore: 79,
-  scoreLabel: "A solid start — a few fixes could add 15+ points.",
-  cards: [
-    { value: "4", title: "Things missing from your CV" },
-    { value: "8", title: "Skills checked against the role" },
-    { value: "%", title: "How you compare with other candidates" },
-    { value: "AI", title: "Interview to verify your skills" },
-  ],
-};
-
 const CvAnalysisContext = createContext<CvAnalysisSession | null>(null);
 
 export function CvAnalysisProvider({ children }: { children: ReactNode }) {
-  const [file, setFile] = useState<UploadedCv | null>(null);
-  const [answers, setAnswers] = useState(defaultAnswers);
-  const [unlocked, setUnlocked] = useState(false);
-  const value = useMemo(() => ({ file, answers, analysis: defaultAnalysis, unlocked, setFile, setAnswers, setUnlocked }), [file, answers, unlocked]);
+  const [state, setState] = useState<CandidateFlowState>(() => readCandidateFlow());
+  useEffect(() => {
+    const sync = () => setState(readCandidateFlow());
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
+  }, []);
+
+  const value = useMemo<CvAnalysisSession>(() => ({
+    ...state,
+    setFile: (file) => {
+      const parsedDetails = saveUploadedCv(file);
+      setState((previous) => ({ ...previous, file, parsedDetails, profile: { ...previous.profile, name: parsedDetails.candidateName, experience: "3–5 yrs" } }));
+    },
+    setAnswers: (answers) => {
+      saveCandidateAnswers(answers);
+      setState((previous) => ({ ...previous, answers, profile: { ...previous.profile, ...answers } }));
+    },
+    setUnlocked: (unlocked) => {
+      saveUnlocked(unlocked);
+      setState((previous) => ({ ...previous, unlocked }));
+    },
+  }), [state]);
+
   return <CvAnalysisContext.Provider value={value}>{children}</CvAnalysisContext.Provider>;
 }
 

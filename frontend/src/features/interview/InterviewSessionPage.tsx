@@ -7,6 +7,7 @@ import { useLocalTranscription } from "../../hooks/useLocalTranscription";
 import { Clock3, LogOut, X } from "lucide-react";
 import InterviewReportPage from "../report/InterviewReportPage";
 import InterviewHeader from "../../components/layout/InterviewHeader";
+import { useCandidateSession } from "../../hooks/useCandidateSession";
 
 const panel = "rounded-2xl border border-indigo-100 bg-white p-6 shadow-sm";
 const button = "rounded-xl bg-[#534db6] px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40";
@@ -34,8 +35,8 @@ export default function InterviewSessionPage() {
   return <Session key={location.key} input={input} />;
 }
 function Session({ input }: { input: SessionInput }) {
+  const { user } = useCandidateSession();
   const { setup, deviceId } = input;
-  const [mode, setMode] = useState(input.answerMode);
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -86,7 +87,7 @@ function Session({ input }: { input: SessionInput }) {
       const result = await transcription.transcribe(recorder.blob);
       if (!alive.current || request !== attempt.current) return;
       setText(result);
-      if (!result) setError("No words were recognized. Retry, re-record, or type your answer.");
+      if (!result) setError("No words were recognized. Retry the recording.");
     } catch (cause) {
       if (alive.current && request === attempt.current) setError(cause instanceof Error ? cause.message : "Transcription failed.");
     } finally { if (request === attempt.current) lock.current = false; }
@@ -118,13 +119,15 @@ function Session({ input }: { input: SessionInput }) {
       totalQuestions={questions.length}
       elapsedSeconds={elapsed}
       onDownloadTranscript={downloadTranscript}
+      candidateName={user?.name}
+      candidateInitials={user?.initials}
     />
   );
 }
   return <div className="min-h-screen bg-[#f8faff] text-[#202052]">
     <InterviewHeader
-  candidateName="Candidate"
-  initials="C"
+  candidateName={user?.name}
+  initials={user?.initials}
   onBack={blocked ? undefined : () => setConfirmEnd(true)}
 />
     <main className="wrap py-8">
@@ -158,13 +161,7 @@ function Session({ input }: { input: SessionInput }) {
           </div>
           <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs">Question {index + 1} of 5</span>
           <h2 className="my-5 text-xl font-bold leading-8">{questions[index]}</h2>
-          <fieldset disabled={blocked} className="mb-5 flex gap-5 disabled:opacity-50">
-            <legend className="sr-only">Answer mode</legend>
-            {(["text", "voice"] as const).map(value => <label className="flex items-center gap-2 text-sm" key={value}>
-              <input type="radio" name="answer-mode" checked={mode === value} onChange={() => setMode(value)} />{value === "voice" ? "Voice answer" : "Text answer"}
-            </label>)}
-          </fieldset>
-          {mode === "voice" && <div className="mb-5 rounded-xl border border-sky-100 bg-sky-50 p-5">
+          <div className="mb-5 rounded-xl border border-sky-100 bg-sky-50 p-5">
             <p className="mb-4 text-sm leading-6">Record in English, then transcribe. Audio stays on this device. First transcription downloads the model. The recording window is 3 minutes, including pauses.</p>
             <div className="flex flex-wrap gap-3">
               {recorder.status === "idle" && <button className={button} disabled={transcription.busy} onClick={() => { setError(""); void recorder.start(); }}>{recorder.blob ? "Replace recording" : "Record answer"}</button>}
@@ -175,18 +172,17 @@ function Session({ input }: { input: SessionInput }) {
               </>}
             </div>
             <p role="status" className="mt-3 text-sm font-semibold">{recorder.status === "recording" ? "● Recording your answer" : recorder.status === "paused" ? "Recording paused" : recorder.status === "requesting" ? "Waiting for microphone permission…" : recorder.status === "stopping" ? "Saving audio…" : "Microphone off"}</p>
-          </div>}
+          </div>
           {recorder.error && <p role="alert" className="mb-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">{recorder.error}</p>}
           {recorder.blob && <>
             <AudioReview blob={recorder.blob} index={index + 1} />
-            <button className={secondary} disabled={blocked} onClick={() => void transcribe()}>Transcribe recording{text.trim() ? " (replaces text below)" : ""}</button>
+            <button className={secondary} disabled={blocked} onClick={() => void transcribe()}>Transcribe recording</button>
           </>}
           {transcription.busy && <div role="status" className="my-4 rounded-xl bg-violet-50 p-4 text-sm">
             <p>{transcription.message}</p><button className="mt-3 font-semibold underline" onClick={cancelTranscription}>Cancel transcription</button>
           </div>}
-          {error && <p role="alert" className="my-4 rounded-xl bg-red-50 p-4 text-sm text-red-700">{error} Your audio remains available. You can type below.</p>}
-          <label className="mb-2 mt-6 block text-sm font-semibold" htmlFor="answer">Your answer / editable transcript</label>
-          <textarea id="answer" rows={7} maxLength={12000} value={text} disabled={transcription.busy} onChange={event => setText(event.target.value)} className="w-full rounded-xl border border-indigo-200 p-4 text-base leading-7 outline-none focus:ring-2 focus:ring-indigo-400 disabled:bg-slate-50" placeholder="Type your answer or transcribe a recording…" />
+          {error && <p role="alert" className="my-4 rounded-xl bg-red-50 p-4 text-sm text-red-700">{error} Your audio remains available. Please record again if needed.</p>}
+          <div className="mt-6 min-h-36 rounded-xl border border-indigo-100 bg-slate-50 p-4" aria-live="polite"><p className="mb-2 text-sm font-semibold">Transcript</p><p className="whitespace-pre-wrap text-base leading-7 text-slate-600">{text || "Your transcript will appear here after recording."}</p></div>
           <p className="mt-2 text-xs leading-6 text-slate-500">Review names, technical terms, and numbers. AI transcription can make mistakes. Replacing audio does not delete your edited text.</p>
           <div className="mt-6 flex flex-wrap justify-between gap-3">
             <button
