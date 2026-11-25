@@ -1,20 +1,15 @@
-# Welcome to React Router! (Experimental RSC)
+# WelHire B2C Portal
 
-⚠️ **EXPERIMENTAL**: This template demonstrates React Server Components with React Router. This is experimental technology and not recommended for production use.
-
-A modern template for exploring React Server Components (RSC) with React Router, powered by Vite.
+The WelHire candidate portal is a React application built with React Router, Vite, TypeScript, and Tailwind CSS. Browser interactions, authentication, media capture, CV analysis, interviews, and reports run through regular React components and the Node-backed APIs.
 
 ## Features
 
-- 🧪 **Experimental React Server Components**
-- 🚀 Server-side rendering with RSC
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization with Vite
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-- 📚 [React Server Components guide](https://reactrouter.com/how-to/react-server-components)
+- Hot Module Replacement (HMR)
+- Asset bundling and optimization with Vite
+- Data loading and mutations
+- TypeScript by default
+- TailwindCSS for styling
+- [React Router docs](https://reactrouter.com/)
 
 ## Getting Started
 
@@ -51,10 +46,6 @@ Run the production server:
 ```bash
 npm start
 ```
-
-## Understanding React Server Components
-
-Learn more about React Server Components with React Router in our [comprehensive guide](https://reactrouter.com/how-to/react-server-components).
 
 ## Styling
 

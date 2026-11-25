@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router";
 import type { InterviewSetup } from "../interview/voice-types";

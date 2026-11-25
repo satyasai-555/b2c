@@ -1,4 +1,3 @@
-"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { WorkerReply, WorkerRequest } from "../features/interview/voice-types";
 

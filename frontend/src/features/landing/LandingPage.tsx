@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { X } from "lucide-react";
