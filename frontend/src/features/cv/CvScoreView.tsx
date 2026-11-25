@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";

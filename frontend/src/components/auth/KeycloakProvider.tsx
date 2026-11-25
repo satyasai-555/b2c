@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { initKeycloak, keycloak, login, logout } from "../../services/keycloak";
 import { setAccessTokenProvider } from "../../services/candidateApi";

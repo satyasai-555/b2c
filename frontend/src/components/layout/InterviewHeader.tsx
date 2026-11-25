@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowLeft, Gift } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { Logo } from "../../features/landing/LandingComponents/UI";
