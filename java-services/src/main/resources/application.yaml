@@ -16,6 +16,13 @@ spring:
   #Mongo DB config
   mongodb:
     uri: ${B2C_MONGODB_URI}
+    representation:
+      uuid: standard
+
+    data:
+      mongodb:
+        representation:
+          big-decimal: decimal128
 
   #JPA and hibernate config
   jpa:
@@ -58,9 +65,11 @@ management:
 integrations:
   ai:
 
-    #integration for cv-parsing
+    # Integration for CV parsing
     cv-parsing:
-      enabled: ${AI_CV_PARSING_ENABLED:false}
+      enabled: ${AI_CV_PARSING_ENABLED:true}
+      mock-enabled: ${AI_CV_PARSING_MOCK_ENABLED:false}
+
       base-url: ${AI_CV_PARSING_BASE_URL:}
       path: ${AI_CV_PARSING_PATH:/cv_parsing/}
 
@@ -68,16 +77,18 @@ integrations:
       read-timeout: 120s
       pool-acquire-timeout: 5s
 
-      max-file-bytes: ${AI_CV_PARSING_MAX_FILE_BYTES:10485760}
+      max-file-bytes: ${app.cv.max-file-bytes}
 
       auth-header: ${AI_CV_PARSING_AUTH_HEADER:}
       auth-value: ${AI_CV_PARSING_AUTH_VALUE:}
 
-    #integration for cv-analysis
+    # Integration for CV analysis
     cv-analysis:
-      enabled: ${AI_CV_ANALYSIS_ENABLED:false}
+      enabled: ${AI_CV_ANALYSIS_ENABLED:true}
+      mock-enabled: ${AI_CV_ANALYSIS_MOCK_ENABLED:false}
+
       base-url: ${AI_CV_ANALYSIS_BASE_URL:}
-      path: ${AI_CV_ANALYSIS_PATH:/ai/v1/cv-analysis}}
+      path: ${AI_CV_ANALYSIS_PATH:/ai/v1/cv-analysis}
 
       connect-timeout: 5s
       read-timeout: 120s
@@ -85,4 +96,3 @@ integrations:
 
       auth-header: ${AI_CV_ANALYSIS_AUTH_HEADER:}
       auth-value: ${AI_CV_ANALYSIS_AUTH_VALUE:}
-

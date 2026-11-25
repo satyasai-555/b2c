@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
-import { ScoringModal } from "./CvComponents";
 import CvScoreView from "./CvScoreView";
 import { useCvAnalysis } from "./CvAnalysisContext";
 import { experienceOptions as mockExperienceOptions, roleOptions } from "../../mocks/candidateFlowMockData";
@@ -16,16 +15,33 @@ const experienceOptions = mockExperienceOptions;
 ]; */
 
 export default function CvQuestions() {
-  const { file, answers, parsedDetails, setAnswers } = useCvAnalysis();
+  const {
+    file,
+    answers,
+    parsedDetails,
+    cvId,
+    uploadPhase,
+    submitGoals,
+    analysisBusy,
+    analysisError,
+  } = useCvAnalysis();
   const [role, setRole] = useState(answers.role);
   const [experience, setExperience] = useState(answers.experience);
   const [location, setLocation] = useState(answers.location);
-  const [scoring, setScoring] = useState(false);
   const [showScore, setShowScore] = useState(false);
   if (showScore) return <CvScoreView />;
-  const saveAnswers = () => {
-    setAnswers({ role, experience, location });
-    setScoring(true);
+  const saveAnswers = async () => {
+    if (analysisBusy) return;
+
+    const succeeded = await submitGoals({
+      role,
+      experience,
+      location,
+    });
+
+    if (succeeded) {
+      setShowScore(true);
+    }
   };
   return (
     <main className="min-h-screen bg-white text-[#1d1d55]">
@@ -56,6 +72,7 @@ export default function CvQuestions() {
           <p className="mt-1 text-lg text-slate-500">
             So we score your CV against the right role.
           </p>
+          <fieldset disabled={analysisBusy} className="min-w-0 border-0 p-0">
           <div className="mt-8">
             <label className="text-lg font-bold">
               1 · What role are you aiming for?
@@ -115,23 +132,38 @@ export default function CvQuestions() {
               onChange={(event) => setLocation(event.target.value)}
             />
           </div>
+          </fieldset>
+          {analysisError && (
+              <p
+                  role="alert"
+                  className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700"
+              >
+                {analysisError}
+              </p>
+          )}
+
+          {!cvId && (
+              <p role="alert" className="mt-4 text-sm text-amber-700">
+                Please upload your CV before submitting your goals.
+              </p>
+          )}
           <button
-            className="mt-7 w-full rounded-xl bg-[#5754bd] px-5 py-3.5 text-lg font-bold text-white"
-            onClick={saveAnswers}
+              type="button"
+              onClick={() => void saveAnswers()}
+              disabled={
+                  analysisBusy ||
+                  !cvId ||
+                  uploadPhase !== "succeeded" ||
+                  !role.trim() ||
+                  !experience ||
+                  !location.trim()
+              }
+              className="mt-6 w-full rounded-xl bg-[#5754bd] px-6 py-4 font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Get my CV score →
+            {analysisBusy ? "Analyzing your CV…" : "Analyze my CV"}
           </button>
         </div>
       </section>
-      {scoring && (
-        <ScoringModal
-          onClose={() => setScoring(false)}
-          onContinue={() => {
-            setScoring(false);
-            setShowScore(true);
-          }}
-        />
-      )}
       <Footer onAction={() => {}} />
     </main>
   );

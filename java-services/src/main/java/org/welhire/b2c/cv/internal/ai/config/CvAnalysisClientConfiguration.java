@@ -17,6 +17,7 @@ import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import org.welhire.b2c.cv.internal.ai.client.CvAnalysisApi;
 import org.welhire.b2c.cv.internal.ai.client.CvAnalysisClient;
+import org.welhire.b2c.cv.internal.ai.mock.MockCvAnalysisApi;
 import org.welhire.b2c.cv.internal.ai.validation.CvAnalysisResponseValidator;
 
 import java.net.URI;
@@ -32,6 +33,12 @@ import java.time.Duration;
 public class CvAnalysisClientConfiguration {
 
     @Bean(destroyMethod = "close")
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-analysis",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CloseableHttpClient cvAnalysisHttpClient(
             @Value("${integrations.ai.cv-analysis.connect-timeout}")
             Duration connectTimeout
@@ -61,6 +68,12 @@ public class CvAnalysisClientConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-analysis",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CvAnalysisApi cvAnalysisApi(
             RestClient.Builder builder,
             @Qualifier("cvAnalysisHttpClient")
@@ -125,6 +138,12 @@ public class CvAnalysisClientConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-analysis",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CvAnalysisClient cvAnalysisClient(
             CvAnalysisApi api,
             CvAnalysisResponseValidator responseValidator,
@@ -182,6 +201,33 @@ public class CvAnalysisClientConfiguration {
         return new CvAnalysisClient(
                 api,
                 base.resolve(relativePath),
+                responseValidator
+        );
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-analysis",
+            name = "mock-enabled",
+            havingValue = "true"
+    )
+    CvAnalysisApi mockCvAnalysisApi() {
+        return new MockCvAnalysisApi();
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-analysis",
+            name = "mock-enabled",
+            havingValue = "true"
+    )
+    CvAnalysisClient mockCvAnalysisClient(
+            CvAnalysisApi api,
+            CvAnalysisResponseValidator responseValidator
+    ) {
+        return new CvAnalysisClient(
+                api,
+                URI.create("https://mock.invalid/ai/v1/cv-analysis"),
                 responseValidator
         );
     }

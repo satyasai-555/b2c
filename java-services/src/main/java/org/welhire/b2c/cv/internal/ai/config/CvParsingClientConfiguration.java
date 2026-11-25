@@ -17,6 +17,7 @@ import org.welhire.b2c.cv.internal.ai.client.CvParsingApi;
 import org.welhire.b2c.cv.internal.ai.client.CvParsingClient;
 import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.core5.util.Timeout;
+import org.welhire.b2c.cv.internal.ai.mock.MockCvParsingApi;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +32,12 @@ import java.time.Duration;
 public class CvParsingClientConfiguration {
 
     @Bean(destroyMethod = "close")
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-parsing",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CloseableHttpClient cvParsingHttpClient(
             @Value("${integrations.ai.cv-parsing.connect-timeout}")
             Duration connectTimeout
@@ -60,6 +67,12 @@ public class CvParsingClientConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-parsing",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CvParsingApi cvParsingApi(
             RestClient.Builder builder,
             @Qualifier("cvParsingHttpClient")
@@ -125,6 +138,12 @@ public class CvParsingClientConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-parsing",
+            name = "mock-enabled",
+            havingValue = "false",
+            matchIfMissing = true
+    )
     CvParsingClient cvParsingClient(
             CvParsingApi api,
             @Value("${integrations.ai.cv-parsing.base-url}")
@@ -170,6 +189,34 @@ public class CvParsingClientConfiguration {
         return new CvParsingClient(
                 api,
                 base.resolve(relativePath),
+                maxFileBytes
+        );
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-parsing",
+            name = "mock-enabled",
+            havingValue = "true"
+    )
+    CvParsingApi mockCvParsingApi() {
+        return new MockCvParsingApi();
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "integrations.ai.cv-parsing",
+            name = "mock-enabled",
+            havingValue = "true"
+    )
+    CvParsingClient mockCvParsingClient(
+            CvParsingApi api,
+            @Value("${integrations.ai.cv-parsing.max-file-bytes}")
+            int maxFileBytes
+    ) {
+        return new CvParsingClient(
+                api,
+                URI.create("https://mock.invalid/cv_parsing/"),
                 maxFileBytes
         );
     }

@@ -11,8 +11,9 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: change-me-local-only
+      KC_HOSTNAME: http://localhost:8081
     ports:
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./infra/keycloak:/opt/keycloak/data/import:ro
     depends_on:
@@ -23,7 +24,7 @@ services:
     environment:
       PORT: 9002
       FRONTEND_ORIGIN: http://localhost:5173
-      KEYCLOAK_ISSUER_URL: http://localhost:8080/realms/welhire
+      KEYCLOAK_ISSUER_URL: http://localhost:8081/realms/welhire
       KEYCLOAK_JWKS_URL: http://keycloak:8080/realms/welhire/protocol/openid-connect/certs
       KEYCLOAK_AUDIENCE: welhire-api
       SMTP_HOST: mailhog

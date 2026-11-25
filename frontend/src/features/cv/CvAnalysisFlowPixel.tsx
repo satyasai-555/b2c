@@ -17,20 +17,27 @@ const chips = [
 ] as const;
 
 export default function CvAnalysisFlowPixel() {
-  const { file, setFile } = useCvAnalysis();
+  const {
+    file,
+    uploadCv,
+    uploadPhase,
+    uploadError,
+  } = useCvAnalysis();
+
   const [modal, setModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  const busy =
+      uploadPhase === "initializing" ||
+      uploadPhase === "uploading" ||
+      uploadPhase === "parsing";
+
   const selectFile = (selected?: File) => {
-    if (selected) {
-      setFile({
-        name: selected.name,
-        size: `${(selected.size / 1024 / 1024).toFixed(1)} MB`,
-        pages: "2 pages",
-        type: selected.type || "application/octet-stream",
-      });
-    }
+    if (!selected || busy) return;
+
     setModal(true);
+    void uploadCv(selected);
   };
 
   return (
@@ -95,12 +102,26 @@ export default function CvAnalysisFlowPixel() {
         </section>
         <FeatureCards />
       </main>
-      {modal && (
-        <ProcessingModal
-          file={file ?? { name: "CV document", size: "—", pages: "—" }}
-          onClose={() => setModal(false)}
-          onContinue={() => navigate("/cv-analysis/questions")}
-        />
+      {modal && file && (
+          <ProcessingModal
+              file={file}
+              phase={uploadPhase}
+              error={uploadError}
+              onClose={() => {
+                if (busy) return;
+
+                setModal(false);
+
+                if (inputRef.current) {
+                  inputRef.current.value = "";
+                }
+              }}
+              onContinue={() => {
+                if (uploadPhase === "succeeded") {
+                  navigate("/cv-analysis/questions");
+                }
+              }}
+          />
       )}
       <Footer onAction={() => {}} />
     </div>

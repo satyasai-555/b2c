@@ -4,9 +4,6 @@ import com.azure.core.util.Context;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.models.*;
-import com.azure.storage.blob.sas.BlobSasPermission;
-import com.azure.storage.blob.sas.BlobServiceSasSignatureValues;
-import com.azure.storage.common.sas.SasProtocol;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +34,7 @@ public class AzureCvStorageService {
     private final String containerName;
     private final Duration uploadUrlLifetime;
     private final Duration operationTimeout;
+    private final CvSasGenerator sasGenerator;
 
     public AzureCvStorageService(
             @Qualifier("cvBlobServiceClient")
@@ -46,7 +44,8 @@ public class AzureCvStorageService {
             @Value("${app.storage.azure.upload-url-lifetime}")
             Duration uploadUrlLifetime,
             @Value("${app.storage.azure.operation-timeout}")
-            Duration operationTimeout
+            Duration operationTimeout,
+            CvSasGenerator sasGenerator
     ) {
         if (containerName == null || containerName.isBlank()) {
             throw new IllegalArgumentException(
@@ -75,6 +74,7 @@ public class AzureCvStorageService {
         this.containerName = containerName;
         this.uploadUrlLifetime = uploadUrlLifetime;
         this.operationTimeout = operationTimeout;
+        this.sasGenerator = sasGenerator;
     }
 
     public CvUploadTarget createUploadTarget(
@@ -98,35 +98,14 @@ public class AzureCvStorageService {
                     cvId
             );
 
-            UserDelegationKey delegationKey =
-                    blobServiceClient.getUserDelegationKeyWithResponse(
-                            startsAt,
-                            expiresAt,
-                            operationTimeout,
-                            Context.NONE
-                    ).getValue();
-
             BlobClient blobClient = blobServiceClient
                     .getBlobContainerClient(containerName)
                     .getBlobClient(objectKey);
 
-            // Permit creating this blob, without granting read,
-            // delete, list or overwrite permissions.
-            BlobSasPermission permissions =
-                    new BlobSasPermission()
-                            .setCreatePermission(true);
-
-            BlobServiceSasSignatureValues signature =
-                    new BlobServiceSasSignatureValues(
-                            expiresAt,
-                            permissions
-                    )
-                            .setStartTime(startsAt)
-                            .setProtocol(SasProtocol.HTTPS_ONLY);
-
-            String sas = blobClient.generateUserDelegationSas(
-                    signature,
-                    delegationKey
+            String sas = sasGenerator.generate(
+                    blobClient,
+                    startsAt,
+                    expiresAt
             );
 
             String uploadUrl = blobClient.getBlobUrl() + "?" + sas;

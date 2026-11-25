@@ -14,4 +14,14 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+
+  // Proxy API requests to Java backend
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:9001",
+        changeOrigin: true,
+      },
+    },
+  },
 });

@@ -22,10 +22,7 @@ public record CvParsingResponse(
         BigDecimal yearsOfExperience,
         String currentCompany,
         String currentRole,
-
-        @JsonProperty("EmploymentHistory")
         List<EmploymentHistory> employmentHistory,
-
         List<Project> projects,
         List<String> softwareSkills,
         List<String> softSkills,
@@ -44,7 +41,8 @@ public record CvParsingResponse(
     public record EmploymentHistory(
             String companyName,
             BigDecimal durationYears,
-            String yearsWorked,
+            Integer fromYear,
+            Integer toYear,
             String role
     ) {
     }

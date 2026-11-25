@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  session:
+    jdbc:
+      initialize-schema: always
+      platform: postgresql
+app:
+  session:
+    secure-cookie: false
+
+  storage:
+    azure:
+      connection-string: "UseDevelopmentStorage=true"
+      cv-container: cv-uploads
+      allowed-origin: "http://localhost:5173"
+
+integrations:
+  ai:
+    cv-parsing:
+      enabled: true
+      mock-enabled: true
+
+    cv-analysis:
+      enabled: true
+      mock-enabled: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+

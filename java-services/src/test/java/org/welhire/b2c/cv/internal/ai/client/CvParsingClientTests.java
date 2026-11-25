@@ -110,13 +110,14 @@ class CvParsingClientTests {
                           "yearsOfExperience": 4.0,
                           "currentCompany": "Example Ltd",
                           "currentRole": "Software Engineer",
-                          "EmploymentHistory": [
-                            {
-                              "companyName": "Previous Ltd",
-                              "durationYears": 2.0,
-                              "yearsWorked": "2021-2023",
-                              "role": "Junior Software Engineer"
-                            }
+                          "employmentHistory": [
+                                       {
+                                         "companyName": "Previous Ltd",
+                                         "durationYears": 2.5,
+                                         "fromYear": 2021,
+                                         "toYear": 2023,
+                                         "role": "Junior Software Engineer"
+                                       }
                           ],
                           "projects": [
                             {
@@ -164,8 +165,9 @@ class CvParsingClientTests {
 
         assertThat(employment.companyName()).isEqualTo("Previous Ltd");
         assertThat(employment.durationYears())
-                .isEqualByComparingTo("2.0");
-        assertThat(employment.yearsWorked()).isEqualTo("2021-2023");
+                .isEqualByComparingTo("2.5");
+        assertThat(employment.fromYear()).isEqualTo(2021);
+        assertThat(employment.toYear()).isEqualTo(2023);
         assertThat(employment.role()).isEqualTo("Junior Software Engineer");
 
         assertThat(response.projects()).hasSize(1);

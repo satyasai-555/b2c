@@ -1,5 +1,8 @@
 import Keycloak from "keycloak-js";
 
+export const keycloakEnabled =
+    import.meta.env.VITE_KEYCLOAK_ENABLED !== "false";
+
 export const keycloak = new Keycloak({
   url: import.meta.env.VITE_KEYCLOAK_URL ?? "http://localhost:8080",
   realm: import.meta.env.VITE_KEYCLOAK_REALM ?? "welhire",
