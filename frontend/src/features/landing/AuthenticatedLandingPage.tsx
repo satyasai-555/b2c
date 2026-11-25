@@ -3,14 +3,14 @@ import { useNavigate } from "react-router";
 import Header from "./LandingComponents/Header";
 import Footer from "./LandingComponents/Footer";
 import { ScoreRing, SkillBars } from "./LandingComponents/UI";
-import { useCandidateSession } from "../../hooks/useCandidateSession";
+import { nameFromEmail, useCandidateSession } from "../../hooks/useCandidateSession";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
 
 export default function AuthenticatedLandingPage() {
   const navigate = useNavigate();
   const { user } = useCandidateSession();
   const { analysis, answers, parsedDetails } = useCvAnalysis();
-  const displayName = user?.name || parsedDetails?.candidateName || "Guest";
+  const displayName = user ? nameFromEmail(user.email) : parsedDetails?.candidateName || "Guest";
   const score = analysis.score;
   const parsedCount = parsedDetails?.skills.length ?? 0;
   const quickActions = [{ Icon: FileText, title: "Analyze My CV", description: "Get an AI-powered CV score and insights." }, { Icon: Play, title: "Start AI Interview", description: "Practice with role-based interview questions." }, { Icon: Target, title: "Skill Gap Analysis", description: "Identify gaps and get learning suggestions." }];

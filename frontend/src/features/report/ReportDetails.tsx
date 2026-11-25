@@ -9,7 +9,7 @@ const working = [
   ],
   [
     "Relevant industry credentials",
-    "Active CSPO (Scrum Alliance 2024) and certified PMP (PMI 2023).",
+    "Active CSPO and certified PMP credentials are listed in the resume.",
   ],
   [
     "Technical stack articulation",

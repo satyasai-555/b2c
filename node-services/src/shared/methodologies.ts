@@ -8,7 +8,14 @@ const sendOtpEmail=(to:string,code:string)=>new Promise<void>((resolve,reject)=>
 export class CandidateMethods {
  constructor(private readonly db:CandidateDb){}
  async createOrUpdateGuest(guestSessionId:string,payload:UpsertCandidatePayload={}){const old=await this.db.findCandidateByGuestSession(guestSessionId);const time=now();const name=payload.name??old?.name??"";return this.db.saveCandidate({id:old?.id??randomUUID(),guestSessionId,email:old?.email??"",name,initials:initials(name),role:payload.role??old?.role??null,experience:payload.experience??old?.experience??null,location:payload.location??old?.location??null,createdAt:old?.createdAt??time,updatedAt:time});}
- async claimCandidate(guestSessionId:string,email:string){const old=await this.db.findCandidateByEmail(email)??await this.createOrUpdateGuest(guestSessionId);return this.db.saveCandidate({...old,email:email.toLowerCase(),updatedAt:now()});}
+ async claimCandidate(guestSessionId:string,email:string){
+  const normalizedEmail=email.toLowerCase();
+  const guest=await this.db.findCandidateByGuestSession(guestSessionId);
+  const existing=await this.db.findCandidateByEmail(normalizedEmail);
+  const old=existing??guest??await this.createOrUpdateGuest(guestSessionId);
+  const displayName=old.name|| (normalizedEmail.split("@")[0]??"").replace(/[._-]+/g," ").trim();
+  return this.db.saveCandidate({...old,email:normalizedEmail,name:displayName,initials:initials(displayName),updatedAt:now()});
+ }
  async updateCandidate(id:string,payload:UpsertCandidatePayload){const old=await this.require(id);const name=payload.name??old.name;return this.db.saveCandidate({...old,...payload,name,initials:initials(name),updatedAt:now()});}
  async uploadCv(candidateId:string,payload:UploadCvPayload){await this.require(candidateId);const cv:CvRecord={id:randomUUID(),candidateId,fileName:payload.fileName,fileSize:payload.fileSize??null,mimeType:payload.mimeType??null,parsed:true,parsedDetails:{skills:["React","TypeScript","JavaScript","CSS"],yearsExperience:3.5,parserVersion:"node-mock-parser-1.0"},uploadedAt:now()};return this.db.saveCv(cv);}
  saveAnswers(id:string,payload:SaveAnswersPayload){return this.updateCandidate(id,payload);}

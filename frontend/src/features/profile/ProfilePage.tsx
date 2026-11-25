@@ -1,29 +1,12 @@
 import { useEffect, useState } from "react";
 import { Code2, Download, FileText, Pencil, Sparkles, Target, Upload, Video, Zap } from "lucide-react";
 import Header from "../landing/LandingComponents/Header";
-import { useCandidateSession } from "../../hooks/useCandidateSession";
+import { nameFromEmail, useCandidateSession } from "../../hooks/useCandidateSession";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
 import { candidateApi, type CandidateAggregate } from "../../services/candidateApi";
 import { ProfileSkeleton } from "../../components/ui/Skeleton";
 
-const interviews = [
-  ["JavaScript fundamentals", "12 Sep 2026", "66", "Average"],
-  ["React interview practice", "18 Sep 2026", "82", "Excellent"],
-  ["Frontend systems design", "24 Sep 2026", "30", "Poor"],
-  ["Behavioral storytelling", "09 Oct 2026", "78", "Good"],
-  ["CSS architecture review", "02 Oct 2026", "91", "Excellent"],
-] as const;
-
-const payments = [
-  ["3 interview credits", "Today · UPI · Ref [TXN ID]", "Successful", "receipt"],
-  ["1 interview credit", "08 Oct 2026 · UPI · Ref [TXN ID]", "Successful", "receipt"],
-  ["1 interview credit", "01 Oct 2026 · UPI · Ref [TXN ID]", "Successful", "receipt"],
-  ["1 interview credit", "01 Oct 2026 · UPI · [FAILURE REASON] · Not charged", "Failed", "details"],
-  ["3 interview credits", "08 Sep 2026 · UPI · Ref [TXN ID]", "Successful", "receipt"],
-] as const;
-
 export default function ProfilePage() {
-  void payments;
   const { user: storedUser } = useCandidateSession();
   const { profile, file, parsedDetails, analysis } = useCvAnalysis();
   const [aggregate, setAggregate] = useState<CandidateAggregate | null>(null);
@@ -36,9 +19,15 @@ export default function ProfilePage() {
   const apiCandidate = aggregate?.candidate;
   const apiCv = aggregate?.cvs?.[aggregate.cvs.length - 1] as { fileName?: string } | undefined;
   void apiCv;
+  const interviews = (aggregate?.interviews ?? []).map((item, index) => {
+    const record = item as { id?: string; role?: string; startedAt?: string; score?: number | null };
+    const score = typeof record.score === "number" ? record.score : null;
+    const label = score === null ? "Pending" : score < 50 ? "Poor" : score < 70 ? "Average" : score < 85 ? "Good" : "Excellent";
+    return { id: record.id || `${record.role || "interview"}-${index}`, title: record.role || "Interview practice", date: record.startedAt ? new Date(record.startedAt).toLocaleDateString() : "Date unavailable", score: score === null ? "—" : String(score), label };
+  });
   const parsedCount = parsedDetails?.skills.length ?? 0;
   const skillStats = [{ Icon: Target, label: "Total Skills", value: parsedCount }, { Icon: Code2, label: "Hard Skills", value: Math.max(1, Math.round(parsedCount * .42)) }, { Icon: Sparkles, label: "Soft Skills", value: Math.max(1, Math.round(parsedCount * .33)) }, { Icon: Zap, label: "Behavioral Skills", value: Math.max(1, parsedCount - Math.round(parsedCount * .42) - Math.round(parsedCount * .33)) }];
-  const profileName = apiCandidate?.name || storedUser?.name || profile.name || "Guest";
+  const profileName = apiCandidate?.email ? nameFromEmail(apiCandidate.email) : storedUser?.email ? nameFromEmail(storedUser.email) : profile.name || "Guest";
   const profileInitials = storedUser?.initials || profile.initials || profileName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
   const user = { name: profileName, initials: apiCandidate?.initials || profileInitials, email: apiCandidate?.email || storedUser?.email || profile.email || "" };
   const role = apiCandidate?.role || profile.role || "Not provided";
@@ -87,7 +76,7 @@ export default function ProfilePage() {
               <div className="grid gap-3 border-t border-[#edf1f7] pt-4 sm:grid-cols-4">{skillStats.map(({ Icon, label, value }) => <div key={label} className="rounded-xl bg-[#f8faff] p-3"><Icon size={16} className="text-brand"/><p className="mt-2 text-[10px] text-[#7182a7]">{label}</p><b className="text-xl">{value}</b></div>)}</div>
             </section>
 
-            <section className="rounded-2xl border border-[#dce4f3] bg-white p-5 shadow-sm sm:p-6"><h2 className="font-bold">Interview history</h2><p className="mt-1 text-xs text-[#8295b5]">Revisit your feedback and decide what to practice next.</p><div className="mt-4 divide-y divide-[#edf1f7] border-y border-[#edf1f7]">{interviews.map(([title, date, score, label]) => <div key={title} className="flex items-center gap-3 py-3"><span className="grid h-8 w-8 shrink-0 place-items-center rounded bg-slate-50 text-[#7182a7]"><FileText size={14}/></span><div className="min-w-0 flex-1"><p className="truncate text-xs font-semibold">{title}</p><p className="text-[10px] text-[#8295b5]">{date}</p></div><div className="text-right"><b className="text-sm">{score}<span className="text-[10px] font-normal text-[#8295b5]">/100</span></b><p className="text-[9px] text-[#7182a7]">{label}</p></div><button className="rounded-lg border border-indigo-100 px-3 py-2 text-[10px] font-semibold">View report</button></div>)}</div><div className="mt-4 flex items-center justify-between text-[10px] text-[#7182a7]"><span>Showing 1–5 of 18 transactions</span><span>‹ Previous &nbsp; <b className="rounded bg-[#5754bd] px-2 py-1 text-white">1</b> &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; Next ›</span></div></section>
+            <section className="rounded-2xl border border-[#dce4f3] bg-white p-5 shadow-sm sm:p-6"><h2 className="font-bold">Interview history</h2><p className="mt-1 text-xs text-[#8295b5]">Revisit your feedback and decide what to practice next.</p>{interviews.length ? <div className="mt-4 divide-y divide-[#edf1f7] border-y border-[#edf1f7]">{interviews.map(({ id, title, date, score, label }) => <div key={id} className="flex items-center gap-3 py-3"><span className="grid h-8 w-8 shrink-0 place-items-center rounded bg-slate-50 text-[#7182a7]"><FileText size={14}/></span><div className="min-w-0 flex-1"><p className="truncate text-xs font-semibold">{title}</p><p className="text-[10px] text-[#8295b5]">{date}</p></div><div className="text-right"><b className="text-sm">{score}{score !== "—" && <span className="text-[10px] font-normal text-[#8295b5]">/100</span>}</b><p className="text-[9px] text-[#7182a7]">{label}</p></div><button className="rounded-lg border border-indigo-100 px-3 py-2 text-[10px] font-semibold">View report</button></div>)}</div> : <p className="mt-4 rounded-lg bg-slate-50 p-4 text-xs text-[#7182a7]">No interview history is available yet.</p>}</section>
             {/* <section className="overflow-hidden rounded-2xl border border-[#dce4f3] bg-white shadow-sm"><div className="flex items-center justify-between border-b border-[#edf1f7] p-5 sm:p-6"><div><h2 className="font-bold">Payment history</h2><p className="mt-1 text-xs text-[#8295b5]">Your credit purchases, receipts and payment status.</p></div><button className="inline-flex items-center gap-2 rounded-lg border border-indigo-100 px-3 py-2 text-xs font-semibold"><Zap size={14} className="text-[#5754bd]"/> Buy credits</button></div><div className="divide-y divide-[#edf1f7]">{payments.map(([title, details, status, action], index) => <div key={`${title}-${details}`} className="flex items-center gap-4 px-5 py-4 sm:px-6"><span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${status === "Failed" ? "bg-rose-50 text-rose-500" : "bg-slate-50 text-[#52627a]"}`}><Receipt size={20}/></span><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><p className="font-semibold">{title}</p>{index === 4 && <span className="rounded-full bg-sky-100 px-2 py-1 text-[10px] font-bold text-sky-600">MOST POPULAR</span>}</div><p className="truncate text-xs text-[#7182a7]">{details}</p></div><div className="text-right"><b className="block">₹[PRICE]</b><span className={`rounded-full px-2 py-1 text-[10px] font-semibold ${status === "Failed" ? "bg-rose-100 text-rose-600" : "bg-emerald-100 text-emerald-600"}`}>{status}</span></div><button className="inline-flex min-w-28 items-center justify-center gap-2 rounded-lg border border-indigo-100 px-3 py-2 text-xs font-semibold">{action === "receipt" ? <><Download size={13}/> Receipt</> : "Details"}</button></div>)}</div><div className="flex items-center justify-between border-t border-[#edf1f7] px-5 py-4 text-xs text-[#7182a7] sm:px-6"><span>Showing <b className="text-[#192457]">1–5</b> of <b className="text-[#192457]">18</b> transactions</span><span>‹ Previous &nbsp; <b className="rounded bg-[#5754bd] px-2 py-1 text-white">1</b> &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; <button>Next ›</button></span></div><p className="border-t border-[#edf1f7] px-5 py-4 text-xs text-[#7182a7] sm:px-6"><Info size={14} className="mr-2 inline text-[#5754bd]"/>Failed payments are never charged. If money was debited, it’s refunded within [X] working days. <button className="font-semibold text-[#5054ba]">Contact support</button></p></section> */}
             </>}
           </div>
