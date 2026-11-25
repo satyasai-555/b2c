@@ -19,7 +19,7 @@ export function SkillBars({ compact = false }: { compact?: boolean }) {
   return <div className="space-y-4">{skills.map(([label, value, color]) => <div key={label}><div className="mb-2 flex justify-between gap-3 text-sm text-muted"><span>{label}</span><strong>{value}%</strong></div><div className="h-1.5 rounded-full bg-slate-100"><div className="h-full rounded-full" style={{ width: `${value}%`, background: color }}/></div></div>)}</div>;
 }
 export function Character() {
-  return <div className="character" aria-hidden="true"><svg viewBox="650 310 470 630" preserveAspectRatio="xMidYMax meet"><image href={`${import.meta.env.BASE_URL}assets/design-reference.png`} width="1848" height="940"/></svg></div>;
+  return <div className="character" aria-hidden="true"><svg viewBox="650 310 470 630" preserveAspectRatio="xMidYMax meet"><image href={`${import.meta.env.BASE_URL}images/HeadImage.svg`} width="1848" height="940"/></svg></div>;
 }
 export function InterviewPreview() {
   return <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-[#e3e1ff] to-[#f2f6ff]" aria-label="Illustrative interview preview"><div className="text-center"><span className="mx-auto mb-2 grid h-16 w-16 place-items-center rounded-full bg-white text-brand shadow-sm"><Video size={28}/></span><p className="text-sm font-semibold text-brand">AI interviewer</p></div><span className="absolute bottom-3 left-3 rounded-lg bg-white/90 px-2 py-1 text-xs text-muted">Practice at your pace</span></div>;

@@ -1,4 +1,3 @@
-"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 export type RecorderStatus = "idle" | "requesting" | "recording" | "paused" | "stopping";
 export function useVoiceRecorder(deviceId: string) {

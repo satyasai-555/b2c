@@ -3,14 +3,14 @@ import { useNavigate } from "react-router";
 import Header from "./LandingComponents/Header";
 import Footer from "./LandingComponents/Footer";
 import { ScoreRing, SkillBars } from "./LandingComponents/UI";
-import { useCandidateSession } from "../../hooks/useCandidateSession";
+import { nameFromEmail, useCandidateSession } from "../../hooks/useCandidateSession";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
 
 export default function AuthenticatedLandingPage() {
   const navigate = useNavigate();
   const { user } = useCandidateSession();
   const { analysis, answers, parsedDetails } = useCvAnalysis();
-  const displayName = user?.name || parsedDetails?.candidateName || "Guest";
+  const displayName = user ? nameFromEmail(user.email) : parsedDetails?.candidateName || "Guest";
   const score = analysis.score;
   const parsedCount = parsedDetails?.skills.length ?? 0;
   const quickActions = [{ Icon: FileText, title: "Analyze My CV", description: "Get an AI-powered CV score and insights." }, { Icon: Play, title: "Start AI Interview", description: "Practice with role-based interview questions." }, { Icon: Target, title: "Skill Gap Analysis", description: "Identify gaps and get learning suggestions." }];
@@ -31,7 +31,7 @@ export default function AuthenticatedLandingPage() {
           <div className="mt-7 flex flex-wrap gap-3"><button className="primary" onClick={() => action("Analyze My CV")}>Continue Practice <ArrowRight size={16}/></button><button className="secondary" onClick={() => action("Practice an Interview")}>Take AI Interview <ArrowRight size={16}/></button></div>
           <div className="mt-7 flex flex-wrap gap-5 text-xs text-slate-500"><span><Check size={14} className="mr-1 inline text-brand"/>Personalized practice</span><span><Check size={14} className="mr-1 inline text-brand"/>Real interview experience</span><span><Check size={14} className="mr-1 inline text-brand"/>Actionable feedback</span></div>
         </div>
-        <div className="relative mx-auto flex h-80 w-full max-w-md items-center justify-center overflow-hidden rounded-3xl bg-indigo-50 sm:h-96"><img src={`${import.meta.env.BASE_URL}assets/design-reference.png`} alt="Candidate preparing for an interview" className="h-full w-full object-contain"/><div className="absolute left-3 top-3 rounded-xl bg-white/95 p-3 text-xs shadow-lg"><p className="text-slate-500">Your Prep Score</p><ScoreRing score={score} size={52}/><strong className="text-emerald-600">{score}% match</strong></div><div className="absolute bottom-3 right-3 rounded-xl bg-white/95 p-3 text-xs shadow-lg"><p className="font-semibold">Next up</p><p className="mt-1 text-slate-500">AI Mock Interview</p><button className="mt-2 rounded-lg bg-brand px-4 py-1.5 font-semibold text-white" onClick={() => action("Practice an Interview")}>Continue →</button></div></div>
+        <div className="relative mx-auto flex h-80 w-full max-w-md items-center justify-center overflow-hidden rounded-3xl bg-indigo-50 sm:h-96"><img src={`${import.meta.env.BASE_URL}images/HeadImage.svg`} alt="Candidate preparing for an interview" className="h-full w-full object-contain"/><div className="absolute left-3 top-3 rounded-xl bg-white/95 p-3 text-xs shadow-lg"><p className="text-slate-500">Your Prep Score</p><ScoreRing score={score} size={52}/><strong className="text-emerald-600">{score}% match</strong></div><div className="absolute bottom-3 right-3 rounded-xl bg-white/95 p-3 text-xs shadow-lg"><p className="font-semibold">Next up</p><p className="mt-1 text-slate-500">AI Mock Interview</p><button className="mt-2 rounded-lg bg-brand px-4 py-1.5 font-semibold text-white" onClick={() => action("Practice an Interview")}>Continue →</button></div></div>
       </section>
 
       <section className="mt-12"><div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-2xl font-bold">Your Preparation at a Glance</h2><p className="mt-1 text-sm text-slate-500">Track your progress and keep improving.</p></div><button className="text-sm font-semibold text-brand" onClick={() => navigate("/cv-analysis/report")}>View Detailed Report →</button></div><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[[score, "Prep Score"], [parsedCount, "Skills Detected"], [analysis.cards.length, "Report Areas"], [answers.role, "Target Role"]].map(([value, label]) => <article key={label} className="rounded-2xl border border-line bg-white p-5 shadow-sm"><Sparkles size={16} className="text-brand"/><p className="mt-4 truncate text-2xl font-bold" title={String(value)}>{value}{label === "Prep Score" && "%"}</p><p className="mt-1 text-xs text-slate-500">{label}</p></article>)}</div></section>

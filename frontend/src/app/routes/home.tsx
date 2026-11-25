@@ -12,6 +12,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function ServerComponent() {
+export default function HomeRoute() {
   return <LandingPage />;
 }

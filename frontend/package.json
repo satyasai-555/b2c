@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "react-router dev --port 5173 --strictPort",
     "start": "react-router-serve build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
@@ -12,8 +12,9 @@
     "@huggingface/transformers": "4.3.2",
     "@react-router/serve": "^8.5.1",
     "@remix-run/node-fetch-server": "0.13.0",
-    "lucide-react": "^1.70.0",
+    "isbot": "^5",
     "keycloak-js": "^26.2.0",
+    "lucide-react": "^1.70.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-icons": "^5.7.0",
@@ -25,10 +26,9 @@
     "@types/node": "24.5.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-rsc": "0.5.35",
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
-    "vite": "8.0.3",
+    "vite": "^8.3.8",
     "vite-plugin-devtools-json": "1.1.2"
   }
 }

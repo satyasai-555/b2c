@@ -11,6 +11,6 @@ export function meta() {
   ];
 }
 
-export function ServerComponent() {
+export default function InterviewSetupRoute() {
   return <InterviewSetupPage />;
 }
