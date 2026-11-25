@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Menu, X, Gift } from 'lucide-react';
-import { Logo } from './UI';
+import { useState } from "react";
+import { Gift, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router";
+import { Logo } from "./UI";
+import UnlockModal from "../../auth/signup/UnlockModal";
+import { useCandidateSession } from "../../../hooks/useCandidateSession";
 export type Action = (title: string) => void;
-export default function Header({ onAction }: { onAction: Action }) {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const handleAction = (action: string) => {
-    if (action === 'Refer & earn') {
-      navigate('/refer');
-      setOpen(false);
-      return;
-    }
-    onAction(action);
-  };
-  const links = [['Features', '#features'], ['How It Works', '#how-it-works'], ['Contact Us', '#contact']] as const;
-  return <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md"><div className="wrap flex h-21 items-center justify-between gap-6"><Logo/><nav aria-label="Main navigation" className="hidden gap-8 text-sm text-slate-600 lg:flex">{links.map(([label, href]) => <a key={href} href={href} className="hover:text-brand">{label}</a>)}</nav><div className="hidden items-center gap-5 md:flex"><button onClick={() => handleAction('Refer & earn')} className="flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-semibold text-brand"><Gift size={18}/>Refer & earn</button><button onClick={() => handleAction('Login / Sign Up')} className="secondary border-violet-200! text-brand!">Login / Sign Up</button></div><button className="rounded-lg p-2 lg:hidden" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button></div>{open && <nav id="mobile-menu" aria-label="Mobile navigation" className="wrap flex flex-col gap-5 border-t border-line py-6 lg:hidden">{links.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}<button className="text-left text-brand md:hidden" onClick={() => handleAction('Refer & earn')}>Refer & earn</button><button className="primary md:hidden" onClick={() => handleAction('Login / Sign Up')}>Login / Sign Up</button></nav>}</header>;
+export default function Header(_props: { onAction: Action }) {
+  const [open,setOpen]=useState(false);const [loginOpen,setLoginOpen]=useState(false);const {user,saveUser,logout}=useCandidateSession();const navigate=useNavigate();
+  const handleUnlocked=(auth:{candidate:{email:string;name:string;initials:string;id:string};token:string})=>{saveUser({email:auth.candidate.email,name:auth.candidate.name||auth.candidate.email,initials:auth.candidate.initials||"C",candidateId:auth.candidate.id,token:auth.token});setLoginOpen(false);};
+  const handleLogout=()=>{logout();setOpen(false);navigate("/");};const links=[["Features","#features"],["How It Works","#how-it-works"],["Contact Us","#contact"]] as const;const refer=()=>{setOpen(false);navigate("/refer");};
+  const profileMenu=user?<details className="relative"><summary className="flex max-w-[180px] cursor-pointer list-none items-center gap-2"><span className="min-w-0 truncate text-sm font-semibold text-[#1d1d55]" title={user.name}>{user.name}</span><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-indigo-50 text-xs font-bold text-brand">{user.initials}</span></summary><div className="absolute right-0 top-11 z-50 flex min-w-36 flex-col gap-1 rounded-lg border border-line bg-white p-1 shadow-lg"><button onClick={()=>navigate("/profile")} className="rounded px-3 py-2 text-left text-sm font-semibold hover:bg-indigo-50">View profile</button><button onClick={handleLogout} className="rounded px-3 py-2 text-left text-sm font-semibold hover:bg-indigo-50">Log out</button></div></details>:<button onClick={()=>setLoginOpen(true)} className="secondary border-violet-200! text-brand!">Login / Sign Up</button>;
+  return <><header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md"><div className="wrap flex min-h-16 items-center justify-between gap-3 py-3 sm:min-h-20 sm:gap-6"><Logo/><nav className="hidden gap-6 text-sm text-slate-600 lg:flex">{links.map(([label,href])=><a key={href} href={href}>{label}</a>)}</nav><div className="hidden items-center gap-3 md:flex"><button onClick={refer} className="flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-2 text-sm font-semibold text-brand"><Gift size={18}/>Refer &amp; earn</button>{profileMenu}</div><button className="rounded-lg p-2 lg:hidden" aria-label={open?"Close navigation":"Open navigation"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</button></div>{open&&<nav aria-label="Mobile navigation" className="wrap flex flex-col gap-4 border-t border-line py-4 lg:hidden">{links.map(([label,href])=><a key={href} href={href} onClick={()=>setOpen(false)}>{label}</a>)}<button className="text-left text-brand" onClick={refer}>Refer &amp; earn</button>{user?<details className="relative self-start"><summary className="cursor-pointer list-none text-sm font-semibold text-brand">Account</summary><div className="mt-2 flex min-w-36 flex-col gap-1 rounded-lg border border-line bg-white p-1 shadow-lg"><button onClick={()=>{setOpen(false);navigate("/profile");}} className="rounded px-3 py-2 text-left text-sm font-semibold hover:bg-indigo-50">View profile</button><button onClick={handleLogout} className="rounded px-3 py-2 text-left text-sm font-semibold hover:bg-indigo-50">Log out</button></div></details>:<button className="primary w-full" onClick={()=>{setOpen(false);setLoginOpen(true);}}>Login / Sign Up</button>}</nav>}</header>{loginOpen&&<UnlockModal onClose={()=>setLoginOpen(false)} onUnlocked={handleUnlocked}/>}</>;
 }

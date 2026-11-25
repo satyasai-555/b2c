@@ -169,10 +169,10 @@ export function useMicrophoneTest() {
 
       if (name === "NotAllowedError") {
         setError(
-          "Microphone permission was denied. Allow access in your browser, or choose text answers.",
+          "Microphone permission was denied. Allow access in your browser to continue.",
         );
       } else if (name === "NotFoundError") {
-        setError("No microphone was found. Connect one or choose text answers.");
+        setError("No microphone was found. Connect a microphone to continue.");
       } else if (name === "NotReadableError") {
         setError(
           "The microphone could not be opened. Check whether another app is using it.",

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import OtpInput from "../signin/OtpInput";
+import { candidateApi, type AuthResult } from "../../../services/candidateApi";
 
 function VerifiedDocument() {
   return (
@@ -48,12 +49,15 @@ export default function UnlockModal({
   onUnlocked,
 }: {
   onClose: () => void;
-  onUnlocked: () => void;
+  onUnlocked: (auth: AuthResult) => void;
 }) {
   const [step, setStep] = useState<"email" | "otp">("email");
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [otp, setOtp] = useState("");
+  const [requestId, setRequestId] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const ready = email.trim().length > 4 && consent;
   return (
     <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-slate-950/40 p-4">
@@ -82,7 +86,8 @@ export default function UnlockModal({
                 "We'll email you a 6-digit code. No password needed."
               ) : (
                 <>
-                  We sent a 6-digit verification code to <b>{email}</b>.
+                  We sent a 6-digit verification code to{" "}
+                  <b className="inline-block max-w-[220px] truncate align-bottom" title={email}>{email}</b>.
                 </>
               )}
             </p>
@@ -121,16 +126,27 @@ export default function UnlockModal({
                 <button
                   type="button"
                   disabled={!ready}
-                  onClick={() => setStep("otp")}
+                  onClick={async () => {
+                    setLoading(true); setError("");
+                    try {
+                      const guestSessionId = window.localStorage.getItem("welhire-guest-session-id") || crypto.randomUUID();
+                      window.localStorage.setItem("welhire-guest-session-id", guestSessionId);
+                      await candidateApi.createGuest(guestSessionId);
+                      const result = await candidateApi.requestOtp(email.trim(), guestSessionId);
+                      setRequestId(result.requestId); setStep("otp");
+                    } catch (cause) { setError(cause instanceof Error ? cause.message : "Unable to start login"); }
+                    finally { setLoading(false); }
+                  }}
                   className="mt-4 w-full rounded-xl bg-[#5754bd] px-4 py-3.5 font-bold text-white disabled:bg-[#aaaade]"
                 >
-                  Send code <span className="float-right">→</span>
+                  {loading ? "Sending…" : "Send code"} <span className="float-right">→</span>
                 </button>
                 <p className="mt-3 text-center text-sm text-slate-500">
                   {ready
                     ? "A verification code will be sent to your email."
                     : "Enter your email and accept consent to continue."}
                 </p>
+                {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
                 <SecurityFooter />
               </>
             ) : (
@@ -139,7 +155,8 @@ export default function UnlockModal({
                   ENTER 6-DIGIT CODE
                 </label>
                 <p className="mt-3 text-sm leading-6 text-slate-600">
-                  We sent a 6-digit verification code to <b>{email}</b>.{" "}
+                  We sent a 6-digit verification code to{" "}
+                  <b className="inline-block max-w-[220px] truncate align-bottom" title={email}>{email}</b>.{" "}
                   <button
                     type="button"
                     onClick={() => setStep("email")}
@@ -154,15 +171,21 @@ export default function UnlockModal({
                 <button
                   type="button"
                   disabled={otp.length !== 6}
-                  onClick={onUnlocked}
+                  onClick={async () => {
+                    setLoading(true); setError("");
+                    try { onUnlocked(await candidateApi.verifyOtp({ requestId, email: email.trim(), code: otp })); }
+                    catch (cause) { setError(cause instanceof Error ? cause.message : "Unable to verify code"); }
+                    finally { setLoading(false); }
+                  }}
                   className="mt-5 w-full rounded-xl bg-[#5754bd] px-4 py-3.5 font-bold text-white disabled:bg-[#aaaade]"
                 >
-                  Verify &amp; unlock report{" "}
+                  {loading ? "Verifying…" : "Verify & unlock report"}{" "}
                   <span className="float-right">→</span>
                 </button>
                 <p className="mt-3 text-center text-sm text-slate-500">
                   For this demo, enter any OTP and continue.
                 </p>
+                {error && <p className="mt-2 text-center text-sm text-red-600">{error}</p>}
                 <SecurityFooter />
               </>
             )}

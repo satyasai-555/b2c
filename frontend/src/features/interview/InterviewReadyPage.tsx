@@ -6,7 +6,6 @@ import {
   BriefcaseBusiness,
   Check,
   Clock3,
-  Keyboard,
   Lightbulb,
   MessageCircle,
   Mic,
@@ -18,6 +17,7 @@ import {
 
 import { useMicrophoneTest } from "../../hooks/useMicrophoneTest";
 import InterviewHeader from "../../components/layout/InterviewHeader";
+import { useCandidateSession } from "../../hooks/useCandidateSession";
 
 
 type InterviewSetup = {
@@ -48,15 +48,14 @@ function isInterviewSetup(value: unknown): value is InterviewSetup {
 }
 
 const panelClass = "rounded-2xl border border-[#dce3ef] bg-white";
-const user = { displayName: "Candidate", initials: "C" };
-
 export default function InterviewReadyPage() {
+  const { user } = useCandidateSession();
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state as { setup?: unknown } | null;
   const setup = isInterviewSetup(state?.setup) ? state.setup : null;
 
-  const [answerMode, setAnswerMode] = useState<"text" | "voice">("text");
+  const [answerMode] = useState<"voice">("voice");
   const microphone = useMicrophoneTest();
 
   const testing = microphone.status === "testing";
@@ -78,11 +77,13 @@ export default function InterviewReadyPage() {
     );
   }
 
+  const displayName = user?.name || "Guest";
+  const initials = user?.initials || displayName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
   return (
     <div className="min-h-screen bg-white text-[#202052]">
       <InterviewHeader
-  candidateName={user.displayName}
-  initials={user.initials}
+  candidateName={displayName}
+  initials={initials}
   backTo="/interview/setup"
 />
 
@@ -145,64 +146,13 @@ export default function InterviewReadyPage() {
 
         <div className="grid items-start gap-6 lg:grid-cols-[1.6fr_1fr]">
           <section className={`${panelClass} p-6 sm:p-8`}>
-            <h2 className="text-xl font-bold">How would you like to answer?</h2>
+            <h2 className="text-xl font-bold">Voice interview setup</h2>
 
-            <fieldset className="mt-5 grid gap-3 sm:grid-cols-2">
-              <legend className="sr-only">Answer mode</legend>
-
-              {[
-                {
-                  value: "text" as const,
-                  label: "Text answers",
-                  description: "Type your responses",
-                  icon: Keyboard,
-                },
-                {
-                  value: "voice" as const,
-                  label: "Voice answers",
-                  description: "Speak your responses",
-                  icon: Mic,
-                },
-              ].map(({ value, label, description, icon: Icon }) => (
-                <label key={value} className="cursor-pointer">
-                  <input
-                    type="radio"
-                    name="answer-mode"
-                    checked={answerMode === value}
-                    onChange={() => {
-                      microphone.stop();
-                      setAnswerMode(value);
-                    }}
-                    className="peer sr-only"
-                  />
-
-                  <span
-                    className={[
-                      "flex h-full items-center gap-3 rounded-xl border p-4",
-                      "peer-focus-visible:ring-4 peer-focus-visible:ring-brand/20",
-                      answerMode === value
-                        ? "border-brand bg-violet-50"
-                        : "border-[#dce3ef] bg-white",
-                    ].join(" ")}
-                  >
-                    <Icon size={22} className="shrink-0 text-brand" />
-
-                    <span>
-                      <span className="block text-sm font-semibold">
-                        {label}
-                      </span>
-                      <span className="mt-1 block text-xs text-muted">
-                        {description}
-                      </span>
-                    </span>
-
-                    {answerMode === value && (
-                      <Check size={18} className="ml-auto text-brand" />
-                    )}
-                  </span>
-                </label>
-              ))}
-            </fieldset>
+            <div className="mt-5 flex items-center gap-3 rounded-xl border border-brand bg-violet-50 p-4">
+              <Mic size={22} className="shrink-0 text-brand" />
+              <div><p className="text-sm font-semibold">Voice answers</p><p className="mt-1 text-xs text-muted">Speak your responses; each answer is transcribed automatically.</p></div>
+              <Check size={18} className="ml-auto text-brand" />
+            </div>
 
             <div className="my-7 border-t border-[#edf0f7]" />
 
@@ -222,7 +172,7 @@ export default function InterviewReadyPage() {
               </label>
 
               <span className="text-xs text-muted">
-                Optional for text answers
+                Required for voice answers
               </span>
             </div>
 
@@ -382,9 +332,7 @@ export default function InterviewReadyPage() {
               </h2>
 
               <p className="mt-2 text-sm leading-7 text-muted">
-                {answerMode === "text"
-                  ? "You’ve selected text answers. Microphone access is optional."
-                  : "You’ve selected voice answers. Recording begins only when you click Record answer on the next screen."}
+                Voice answers are enabled. Recording begins when you click Record answer on the next screen.
               </p>
             </div>
           </div>

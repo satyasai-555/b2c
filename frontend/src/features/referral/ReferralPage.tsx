@@ -71,102 +71,95 @@ export default function ReferralPage() {
               <span className="grid h-13 w-13 place-items-center rounded-2xl bg-indigo-50">
                 <Gift size={25}/>
               </span>
-                            A little more practice, together
-                        </div>
-                        <h2 className="mt-7 text-3xl font-bold sm:text-4xl">
-                            Invite friends, earn interview credits
-                        </h2>
-                        <p className="mt-4 text-lg text-[#7182a7]">
-                            When a referred friend logs in, you earn{" "}
-                            <b className="text-[#5754bd]">+1 interview credit.</b> No limit.
-                        </p>
-                        <label className="mt-10 block font-semibold">
-                            Your referral link
-                        </label>
-                        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                            <div
-                                className="flex min-h-14 flex-1 items-center gap-4 rounded-xl border border-[#d8e1f0] bg-[#f7f9fd] px-5 text-lg">
-                                <Link2 className="text-[#7182a7]"/>
-                                {referral.link}
-                            </div>
-                            <button
-                                onClick={copyLink}
-                                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#5754bd] px-7 text-lg font-semibold text-white"
-                            >
-                                <img
-                                    src="/images/copy.svg"
-                                    alt=""
-                                    className="h-5 w-5 object-contain"
-                                />
-                                {copied ? "Copied" : "Copy link"}
-                            </button>
-                        </div>
-                        <div className="mt-5 grid gap-3 md:grid-cols-3">
-                            <button className="ref-share">
-                                <img
-                                    src="/images/whatsapImage.svg"
-                                    alt=""
-                                    className="h-5 w-5 object-contain"
-                                />
-                                WhatsApp
-                            </button>
-                            <button className="ref-share">
-                                <Mail size={22}/>
-                                Email
-                            </button>
-                            <button className="ref-share">
-                                <QrCode size={22}/>
-                                QR Code
-                            </button>
-                        </div>
-                        <div className="mt-9 border-t border-[#e5eaf3] pt-8">
-                            <h3 className="text-xl font-bold">How it works</h3>
-                            <div className="mt-6 grid gap-6 md:grid-cols-3">
-                                {[
-                                    ["1", "Share your link", "Invite friends to WelHire."],
-                                    ["2", "Your friend logs in", "They join through your link."],
-                                    ["3", "Earn +1 credit", "For every friend who logs in."],
-                                ].map(([number, title, text]) => (
-                                    <div key={number} className="flex gap-3">
-                    <span
-                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-50 text-sm font-bold text-[#5060b8]">
+              A little more practice, together
+            </div>
+            <h2 className="mt-7 text-3xl font-bold sm:text-4xl">
+              Invite friends, earn interview credits
+            </h2>
+            <p className="mt-4 text-lg text-[#7182a7]">
+              When a referred friend logs in, you earn{" "}
+              <b className="text-[#5754bd]">+1 interview credit.</b> No limit.
+            </p>
+            <label className="mt-10 block font-semibold">
+              Your referral link
+            </label>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <div className="flex min-h-14 flex-1 items-center gap-4 rounded-xl border border-[#d8e1f0] bg-[#f7f9fd] px-5 text-lg">
+                <Link2 className="text-[#7182a7]" />
+                {referral.link}
+              </div>
+              <button
+                onClick={copyLink}
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-[#5754bd] px-7 text-lg font-semibold text-white"
+              >
+                <img
+                  src="/images/copy.svg"
+                  alt=""
+                  className="h-5 w-5 object-contain"
+                />
+                {copied ? "Copied" : "Copy link"}
+              </button>
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              <button className="ref-share">
+                <img
+                  src="/images/whatsapImage.svg"
+                  alt=""
+                  className="h-5 w-5 object-contain"
+                />
+                WhatsApp
+              </button>
+              <button className="ref-share">
+                <Mail size={22} />
+                Email
+              </button>
+              <button className="ref-share">
+                <QrCode size={22} />
+                QR Code
+              </button>
+            </div>
+            <div className="mt-9 border-t border-[#e5eaf3] pt-8">
+              <h3 className="text-xl font-bold">How it works</h3>
+              <div className="mt-6 grid gap-6 md:grid-cols-3">
+                {[
+                  ["1", "Share your link", "Invite friends to WelHire."],
+                  ["2", "Your friend logs in", "They join through your link."],
+                  ["3", "Earn +1 credit", "For every friend who logs in."],
+                ].map(([number, title, text]) => (
+                  <div key={number} className="flex gap-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cyan-50 text-sm font-bold text-[#5060b8]">
                       {number}
                     </span>
-                                        <div>
-                                            <b>{title}</b>
-                                            <p className="mt-1 text-sm text-[#7182a7]">{text}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-                    <aside className="space-y-4">
-                        <section className="rounded-3xl bg-[#292861] p-8 text-white">
-                            <div className="flex items-center justify-between text-lg font-semibold text-indigo-100">
-                                INTERVIEW CREDITS <Zap className="text-cyan-300"/>
-                            </div>
-                            <div className="mt-8 flex items-end gap-3">
-                                <strong className="text-6xl leading-none text-cyan-300">
-                                    {referral.credits}
-                                </strong>
-                                <span className="mb-1 text-xl">credits left</span>
-                            </div>
-                            <p className="mt-5 text-indigo-100">Your current balance</p>
-                            <p className="mt-9 text-indigo-100">
-                                Keep building confidence with your next AI interview.
-                            </p>
-
-                            <button
-                                type="button"
-                                onClick={() => navigate("/interview/setup")}
-                                className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-[#6155ca] px-5 py-4 text-md font-bold"
-                            >
-                                <ArrowRight size={22}/>
-                                Take an AI Interview
-                            </button>
-                        </section>
-                        <section className="flex gap-5 rounded-3xl border border-[#dce4f3] p-7">
+                    <div>
+                      <b>{title}</b>
+                      <p className="mt-1 text-sm text-[#7182a7]">{text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+          <aside className="space-y-4">
+            <section className="rounded-3xl bg-[#292861] p-8 text-white">
+              <div className="flex items-center justify-between text-lg font-semibold text-indigo-100">
+                INTERVIEW CREDITS <Zap className="text-cyan-300" />
+              </div>
+              <div className="mt-7 flex items-end gap-3">
+                <strong className="text-5xl leading-none text-cyan-300">
+                  {referral.credits}
+                </strong>
+                <span className="mb-1 text-xl">credits left</span>
+              </div>
+              <p className="mt-5 text-indigo-100">Your current balance</p>
+              <p className="mt-9 text-indigo-100">
+                Keep building confidence with your next AI interview.
+              </p>
+              <button className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-[#6155ca] px-5 py-4 text-md font-bold">
+                <ArrowRight />
+                Take an AI Interview
+              </button>
+            </section>
+            <section className="flex gap-5 rounded-3xl border border-[#dce4f3] p-7">
               <span className="grid h-15 w-15 shrink-0 place-items-center rounded-2xl bg-cyan-50 text-[#5754bd]">
                 <Gift size={27}/>
               </span>

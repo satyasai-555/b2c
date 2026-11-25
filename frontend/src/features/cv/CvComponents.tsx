@@ -32,7 +32,7 @@ export const features = [
 
 export function CvStepper({ current = 0 }: { current?: number }) {
   return (
-    <div className="flex min-h-[72px] shrink-0 gap-2 overflow-x-auto border-b border-slate-100 bg-[#fafaff] px-4 py-3 lg:min-h-[72px] lg:justify-between lg:gap-1 lg:overflow-hidden">
+    <div className="flex min-h-[62px] shrink-0 gap-2 overflow-x-auto border-b border-slate-100 bg-[#fafaff] px-10 py-2 lg:min-h-[62px] lg:justify-between lg:gap-1 lg:overflow-hidden">
       {steps.map((step, index) => (
         <div
           className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm md:text-base lg:min-w-0 lg:shrink"
@@ -107,14 +107,23 @@ export function UploadZone({
         />
       </div>
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 py-5 text-sm text-slate-500 sm:text-base">
-        <span> Private until you choose to share.</span>
+        <span className="inline-flex items-center gap-2">
+          <img src="/images/LockIcon.svg" alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
+          Private until you choose to share.
+        </span>
         <button className="font-bold text-[#4d4db5]" onClick={() => onSelect()}>
           No CV handy? Try a sample →
         </button>
       </div>
       <div className="flex flex-wrap justify-center gap-5 pb-5 text-sm text-slate-500 sm:gap-12">
-        <span>Zero Spam Guarantee</span>
-        <span>ATS Resume Parser 4.2</span>
+        <span className="inline-flex items-center gap-2">
+          <img src="/images/TickIcon.svg" alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
+          Zero Spam Guarantee
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <img src="/images/TickIcon.svg" alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
+          ATS Resume Parser 4.2
+        </span>
       </div>
     </div>
   );

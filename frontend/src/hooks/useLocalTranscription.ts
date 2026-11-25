@@ -22,7 +22,7 @@ async function decodeAudio(blob: Blob): Promise<Float32Array> {
   let energy = 0;
   for (const sample of audio) energy += sample * sample;
   if (Math.sqrt(energy / audio.length) < 0.001) {
-    throw new Error("The recording is nearly silent. Speak closer to the microphone or type your answer.");
+    throw new Error("The recording is nearly silent. Speak closer to the microphone and try again.");
   }
   return audio;
 }
@@ -66,7 +66,7 @@ export function useLocalTranscription() {
         const timer = setTimeout(() => {
           terminate();
           setBusy(false);
-          setMessage("Transcription timed out. Retry or type your answer.");
+      setMessage("Transcription timed out. Retry the recording.");
         }, 10 * 60 * 1000);
         pending.current = { reject, timer };
         activeWorker.onmessage = (event: MessageEvent<WorkerReply>) => {
@@ -77,7 +77,7 @@ export function useLocalTranscription() {
           else finish(new Error(result.message));
         };
         activeWorker.onerror = () => {
-          finish(new Error("Could not run the local speech model. Retry or type your answer."));
+        finish(new Error("Could not run the local speech model. Retry the recording."));
           activeWorker.terminate();
           if (worker.current === activeWorker) worker.current = null;
         };

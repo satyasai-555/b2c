@@ -1,27 +1,21 @@
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
-import { CvStepper } from "../cv/CvComponents";
-import {
-  CriteriaEvidence,
-  SummaryMetrics,
-  WorkingAndFixes,
-} from "./ReportDetails";
+import { SummaryMetrics, WorkingAndFixes } from "./ReportDetails";
 import { Link } from "react-router";
 import { useCvAnalysis } from "../cv/CvAnalysisContext";
 
-const blocks = [
-  ["21.3", "25%", "bg-[#161b58]"],
-  ["16.0", "20%", "bg-[#303574]"],
-  ["18.0", "20%", "bg-[#08778b]"],
-  ["13.8", "15%", "bg-cyan-500"],
-  ["9.5", "10%", "bg-indigo-900"],
-  ["9.5", "10%", "bg-indigo-500"],
-];
-
 export default function AnalysisReport() {
-  const { file, answers, analysis } = useCvAnalysis();
-  const role = answers.role || "Target role";
+  const { file, answers, parsedDetails, analysis } = useCvAnalysis();
+  const role = answers.role;
   const cvName = file?.name || "CV document";
+  const candidateName = parsedDetails?.candidateName || cvName
+    .replace(/\.[^.]+$/, "")
+    .replace(/^\d+[-_]?/, "")
+    .split(/[-_]+/)
+    .filter((part) => part && !/^(cv|resume)$/i.test(part) && !/^\d+$/.test(part))
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(" ") || "CV document";
   const scoreLabel = analysis.score < 50 ? "Weak" : analysis.score < 70 ? "Medium" : "Strong";
   const scoreTone = analysis.score < 50
     ? "bg-rose-50 text-rose-600 ring-1 ring-rose-200"
@@ -31,29 +25,24 @@ export default function AnalysisReport() {
   return (
     <main className="min-h-screen bg-white text-[#151b59]">
       <Header onAction={() => {}} />
-      <CvStepper current={4} />
       <section className="mx-auto max-w-360 px-5 py-8 md:px-10">
-        <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-          ● Step 5 of 7: Initial Benchmark &amp; Analysis Ready
-        </span>
+
         <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
           <div className="min-w-0">
-            <h1 className="max-w-full truncate text-4xl font-extrabold" title={cvName.replace(/\.[^.]+$/, "")}>{cvName.replace(/\.[^.]+$/, "")}</h1>
-            <span className="cv-report-role mt-2 inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
+            <h1 className="max-w-full truncate text-4xl font-extrabold" title={candidateName}>{candidateName}</h1>
+            <span className="cv-report-role inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
               <span className="cv-report-role-value">{role}</span>
-              Product Manager · B2B SaaS
             </span>
             <p className="mt-3 flex min-w-0 items-center gap-2 text-slate-600">
               <img src="/images/CvImage.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
               <span className="max-w-[min(32rem,70vw)] truncate">
-               Phani_Kumar_CV_2025.pdf · Analysed just now
+               {cvName} · Analysed just now
               </span>
             </p>
             <div className="mt-5 flex gap-3">
               <button className="analysis-download-button inline-flex items-center gap-2 rounded-full border border-indigo-100 px-5 py-2.5 text-sm font-semibold">
                 <img src="/images/DownLoad.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
                 <span>Download report</span>
-                ⇩ Download report
               </button>
               {/* <button className="px-3 py-2.5 text-sm font-semibold text-slate-600">
                 ⟳ Re-upload CV
@@ -74,15 +63,22 @@ export default function AnalysisReport() {
               </span>
             </strong>
             <p className="text-sm text-slate-500">
-              out of 100 · 6 weighted criteria
+              out of {analysis.maxScore} · {analysis.cards.length} weighted criteria
             </p>
             <div className="mt-3 flex items-center gap-2 rounded-xl bg-cyan-50 px-4 py-2 text-sm text-cyan-700">
               <img src="/images/MultiSparks.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
-              Projected with 5 fixes: <b>~93</b>
+              Projected with improvements: <b>~{analysis.projectedScore}</b>
             </div>
+            <Link
+              to="/interview/setup"
+              className="mt-4 block rounded-full bg-[#5754bd] px-5 py-3 text-center text-sm font-bold text-white shadow-sm"
+            >
+              Proceed to Mock Interview
+            </Link>
           </div>
         </div>
-        <section className="mt-8 rounded-3xl border border-indigo-100 p-8 shadow-sm">
+        {/* Temporarily hidden while the analysis layout is being finalized. */}
+        {/* <section className="mt-8 rounded-3xl border border-indigo-100 p-8 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-bold">
               Where the {analysis.score} points come from
@@ -114,8 +110,8 @@ export default function AnalysisReport() {
             <span>▪ Education &amp; credentials · 10%</span>
             <span>▪ Readability &amp; structure · 10%</span>
           </div>
-        </section>
-        <section className="mt-7 rounded-3xl bg-linear-to-r from-[#21186e] to-[#172b60] p-8 text-white shadow-lg">
+        </section> */}
+        {/* <section className="mt-7 rounded-3xl bg-linear-to-r from-[#21186e] to-[#172b60] p-8 text-white shadow-lg">
           <span className="rounded-full bg-indigo-400/30 px-4 py-2 text-sm font-semibold text-cyan-300">
             ⚡ AI-POWERED RESUME ENHANCER
           </span>
@@ -145,15 +141,9 @@ export default function AnalysisReport() {
               <button className="rounded-full bg-cyan-300 px-8 py-4 font-bold text-cyan-950">
                 Enrich my profile with AI →
               </button>
-              <Link
-                to="/interview/setup"
-                className="rounded-full bg-white/10 px-8 py-3"
-              >
-                Proceed to Mock Interview (Step 6) →
-              </Link>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="mt-8">
           <h2 className="text-2xl font-bold">Summary</h2>
           <p className="mt-1 text-slate-500">
@@ -175,8 +165,27 @@ export default function AnalysisReport() {
           </article>
           <SummaryMetrics />
         </section>
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold">Performance at a glance</h2>
+          <p className="mt-1 text-sm text-slate-500">Where you stand today, and how your CV contributes.</p>
+          <article className="mt-5 rounded-3xl border border-indigo-100 p-5 shadow-sm sm:p-7">
+            <div className="flex items-center justify-between gap-3"><h3 className="font-bold">Score vs target</h3><span className="text-xs text-brand">│ Target benchmark 75+</span></div>
+            <div className="mt-5 space-y-5">{[["Overall CV fit", analysis.score, "#1d1d55"], ["Role knowledge", Math.min(analysis.maxScore, analysis.score + 5), "#087f91"]].map(([label, value, color]) => <div key={String(label)}><div className="flex justify-between text-sm"><span>{label}</span><b>{value}/{analysis.maxScore}</b></div><div className="relative mt-2 h-4 rounded bg-slate-100"><div className="h-full rounded" style={{ width: `${Number(value) / analysis.maxScore * 100}%`, background: color as string }}/><span className="absolute left-[75%] top-0 h-full w-0.5 bg-brand"/></div></div>)}</div>
+            <div className="mt-4 flex justify-between text-xs text-slate-400"><span>0</span><span>25</span><span>50</span><span>75</span><span>{analysis.maxScore}</span></div><p className="mt-5 text-xs text-slate-500">Your current score is {Math.max(0, 75 - analysis.score)} points below the target benchmark.</p>
+          </article>
+        </section>
+        <section className="mt-10">
+          <h2 className="text-xl font-bold">Criteria &amp; Skills Analysis</h2>
+          <p className="mt-1 text-sm text-slate-500">A comprehensive view of your skills, performance, and proficiency levels.</p>
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <article className="rounded-3xl border border-indigo-100 p-5 shadow-sm sm:p-7"><h3 className="font-bold">Overall Analysis</h3><div className="mt-6 flex items-center gap-5"><div className="mx-auto w-full max-w-[260px]"><svg viewBox="0 0 260 220" className="w-full"><polygon points="130,20 230,190 30,190" fill="#eef0ff" stroke="#6970ed" strokeWidth="2"/><polygon points="130,48 200,170 60,170" fill="#cfd2ff" stroke="#6467ef" strokeWidth="2"/><line x1="130" y1="20" x2="130" y2="190" stroke="#d6d9ee"/><line x1="30" y1="190" x2="230" y2="190" stroke="#d6d9ee"/><text x="130" y="13" textAnchor="middle" fontSize="11">Hard Skills</text><text x="230" y="210" textAnchor="end" fontSize="11">Soft Skills</text><text x="30" y="210" fontSize="11">Behavioral</text></svg></div><div className="shrink-0 space-y-3 text-xs"><p>🔵 Hard Skills <b>{Math.min(100, analysis.score + 8)}%</b></p><p>🟠 Soft Skills <b>{Math.max(0, analysis.score - 4)}%</b></p><p>🟢 Behavioral <b>{Math.min(100, analysis.score + 2)}%</b></p></div></div></article>
+            <article className="rounded-3xl border border-indigo-100 p-5 shadow-sm sm:p-7"><h3 className="font-bold">Skills Overview</h3><div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">{[["Total Skills", parsedDetails?.skills.length ?? 0], ["Hard Skills", Math.max(1, Math.round((parsedDetails?.skills.length ?? 0) * .42))], ["Soft Skills", Math.max(1, Math.round((parsedDetails?.skills.length ?? 0) * .33))], ["Behavioral", Math.max(1, (parsedDetails?.skills.length ?? 0) - 2)]].map(([label, value]) => <div key={String(label)} className="rounded-xl bg-slate-50 p-3 text-center"><p className="text-[10px] text-slate-500">{label}</p><b className="mt-1 block text-2xl">{value}</b></div>)}</div><p className="mt-10 text-center text-xs text-slate-400">Skill weights are standardized against the selected role.</p></article>
+          </div>
+        </section>
+        <section className="mt-10"><div className="flex items-center justify-between gap-3"><div><h2 className="text-xl font-bold">Skills Breakdown</h2><p className="mt-1 text-sm text-slate-500">Detailed skills identified from your CV with proficiency levels.</p></div><span className="rounded-full border border-indigo-100 px-3 py-1 text-xs text-slate-500">All levels⌄</span></div><div className="mt-5 grid gap-5 lg:grid-cols-3">{[["Hard Skills", "Technical and domain-specific skills."], ["Soft Skills", "Interpersonal and communication skills."], ["Behavioral Skills", "Workstyle, mindset, and professional behavior."]].map(([group, description], groupIndex) => <article key={group} className="rounded-2xl border border-indigo-100 p-4 shadow-sm"><h3 className="font-bold">{group}</h3><p className="text-xs text-slate-500">{description}</p><div className="mt-5 space-y-4">{(parsedDetails?.skills.length ? parsedDetails.skills : [answers.role]).slice(groupIndex, groupIndex + 4).map((skill, index) => { const value = Math.max(55, Math.min(98, analysis.score + 20 - index * 6 - groupIndex * 3)); return <div key={skill}><div className="flex justify-between text-xs"><span>{skill}</span><b>{value}%</b></div><div className="mt-1 h-1.5 rounded-full bg-slate-100"><div className="h-full rounded-full bg-brand" style={{ width: `${value}%` }}/></div></div>; })}</div></article>)}</div></section>
         <WorkingAndFixes />
-        <CriteriaEvidence />
+        {/* Temporarily hidden while the analysis layout is being finalized. */}
+        {/* <CriteriaEvidence /> */}
       </section>
       <Footer onAction={() => {}} />
     </main>

@@ -13,6 +13,7 @@ type Props = {
   totalQuestions: number;
   elapsedSeconds: number;
   candidateName?: string;
+  candidateInitials?: string;
   onDownloadTranscript: () => void;
 };
 const card = "rounded-3xl border border-[#d9ddff] bg-white p-6 sm:p-8";
@@ -101,19 +102,20 @@ function QuestionReview({ answer, index }: { answer: Answer; index: number }) {
     </div>
   </article>;
 }
-export default function InterviewReportPage({ setup, answers, totalQuestions, elapsedSeconds, candidateName = "Candidate", onDownloadTranscript }: Props) {
+export default function InterviewReportPage({ setup, answers, totalQuestions, elapsedSeconds, candidateName, candidateInitials, onDownloadTranscript }: Props) {
   const heading = useRef<HTMLHeadingElement>(null);
   const [retakeOpen, setRetakeOpen] = useState(false);
   const retakeDialog = useRef<HTMLDialogElement>(null);
   const minutes = Math.floor(Math.max(0, elapsedSeconds) / 60);
   const seconds = Math.max(0, elapsedSeconds) % 60;
   const transcriptCount = answers.filter(answer => answer.text.trim()).length;
-  const name = candidateName.trim() || "Candidate";
+  const name = candidateName?.trim() || "Guest";
+  const initials = candidateInitials || name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
   useEffect(() => { window.scrollTo(0, 0); heading.current?.focus({ preventScroll: true }); }, []);
   useEffect(() => { if (retakeOpen) retakeDialog.current?.showModal(); else retakeDialog.current?.close(); }, [retakeOpen]);
   return <div className="interview-report min-h-screen bg-white text-[#1e1b55]">
     <div className="report-no-print">
-  <InterviewHeader candidateName={name} initials="C" />
+  <InterviewHeader candidateName={name} initials={initials} />
 </div>
     <main className="wrap py-10 sm:py-14">
       <div className="mb-9 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-900">

@@ -13,6 +13,7 @@
     "@react-router/serve": "^8.5.1",
     "@remix-run/node-fetch-server": "0.13.0",
     "lucide-react": "^1.70.0",
+    "keycloak-js": "^26.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-icons": "^5.7.0",

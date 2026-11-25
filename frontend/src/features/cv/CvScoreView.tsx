@@ -2,29 +2,27 @@
 import { useState } from "react";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
-import { CvStepper } from "./CvComponents";
 import UnlockModal from "../auth/signup/UnlockModal";
 import AnalysisReport from "../report/AnalysisReport";
 import { useCvAnalysis } from "./CvAnalysisContext";
+import { useCandidateSession } from "../../hooks/useCandidateSession";
 
 export default function CvScoreView() {
-  const { analysis, unlocked, setUnlocked } = useCvAnalysis();
+  const { analysis, answers, unlocked, setUnlocked } = useCvAnalysis();
+  const { isAuthenticated, saveUser } = useCandidateSession();
   const [open, setOpen] = useState(false);
-  if (unlocked) return <AnalysisReport />;
+  if (unlocked || isAuthenticated) return <AnalysisReport />;
   return (
     <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
       <Header onAction={() => {}} />
-      <CvStepper current={2} />
       <section className="mx-auto max-w-[1320px] px-4 py-8 sm:px-6 lg:px-8">
-        <span className="inline-block rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-[#5050bb]">
-          ● Step 3 of 7: Initial Benchmark &amp; Analysis Ready
-        </span>
+
         <div className="cv-score-cards mt-8 grid gap-5 lg:grid-cols-2">
           <article className="cv-score-panel rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
             <p className="text-sm font-bold tracking-[0.16em] text-[#5050bb]">
-              YOUR CV SCORE · FRONTEND ENGINEER
+              YOUR CV SCORE · {answers.role}
             </p>
-            <div className="cv-score-ring mx-auto mt-10 grid h-52 w-52 place-items-center rounded-full bg-[conic-gradient(#10b981_0_64%,#e6e9ef_64%_100%)] p-5 sm:h-60 sm:w-60">
+            <div className="cv-score-ring mx-auto mt-10 grid h-52 w-52 place-items-center rounded-full p-5 sm:h-60 sm:w-60" style={{ background: `conic-gradient(#10b981 0 ${analysis.score}%, #e6e9ef ${analysis.score}% 100%)` }}>
               <div className="grid h-full w-full place-items-center rounded-full bg-white">
                 <div>
               <b className="text-6xl sm:text-7xl">{analysis.score}</b>
@@ -35,12 +33,10 @@ export default function CvScoreView() {
               </div>
             </div>
             <h2 className="cv-score-summary mt-7 text-2xl font-extrabold sm:text-3xl">
-              A solid start — a few fixes
-              <br />
-              could add 15+ points.
+              {analysis.scoreLabel}
             </h2>
             <p className="cv-score-description text-sm leading-6 text-slate-500">
-              Your experience matches the role well. Your CV is underselling it.
+              {analysis.positives[0] || analysis.recommendations[0]}
             </p>
           </article>
           <article className="cv-score-panel rounded-3xl border border-indigo-100 p-4 shadow-sm sm:p-8">
@@ -98,7 +94,8 @@ export default function CvScoreView() {
       {open && (
         <UnlockModal
           onClose={() => setOpen(false)}
-          onUnlocked={() => {
+          onUnlocked={(auth) => {
+            saveUser({ email: auth.candidate.email, name: auth.candidate.name || auth.candidate.email, initials: auth.candidate.initials || "C", candidateId: auth.candidate.id, token: auth.token });
             setOpen(false);
             setUnlocked(true);
           }}
