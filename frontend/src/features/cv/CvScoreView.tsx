@@ -1,106 +1,219 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import Header from "../landing/LandingComponents/Header";
 import Footer from "../landing/LandingComponents/Footer";
 import UnlockModal from "../auth/signup/UnlockModal";
-import AnalysisReport from "../report/AnalysisReport";
 import { useCvAnalysis } from "./CvAnalysisContext";
 import { useCandidateSession } from "../../hooks/useCandidateSession";
 
 export default function CvScoreView() {
-  const { analysis, answers, unlocked, setUnlocked } = useCvAnalysis();
+  const { preview } = useCvAnalysis();
   const { isAuthenticated, saveUser } = useCandidateSession();
-  const [open, setOpen] = useState(false);
-  if (unlocked || isAuthenticated) return <AnalysisReport />;
-  return (
-    <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
-      <Header onAction={() => {}} />
-      <section className="mx-auto max-w-[1320px] px-4 py-8 sm:px-6 lg:px-8">
 
-        <div className="cv-score-cards mt-8 grid gap-5 lg:grid-cols-2">
-          <article className="cv-score-panel rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
-            <p className="text-sm font-bold tracking-[0.16em] text-[#5050bb]">
-              YOUR CV SCORE · {answers.role}
+  const [open, setOpen] = useState(false);
+  const [accessMessage, setAccessMessage] = useState<string | null>(null);
+
+  const requestFullReport = () => {
+    if (isAuthenticated) {
+      setAccessMessage(
+          "You are signed in. Full report access will be available once CV linking is connected.",
+      );
+      return;
+    }
+
+    setAccessMessage(null);
+    setOpen(true);
+  };
+
+  if (!preview) {
+    return (
+        <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
+          <Header onAction={() => {}} />
+
+          <section className="mx-auto max-w-[1320px] px-4 py-12 text-center">
+            <h1 className="text-2xl font-bold">
+              Your CV preview is not available
+            </h1>
+
+            <p className="mt-3 text-slate-600">
+              Complete your CV upload and goals to generate an analysis.
             </p>
-            <div className="cv-score-ring mx-auto mt-10 grid h-52 w-52 place-items-center rounded-full p-5 sm:h-60 sm:w-60" style={{ background: `conic-gradient(#10b981 0 ${analysis.score}%, #e6e9ef ${analysis.score}% 100%)` }}>
-              <div className="grid h-full w-full place-items-center rounded-full bg-white">
-                <div>
-              <b className="text-6xl sm:text-7xl">{analysis.score}</b>
-                  <span className="block rounded-full bg-indigo-50 px-3 py-1 text-sm text-[#5754bd]">
+
+            <Link
+                to="/cv-analysis"
+                className="mt-6 inline-block rounded-full bg-[#5754bd] px-6 py-3 font-bold text-white"
+            >
+              Return to CV upload
+            </Link>
+          </section>
+
+          <Footer onAction={() => {}} />
+        </main>
+    );
+  }
+
+  const score = preview.score;
+  const ringPercentage = Math.min(100, Math.max(0, score));
+  const improvement = preview.estimatedImprovementPoints;
+
+  const summary =
+      improvement !== null && improvement > 0
+          ? `Suggested improvements could add ${improvement} points.`
+          : "Your CV analysis is ready.";
+
+  const reportCards = [
+    {
+      value: preview.suggestedFixesCount?.toString() ?? "—",
+      title: "Suggested improvements to your CV",
+    },
+    {
+      value: preview.assessedSkillsCount?.toString() ?? "—",
+      title: "Skills assessed against the role",
+    },
+  ];
+
+  return (
+      <main className="cv-score-page min-h-screen bg-white text-[#1d1d55]">
+        <Header onAction={() => {}} />
+
+        <section className="mx-auto max-w-[1320px] px-4 py-8 sm:px-6 lg:px-8">
+          <div className="cv-score-cards mt-8 grid gap-5 lg:grid-cols-2">
+            <article className="cv-score-panel rounded-3xl border border-indigo-100 p-6 text-center shadow-sm sm:p-8">
+              <p className="text-sm font-bold tracking-[0.16em] text-[#5050bb]">
+                YOUR CV SCORE · {preview.targetRole}
+              </p>
+
+              <div
+                  className="cv-score-ring mx-auto mt-10 grid h-52 w-52 place-items-center rounded-full p-5 sm:h-60 sm:w-60"
+                  style={{
+                    background:
+                        `conic-gradient(#10b981 0 ${ringPercentage}%, ` +
+                        `#e6e9ef ${ringPercentage}% 100%)`,
+                  }}
+              >
+                <div className="grid h-full w-full place-items-center rounded-full bg-white">
+                  <div>
+                    <b className="text-6xl sm:text-7xl">{score}</b>
+
+                    <span className="block rounded-full bg-indigo-50 px-3 py-1 text-sm text-[#5754bd]">
                     out of 100
                   </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <h2 className="cv-score-summary mt-7 text-2xl font-extrabold sm:text-3xl">
-              {analysis.scoreLabel}
-            </h2>
-            <p className="cv-score-description text-sm leading-6 text-slate-500">
-              {analysis.positives[0] || analysis.recommendations[0]}
-            </p>
-          </article>
-          <article className="cv-score-panel rounded-3xl border border-indigo-100 p-4 shadow-sm sm:p-8">
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-2xl font-bold sm:text-3xl">
-                Your full report is ready
+
+              <h2 className="cv-score-summary mt-7 text-2xl font-extrabold sm:text-3xl">
+                {summary}
               </h2>
-              <span className="cv-protected-badge rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
-                <img src="/images/shieldIcon.svg" alt="" className="h-3.5 w-3.5 object-contain" />
+
+              <p className="cv-score-description text-sm leading-6 text-slate-500">
+                Explore the full report for your skill assessments and
+                suggested CV improvements.
+              </p>
+            </article>
+
+            <article className="cv-score-panel rounded-3xl border border-indigo-100 p-4 shadow-sm sm:p-8">
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="text-2xl font-bold sm:text-3xl">
+                  Your full report is ready
+                </h2>
+
+                <span className="cv-protected-badge rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
+                <img
+                    src="/images/shieldIcon.svg"
+                    alt=""
+                    className="h-3.5 w-3.5 object-contain"
+                />
                 <span className="cv-protected-label">Protected</span>
               </span>
-            </div>
-            <div className="cv-report-list mt-1 space-y-1">
-                    {analysis.cards.map(({ value, title }) => (
-                <button
-                  type="button"
-                  className="cv-report-row flex min-h-24 w-full items-center gap-3 rounded-2xl bg-slate-50 p-4 text-left hover:bg-indigo-50 sm:gap-4"
-                  key={title}
-                  onClick={() => setOpen(true)}
-                >
+              </div>
+
+              <div className="cv-report-list mt-1 space-y-1">
+                {reportCards.map(({ value, title }) => (
+                    <button
+                        type="button"
+                        className="cv-report-row flex min-h-24 w-full items-center gap-3 rounded-2xl bg-slate-50 p-4 text-left hover:bg-indigo-50 sm:gap-4"
+                        key={title}
+                        onClick={requestFullReport}
+                    >
                   <span className="cv-report-value grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white text-xl font-bold text-[#10a98c] shadow-sm">
                     {value}
                   </span>
-                  <span className="min-w-0 flex-1">
+
+                      <span className="min-w-0 flex-1">
                     <b className="block text-base leading-6 sm:text-lg">
                       {title}
                     </b>
-                    <i className="mt-2 block h-2.5 max-w-64 rounded-full bg-slate-300" />
+                    <i
+                        aria-hidden="true"
+                        className="mt-2 block h-2.5 max-w-64 rounded-full bg-slate-300"
+                    />
                   </span>
-                  <span className="rounded-full bg-white px-3 py-1.5 text-xs text-slate-500 shadow-sm">
+
+                      <span className="rounded-full bg-white px-3 py-1.5 text-xs text-slate-500 shadow-sm">
                     Locked
                   </span>
-                </button>
-              ))}
-            </div>
-          </article>
-        </div>
-        <section className="mt-6 rounded-3xl bg-slate-50 px-5 py-10 text-center sm:px-10">
+                    </button>
+                ))}
+              </div>
+            </article>
+          </div>
+
+          <section className="mt-6 rounded-3xl bg-slate-50 px-5 py-10 text-center sm:px-10">
           <span className="cv-unlock-icon mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#5754bd] text-2xl text-white">
-            <img src="/images/UnlockImage.svg" alt="" className="h-7 w-7 object-contain" />
-            
+            <img
+                src="/images/UnlockImage.svg"
+                alt=""
+                className="h-7 w-7 object-contain"
+            />
           </span>
-          <h2 className="mt-5 text-3xl font-extrabold text-black sm:text-4xl">
-            Unlock your full report
-          </h2>
-          <button
-            type="button"
-            className="mt-6 rounded-full bg-[#5754bd] px-7 py-3.5 font-bold text-white shadow-lg shadow-indigo-200"
-            onClick={() => setOpen(true)}
-          >
-            Log in to unlock your full report
-          </button>
+
+            <h2 className="mt-5 text-3xl font-extrabold text-black sm:text-4xl">
+              Unlock your full report
+            </h2>
+
+            <button
+                type="button"
+                className="mt-6 rounded-full bg-[#5754bd] px-7 py-3.5 font-bold text-white shadow-lg shadow-indigo-200"
+                onClick={requestFullReport}
+            >
+              {isAuthenticated
+                  ? "View your full report"
+                  : "Log in to unlock your full report"}
+            </button>
+
+            {accessMessage && (
+                <p
+                    role="status"
+                    className="mt-4 text-sm text-slate-600"
+                >
+                  {accessMessage}
+                </p>
+            )}
+          </section>
         </section>
-      </section>
-      {open && (
-        <UnlockModal
-          onClose={() => setOpen(false)}
-          onUnlocked={(auth) => {
-            saveUser({ email: auth.candidate.email, name: auth.candidate.name || auth.candidate.email, initials: auth.candidate.initials || "C", candidateId: auth.candidate.id, token: auth.token });
-            setOpen(false);
-            setUnlocked(true);
-          }}
-        />
-      )}
-      <Footer onAction={() => {}} />
-    </main>
+
+        {open && (
+            <UnlockModal
+                onClose={() => setOpen(false)}
+                onUnlocked={(auth) => {
+                  saveUser({
+                    email: auth.candidate.email,
+                    name: auth.candidate.name || auth.candidate.email,
+                    initials: auth.candidate.initials || "C",
+                    candidateId: auth.candidate.id,
+                    token: auth.token,
+                  });
+
+                  setOpen(false);
+                  setAccessMessage(
+                      "You are signed in. Full report access will be available once CV linking is connected.",
+                  );
+                }}
+            />
+        )}
+
+        <Footer onAction={() => {}} />
+      </main>
   );
 }

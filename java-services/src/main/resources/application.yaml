@@ -2,6 +2,54 @@ spring:
   application:
     name: b2c-backend
 
+  #PostGres Configuration
+  datasource:
+    url: ${B2C_DB_URL}
+    username: ${B2C_DB_USERNAME}
+    password: ${B2C_DB_PASSWORD}
+
+  session:
+    timeout: ${B2C_SESSION_IDLE_TIMEOUT}
+    jdbc:
+      initialize-schema: never
+
+  #Mongo DB config
+  mongodb:
+    uri: ${B2C_MONGODB_URI}
+    representation:
+      uuid: standard
+
+    data:
+      mongodb:
+        representation:
+          big-decimal: decimal128
+
+  #JPA and hibernate config
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+app:
+  session:
+    secure-cookie: true
+
+  #Guest session Lifetime
+  guest:
+    lifetime: ${B2C_GUEST_LIFETIME}
+
+  #Azure integration config
+  storage:
+    azure:
+      endpoint: ${B2C_AZURE_STORAGE_ENDPOINT}
+      cv-container: ${B2C_AZURE_CV_CONTAINER}
+      upload-url-lifetime: 10m
+      operation-timeout: 30s
+
+  #max CV size allowed to upload (5 mb)
+  cv:
+    max-file-bytes: 5242880
+
 server:
   port: 9001
 
@@ -13,3 +61,38 @@ management:
   endpoint:
     health:
       show-details: never
+
+integrations:
+  ai:
+
+    # Integration for CV parsing
+    cv-parsing:
+      enabled: ${AI_CV_PARSING_ENABLED:true}
+      mock-enabled: ${AI_CV_PARSING_MOCK_ENABLED:false}
+
+      base-url: ${AI_CV_PARSING_BASE_URL:}
+      path: ${AI_CV_PARSING_PATH:/cv_parsing/}
+
+      connect-timeout: 5s
+      read-timeout: 120s
+      pool-acquire-timeout: 5s
+
+      max-file-bytes: ${app.cv.max-file-bytes}
+
+      auth-header: ${AI_CV_PARSING_AUTH_HEADER:}
+      auth-value: ${AI_CV_PARSING_AUTH_VALUE:}
+
+    # Integration for CV analysis
+    cv-analysis:
+      enabled: ${AI_CV_ANALYSIS_ENABLED:true}
+      mock-enabled: ${AI_CV_ANALYSIS_MOCK_ENABLED:false}
+
+      base-url: ${AI_CV_ANALYSIS_BASE_URL:}
+      path: ${AI_CV_ANALYSIS_PATH:/ai/v1/cv-analysis}
+
+      connect-timeout: 5s
+      read-timeout: 120s
+      pool-acquire-timeout: 5s
+
+      auth-header: ${AI_CV_ANALYSIS_AUTH_HEADER:}
+      auth-value: ${AI_CV_ANALYSIS_AUTH_VALUE:}

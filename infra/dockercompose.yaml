@@ -1,0 +1,40 @@
+name: welhire-b2c-local
+
+services:
+  postgres:
+    image: postgres:17.12
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: welhire_b2c
+      POSTGRES_USER: b2c_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in infra/.env}
+    ports:
+      - "127.0.0.1:9432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U b2c_admin -d welhire_b2c"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  mongodb:
+    image: mongo:8.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    restart: unless-stopped
+    command: azurite-blob --blobHost 0.0.0.0
+    ports:
+      - "127.0.0.1:10000:10000"
+    volumes:
+      - azurite_data:/data
+volumes:
+  postgres_data:
+  mongodb_data:
+  azurite_data:

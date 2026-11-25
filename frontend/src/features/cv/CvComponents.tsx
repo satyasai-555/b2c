@@ -1,4 +1,5 @@
 import { useEffect, useState, type DragEvent, type RefObject } from "react";
+import type {UploadPhase} from "./CvAnalysisContext.tsx";
 
 export const steps = [
   "Upload CV",
@@ -161,6 +162,8 @@ export function ProcessingModal({
   onContinue,
 }: {
   file: { name: string; size: string; pages: string };
+  phase: UploadPhase;
+  error: string | null;
   onClose: () => void;
   onContinue: () => void;
 }) {
