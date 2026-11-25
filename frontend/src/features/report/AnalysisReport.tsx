@@ -8,6 +8,7 @@ export default function AnalysisReport() {
   const { file, answers, parsedDetails, analysis } = useCvAnalysis();
   const role = answers.role;
   const cvName = file?.name || "CV document";
+  const parsedAt = parsedDetails?.parsedAt ? new Date(parsedDetails.parsedAt).toLocaleString() : null;
   const candidateName = parsedDetails?.candidateName || cvName
     .replace(/\.[^.]+$/, "")
     .replace(/^\d+[-_]?/, "")
@@ -23,20 +24,25 @@ export default function AnalysisReport() {
       ? "bg-amber-50 text-amber-700 ring-1 ring-amber-200"
       : "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200";
   return (
-    <main className="min-h-screen bg-white text-[#151b59]">
+    <main className="analysis-report-page min-h-screen bg-white text-[#151b59]">
       <Header onAction={() => {}} />
       <section className="mx-auto max-w-360 px-5 py-8 md:px-10">
 
         <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_400px]">
           <div className="min-w-0">
-            <h1 className="max-w-full truncate text-4xl font-extrabold" title={candidateName}>{candidateName}</h1>
-            <span className="cv-report-role inline-block rounded-full bg-slate-100 px-4 py-2 font-semibold">
+            <Link to="/interview/setup" className="float-right inline-flex items-center gap-3 rounded-full bg-[#5757bd] px-8 py-4 text-sm font-bold text-white shadow-sm sm:text-base">
+              Proceed to Mock Interview <span aria-hidden="true" className="text-2xl leading-none">→</span>
+            </Link>
+            <div className="flex min-w-0 flex-wrap items-center gap-4">
+              <h1 className="min-w-0 max-w-[min(100%,32rem)] truncate text-4xl font-extrabold" title={candidateName}>{candidateName}</h1>
+              <span className="cv-report-role inline-block shrink-0 rounded-full bg-slate-100 px-4 py-2 font-semibold">
               <span className="cv-report-role-value">{role}</span>
-            </span>
+              </span>
+            </div>
             <p className="mt-3 flex min-w-0 items-center gap-2 text-slate-600">
               <img src="/images/CvImage.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
-              <span className="max-w-[min(32rem,70vw)] truncate">
-               {cvName} · Analysed just now
+              <span className="analysis-cv-name max-w-[min(32rem,70vw)] truncate">
+               {cvName} · {parsedAt ? `Analysed ${parsedAt}` : "Analysed just now"}
               </span>
             </p>
             <div className="mt-5 flex gap-3">
@@ -69,12 +75,6 @@ export default function AnalysisReport() {
               <img src="/images/MultiSparks.svg" alt="" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain" />
               Projected with improvements: <b>~{analysis.projectedScore}</b>
             </div>
-            <Link
-              to="/interview/setup"
-              className="mt-4 block rounded-full bg-[#5754bd] px-5 py-3 text-center text-sm font-bold text-white shadow-sm"
-            >
-              Proceed to Mock Interview
-            </Link>
           </div>
         </div>
         {/* Temporarily hidden while the analysis layout is being finalized. */}

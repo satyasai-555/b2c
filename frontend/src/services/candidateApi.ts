@@ -21,27 +21,58 @@ export type CandidateAggregate = {
   cvs: unknown[];
   interviews: unknown[];
 };
-export type AuthResult = { token: string; expiresAt: string; candidate: Candidate };
+export type ReferralAggregate = {
+  credits: number;
+  invited: number;
+  joined: number;
+  earned: number;
+  link: string;
+  friends: Array<{
+    initials: string;
+    name: string;
+    status: string;
+    credit: string;
+  }>;
+};
+export type AuthResult = {
+  token: string;
+  expiresAt: string;
+  candidate: Candidate;
+};
 export type KeycloakSession = { candidate: Candidate; subject?: string };
 
 const API_BASE_URL =
   (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
   "http://localhost:9002";
 let accessToken: (() => string | undefined) | undefined;
-export const setAccessTokenProvider = (provider: () => string | undefined) => { accessToken = provider; };
+export const setAccessTokenProvider = (provider: () => string | undefined) => {
+  accessToken = provider;
+};
 let appToken: string | undefined;
 const getStoredToken = () => {
   if (typeof window === "undefined") return undefined;
   try {
-    const user = JSON.parse(window.localStorage.getItem("welhire-demo-user") || "null") as { token?: string } | null;
+    const user = JSON.parse(
+      window.localStorage.getItem("welhire-demo-user") || "null",
+    ) as { token?: string } | null;
     return user?.token;
-  } catch { return undefined; }
+  } catch {
+    return undefined;
+  }
 };
 
 async function request<T>(path: string, init: RequestInit = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
-    headers: { "Content-Type": "application/json", ...((accessToken?.() || appToken || getStoredToken()) ? { Authorization: `Bearer ${accessToken?.() || appToken || getStoredToken()}` } : {}), ...init.headers },
+    headers: {
+      "Content-Type": "application/json",
+      ...(accessToken?.() || appToken || getStoredToken()
+        ? {
+            Authorization: `Bearer ${accessToken?.() || appToken || getStoredToken()}`,
+          }
+        : {}),
+      ...init.headers,
+    },
   });
   const body = (await response.json()) as
     | ApiResponse<T>
@@ -62,15 +93,29 @@ export const candidateApi = {
       method: "POST",
       body: JSON.stringify({ email, guestSessionId }),
     }),
-  verifyOtp: async (payload: { requestId: string; email: string; code: string }) => {
-    const result = await request<AuthResult>(
-      "/api/v1/auth/otp/verify",
-      { method: "POST", body: JSON.stringify(payload) },
-    ); appToken = result.token; return result;
+  verifyOtp: async (payload: {
+    requestId: string;
+    email: string;
+    code: string;
+  }) => {
+    const result = await request<AuthResult>("/api/v1/auth/otp/verify", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    appToken = result.token;
+    return result;
   },
-  syncKeycloakSession: (guestSessionId: string) => request<KeycloakSession>("/api/v1/auth/session", { method: "POST", body: JSON.stringify({ guestSessionId }) }),
+  syncKeycloakSession: (guestSessionId: string) =>
+    request<KeycloakSession>("/api/v1/auth/session", {
+      method: "POST",
+      body: JSON.stringify({ guestSessionId }),
+    }),
   getCandidate: (candidateId: string) =>
     request<CandidateAggregate>("/api/v1/candidates/me", {
+      headers: { "x-candidate-id": candidateId },
+    }),
+  getReferrals: (candidateId: string) =>
+    request<ReferralAggregate>("/api/v1/candidates/me/referrals", {
       headers: { "x-candidate-id": candidateId },
     }),
   updateCandidate: (candidateId: string, payload: Record<string, string>) =>
